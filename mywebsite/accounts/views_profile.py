@@ -35,8 +35,8 @@ class ProfileView(LoginRequiredMixin, View):
             )
         }
 
-        return render(request, 'accounts/profile_profile.html', context)
-        # return render(request, 'accounts/vue/profile.html', context)
+        # return render(request, 'accounts/profile_profile.html', context)
+        return render(request, 'accounts/vue/profile.html', context)
 
     def post(self, request, **kwargs):
         user_id = request.user
