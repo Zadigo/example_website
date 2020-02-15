@@ -1,0 +1,6 @@
+<button type="submit" class="{{ btn_type|default:'btn' }} {{ color|default:'red darken-3' }} {{ extra_class }}" id="{{ id }}">
+    {% if icon_name %}
+        <i class="material-icons left">{{ icon_name }}</i>        
+    {% endif %}
+    {{ btn_name }}
+</button>
