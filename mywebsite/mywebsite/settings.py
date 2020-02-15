@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,30 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# AUTHENTICATION BACKENDS
+
+AUTH_USER_MODEL = 'accounts.MyUser'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'accounts.backends.EmailAuthenticationBackend'
+)
+
+
+# SOCIAL DJANGO
+
+LOGIN_URL = 'login'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_REDIRECT_URL = 'profile'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''

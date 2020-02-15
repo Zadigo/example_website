@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
 from accounts.forms import UserChangeForm, UserCreationForm
-from accounts.models import MyUser, MyUserProfile, SubscribedUser, MyAnonymousUser
+from accounts.models import MyUser, MyUserProfile, SubscribedUser
 
 
 class MyUserAdmin(admin.ModelAdmin):
@@ -29,7 +29,6 @@ class SubscribedUserAdmin(admin.ModelAdmin):
     list_filter = ['created_on']
 
 admin.site.register(MyUser, MyUserAdmin)
-admin.site.register(MyAnonymousUser)
 admin.site.register(MyUserProfile, MyUserProfileAdmin)
 admin.site.register(SubscribedUser, SubscribedUserAdmin)
 admin.site.unregister(Group)

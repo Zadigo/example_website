@@ -17,13 +17,14 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from mywebsite.views import HeroView
 
 urlpatterns = [
-    url('^$', HeroView.as_view(), name='home'),
+    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
+    url('^$', HeroView.as_view(), name='home'),
 ]
 
 if settings.DEBUG:
