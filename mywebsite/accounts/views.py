@@ -2,6 +2,7 @@ import datetime
 import re
 
 from django.contrib import messages
+from  django.contrib.messages import error, success
 from django.contrib.auth import (authenticate, login, logout,
                                  update_session_auth_hash)
 from django.contrib.auth.forms import (PasswordChangeForm, PasswordResetForm,
@@ -65,6 +66,7 @@ class LoginView(View):
             return redirect(request.GET.get('next') or 'home')
 
         else:
+            error(request, 'We could not find your account')
             return redirect('login')
 
 class LogoutView(View):
