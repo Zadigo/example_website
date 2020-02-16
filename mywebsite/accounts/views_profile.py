@@ -71,15 +71,18 @@ class ProfileDataView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         current_user = self.request.user
 
-        # Query the social_auth database and
-        # get a set of connected accounts
-        user = self.request.user.social_auth.get(uid=current_user.email)
-        if user:
-            context = {
-                'provider': user.provider
-            }
+        try:
+            # Query the social_auth database and
+            # get a set of connected accounts
+            user = self.request.user.social_auth.get(uid=current_user.email)
+            if user:
+                context = {
+                    'provider': user.provider
+                }
+        except:
+            context = {}
 
-        return render(request, 'accounts/profile_data.html', context)
+        return render(request, 'accounts/data.html', context)
 
 class ProfileDeleteView(LoginRequiredMixin, View):
     """Help the user delete his account
