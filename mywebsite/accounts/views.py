@@ -77,22 +77,6 @@ class LogoutView(View):
 
 
 
-class ChangePasswordView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        context = {
-            'form': PasswordChangeForm(request.user),
-        }
-        return render(request, 'accounts/profile_password_reset.html', context)
-
-    def post(self, request, **kwargs):
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            # IMPORTANT: to allow the user to stay logged
-            update_session_auth_hash(request, user)
-        return redirect('/profile/')
-
-
 class ForgotPasswordView(View):
     """THelps a non authenticated user reset his password"""
     def get(self, request, *args, **kwargs):

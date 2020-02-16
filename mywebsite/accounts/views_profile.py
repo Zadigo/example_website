@@ -1,6 +1,8 @@
 import datetime
 import re
 
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -35,26 +37,33 @@ class ProfileView(LoginRequiredMixin, View):
             )
         }
 
-        # return render(request, 'accounts/profile_profile.html', context)
-        return render(request, 'accounts/vue/profile.html', context)
+        if 'vue' in request.GET:
+            if request.GET.get('vue') == 'true':
+                return render(request, 'accounts/vue/profile.html', context)
+
+        return render(request, 'accounts/profile.html', context)
 
     def post(self, request, **kwargs):
+        form = None
         user_id = request.user
         user = MyUser.objects.get(id=user_id.id)
         user_profile = user.myuserprofile_set.get(myuser=user_id.id)
 
         form_id = request.POST.get('form_id')
         
-        if form_id == 'base-profile-form':
+        if form_id == 'userform':
             form = BaseProfileForm(request.POST, instance=user)
 
-        if form_id == 'address-profile-form':
+        if form_id == 'detailsform':
             form = AddressProfileForm(request.POST, instance=user_profile)
 
-        if form.is_valid():
-            form.save()
+        if not form:
+            return JsonResponse({'error': 'Form not identified'}, status=500)
+        else:
+            if form.is_valid():
+                form.save()
 
-        return JsonResponse({'success': 'success'})
+        return JsonResponse({'success': 'success'}, status=200)
 
 class ProfileDataView(LoginRequiredMixin, View):
     """Help the user manage his data
@@ -103,6 +112,21 @@ class PaymentMethodsView(LoginRequiredMixin, View):
                 'status': ''
             }
         return JsonResponse(response)
+
+class ChangePasswordView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': PasswordChangeForm(request.user),
+        }
+        return render(request, 'accounts/reset_password.html', context)
+
+    def post(self, request, **kwargs):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # IMPORTANT: to allow the user to stay logged
+            update_session_auth_hash(request, user)
+        return redirect('/profile/')
 
 # class PersonalisationView(LoginRequiredMixin, View):
 #     def get(self, request, *args, **kwargs):

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'accounts',
 ]
 
@@ -159,3 +160,26 @@ LOGIN_REDIRECT_URL = 'profile'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+
+
+# DJANGO EXTENSIONS
+
+SHELL_PLUS = 'ipython'
+
+RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8000'
+
+# LOGGING = {
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'werkzeug': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }

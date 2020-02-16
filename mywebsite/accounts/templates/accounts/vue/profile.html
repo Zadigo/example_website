@@ -1,12 +1,23 @@
-{% extends "base.html" %}
+{% extends "accounts/base.html" %}
 {% load i18n static %}
 
 {% block title %}{% trans "Mon compte" %}{% endblock %}
 
-{% block body %}
-    <section class="section">
-        <div class="row">
-            <div id="app"></div>
-        </div>
-    </section>
-{% endblock body %}
+
+{% block profile_content_one %}
+    {{ block.super }}
+    <div class="col s12 l8">
+        {% block profile_content %}
+            <div id="app">
+                <div class="card-panel">
+                    <userform />
+                </div>
+
+                <div class="card-panel">
+                    <detailsform />
+                </div>
+            </div>
+            <div class="csrf">{% csrf_token %}</div>
+        {% endblock %}
+    </div>
+{% endblock %}

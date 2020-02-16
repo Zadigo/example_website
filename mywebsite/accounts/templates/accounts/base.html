@@ -10,18 +10,18 @@
             {% block profile_content_one %}
                 <div class="col s12 l4">
                     <!-- SIDE MENU -->
-                    {% include "accounts/side_menu.html" %}
+                    {% include "accounts/components/side_menu.html" %}
                 </div>
 
                 <div class="col s12 l8">
-                    {% block profile_content %}{% endblock profile_content %}
+                    {% block profile_content %}{% endblock %}
                 </div>
-            {% endblock profile_content_one %}
+            {% endblock %}
         </div>
     </section>
-{% endblock body %}
+{% endblock %}
 
 {% block extra_scripts %}
     <script src="{% static 'accounts.js' %}"></script>
-    <script src="{% static 'accounts/profile.js' %}"></script>
-{% endblock extra_scripts %}
+    <!-- <script src="{% static 'accounts/profile.js' %}"></script> -->
+{% endblock %}
