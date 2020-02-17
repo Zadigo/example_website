@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'social_django',
     'accounts',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -158,9 +161,9 @@ LOGOUT_URL = 'logout'
 
 LOGIN_REDIRECT_URL = 'profile'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='818644506338-dka883gbitlqbenp2k3qc1u3ik8dqqu3.apps.googleusercontent.com'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'oNUHwLBzEdvOY5XtraXgGYIO'
 
 
 # DJANGO EXTENSIONS
