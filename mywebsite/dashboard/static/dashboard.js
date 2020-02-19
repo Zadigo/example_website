@@ -268,13 +268,25 @@ var dashboard = new Vue({
                     updateform, messages, vuecards, settingstemplate},
     data() {
         return {
-            products: [
-                {id: 1, name: "Kendall", surname: "Jenner", price: 145, selected: false, checked: false, deleted: false},
-                {id: 2, name: "Hailey", surname: "Baldwin", price: 345, selected: false, checked: false, deleted: false},
-                {id: 3, name: "Taylor", surname: "Swift", price: 175, selected: false, checked: false, deleted: false}
-            ],
+            // products: [
+            //     {id: 1, name: "Kendall", surname: "Jenner", price: 145, selected: false, checked: false, deleted: false},
+            //     {id: 2, name: "Hailey", surname: "Baldwin", price: 345, selected: false, checked: false, deleted: false},
+            //     {id: 3, name: "Taylor", surname: "Swift", price: 175, selected: false, checked: false, deleted: false}
+            // ],
+            products: [],
             showsidebar: true
         }
+    },
+    beforeMount() {
+        var self = this
+        $.ajax({
+            type: "GET",
+            url: "/api/v1/products",
+            dataType: "json",
+            success: function (response) {
+                self.$data.products = response
+            }
+        });
     },
     computed: {
         selectedproducts() {
