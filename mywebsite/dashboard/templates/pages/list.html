@@ -1,4 +1,7 @@
-{% extends "dashboard_base.html" %}
+{% extends "dashboard.html" %}
+
+{% block title %}Products{% endblock %}
+
 
 {% block main %}
     <!-- ACTIONBAR -->
@@ -15,7 +18,7 @@
     <div class="card-panel special">
         <div class="header">Products</div>
         <div class="content">
-            <vuetable @selectitem="doselect" @selectall="getall" v-bind:products="products" />
+            <vuetable @selectitem="doselect" @selectall="getall" @deletesingleitem="applydeletesingle" v-bind:products="products" />
         </div>
     </div>
 {% endblock %}

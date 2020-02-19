@@ -184,12 +184,12 @@ var vuetable = {
                             </label>\
                         </p>\
                     </td>\
-                    <td><a :href='\"/dashboard/list/\" + product.id'>{{ product.id }}</a></td>\
+                    <td><a :href='\"./details.html?product=\" + product.id'>{{ product.id }}</a></td>\
                     <td>{{ product.name }}</td>\
                     <td>{{ product.surname }}</td>\
                     <td>{{ product.price|euros }}</td>\
                     <td>\
-                        <a :href='\"/dashboard/list/\" + product.id + \"/update/\"'><i class='material-icons'>create</i></a>\
+                        <a :href='\"./update.html?product=\" + product.id'><i class='material-icons'>create</i></a>\
                         <a @click='deletesingleitem(product.id)'><i class='material-icons'>delete</i></a>\
                     </td>\
                 </tr>\

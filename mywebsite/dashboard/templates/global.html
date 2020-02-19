@@ -13,19 +13,21 @@
         <link rel="stylesheet" href="{% static 'dashboard.css' %}">
     </head>
     <body>
-        <main>
-            <div class="dashboard" id="vue_dashboard">
-                <div class="wrapper">
-                    {% include "./components/sidebar.html" %}
-                    {% include "./components/topnav.html" %}
-                    <div class="main">
+        {% block sidebar %}{% endblock %}
 
-                        {% block main %}{% endblock %}
+        {% block hero %}
+            <main>
+                <div class="dashboard" id="{% block vue_identifier %}vue_dashboard{% endblock %}">
+                    <div class="wrapper">
+                        {% include "./components/topnav.html" %}
+                        <div class="main">
+                            {% block main %}{% endblock %}
+                        </div>
                     </div>
-                </div>
-            </div>
-        </main>
-
+                </div>                
+            </main>
+        {% endblock %}
+        
         <!-- Vue JS -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
@@ -49,6 +51,10 @@
             });
         </script>
 
+        <script src="{% static 'forms.js' %}"></script>
+        <script src="{% static 'profile.js' %}"></script>
+        <script src="{% static 'settings.js' %}"></script>
+        <script src="{% static 'sidebar.js' %}"></script>
         <script src="{% static 'dashboard.js' %}"></script>
     </body>
 </html>

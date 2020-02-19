@@ -34,3 +34,7 @@ class ListItemsView(View):
 class SettingsView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'pages/settings.html')
+
+class DashboardLoginView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'pages/login.html')
