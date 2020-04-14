@@ -6,10 +6,10 @@
 {% block main %}
     <!-- ACTIONBAR -->
     <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="btn-group">
+        <div class="col s12 m12 l12 correct-padding">
+            <div class="btn-group right">
                 <a href="{% url 'create' %}" class="btn-large">Add</a>
-                <deletebutton @deleteitems='applydelete' v-bind:selectedproducts="selectedproducts" />
+                <deletebutton @deleteitems="applydeletemultiple" v-bind:selectedproducts="selectedproducts" />
             </div>
         </div>
     </div>

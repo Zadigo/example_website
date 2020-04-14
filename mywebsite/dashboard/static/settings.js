@@ -16,14 +16,16 @@ var secondsettings = {
 }
 
 var firstsettings = {
+    props: ["options"],
     template: "\
     <div class='settings-group'>\
-        <div v-for='option in options' :key='option.title' class='setting flex-setting'>\
-            <span class='title'>{{ option.title }}</span>\
+        <div v-for='option in options' :key='option.id' class='setting'>\
             <div class='switch'>\
                 <label>\
-                    <input @click='applysetting(option.title), option.selected=!option.selected' :checked='option.selected' type='checkbox' name='nightmode' id='nightmode'>\
+                    <input v-model='option.selected' @click='applysetting(option.title), option.selected=!option.selected' \
+                        type='checkbox' :name='option.title' :id='option.title'>\
                     <span class='lever'></span>\
+                    {{ option.title }}\
                 </label>\
             </div>\
         </div>\
@@ -31,10 +33,10 @@ var firstsettings = {
     ",
     data() {
         return  {
-            options: [
-                {title: "Night mode", selected: false},
-                {title: "Another option", selected: false},
-            ]
+            // options: [
+            //     {id: 1, title: "Night mode", selected: false, type: "lever"},
+            //     {id: 2, title: "Notifications", selected: false, type: "lever"},
+            // ]
         }
     },
     computed: {
@@ -57,13 +59,41 @@ var settingstemplate = {
     components: {firstsettings, secondsettings},
     template: "\
         <div>\
-            <firstsettings @applysetting='sendrequest' />\
+            <firstsettings @applysetting='sendrequest' v-bind:options='usersettings[1]' />\
             <secondsettings @applysetting='sendrequest' />\
         </div>\
     ",
+    data() {
+        return {
+            usersettings: []
+        }
+    },
+    beforeMount() {
+        var self = this
+        $.ajax({
+            type: "GET",
+            url: "/api/v1/dashboard/settings",
+            dataType: "json",
+            success: function (response) {
+                self.$data.usersettings = response
+            },
+            error: function(response) {
+                console.log("An error occured")
+            }
+        });
+    },
     methods: {
-        sendrequest: function() {
-
+        sendrequest: function(optiontitle) {
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/dashboard/settings",
+                data: {setting: optiontitle},
+                dataType: "json",
+                success: function (response) {},
+                error: function(response) {
+                    console.log("An error occured")
+                }
+            })
         }
     }
 }

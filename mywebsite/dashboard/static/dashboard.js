@@ -180,11 +180,6 @@ var dashboard = new Vue({
                     updateform, messages, vuecards, settingstemplate},
     data() {
         return {
-            // products: [
-            //     {id: 1, name: "Kendall", surname: "Jenner", price: 145, selected: false, checked: false, deleted: false},
-            //     {id: 2, name: "Hailey", surname: "Baldwin", price: 345, selected: false, checked: false, deleted: false},
-            //     {id: 3, name: "Taylor", surname: "Swift", price: 175, selected: false, checked: false, deleted: false}
-            // ],
             products: [],
             showsidebar: true
         }
@@ -196,6 +191,9 @@ var dashboard = new Vue({
             url: "/api/v1/products",
             dataType: "json",
             success: function (response) {
+                // response.forEach(product => {
+                //     product["deleted"] = false
+                // })
                 self.$data.products = response
             }
         });
@@ -224,44 +222,57 @@ var dashboard = new Vue({
                 product.selected = !product.selected
             })
         },
-        applydelete: function() {
-            // Deletes items using the selection
+        applydeletemultiple: function() {
+            // Deletes multiple items using the selection
             // checkboxes in the table
-            this.selectedproducts.forEach(product => {
-                this.$data.products.forEach((actualproduct, index) => {
-                    if (product.id === actualproduct.id) {
-                        product.deleted = !product.deleted
-                    }
-                })
+            var productstodelete  = this.$data.products.filter(product => {
+                return product.selected === true
             })
+            if (productstodelete.length === 0) {
+                return
+            }
+            var productsarray = []
+            productstodelete.forEach(product => {
+                productsarray.push(product.id)
+            })
+            console.log(productsarray)
             
             $.ajax({
-                type: "DELETE",
-                url: "http://example.com",
-                data: self.$props.selectedproducts,
+                type: "POST",
+                url: "/api/v1/product/1/delete",
+                data: {products: productsarray, multiple: true},
                 dataType: "json",
                 success: function (response) {
                     console.log(response)
+                    productstodelete.forEach(product => {
+                        product["deleted"] = true
+                    })
+                },
+                error: function(response) {
+                    console.log("An error occured")
                 }
             });
         },
         applydeletesingle: function(productid) {
-            // ALlows the deletionf of a single
-            // item from the table without going
-            // through the selection
-            this.$data.products.forEach(product => {
-                if (product.id === productid) {
-                    product.deleted = !product.deleted
-                }
-            })
-
+            var self = this
             $.ajax({
-                type: "DELETE",
-                url: "http://example.com",
+                type: "POST",
+                url: "/api/v1/product/1/delete",
                 data: {csrfmiddlewaretoken: "", reference: ""},
                 dataType: "json",
                 success: function (response) {
                     console.log(response)
+                    // ALlows the deletionf of a single
+                    // item from the table without going
+                    // through the selection
+                    self.$data.products.forEach(product => {
+                        if (product.id === productid) {
+                            product.deleted = !product.deleted
+                        }
+                    })
+                },
+                error: function(response) {
+                    console.log("An error occured")
                 }
             });
         },

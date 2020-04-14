@@ -27,16 +27,23 @@
         </div>
     </div>
 
+    <!-- MESSAGES -->
+    <div class="col s12 m8 l8">
+        {% include "../components/profile/messaging.html" %}
+    </div>
+
     <!-- ACTION BUTTONS -->
     <div class="col s12 m8 l8">
         <actionbuttons />
     </div>
 
     <!-- MODAL -->
+    {% comment %}
     {% include "../components/profile/modal.html" %}
+    {% endcomment %}
 </div>
 {% endblock %}
 
 {% block vue_scripts %}
-    <script src="{% static 'profile.js' %}"></script>
+    <script src="{% static 'user_profile.js' %}"></script>
 {% endblock %}

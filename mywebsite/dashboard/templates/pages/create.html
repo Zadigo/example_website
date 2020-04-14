@@ -5,22 +5,24 @@
 
 {% block main %}
     <div class="card-panel">
-        <!-- <createform /> -->
+        <createform />
 
-        <form method="POST" id="create_form">
-            {% csrf_token %}
-            <div class="row">
-                {% for field in form %}
-                    <div class="input-field {{ size }}">
-                        {{ field }}
-                    </div>
-                {% endfor %}                
-            </div>
-            {% if final_step %}
-                {% include "general/components/button_submit.html" with btn_type="btn-large" color="indigo lighten-1" id="btn_create" icon_name="create" btn_name="Finalize" %}
-            {% else %}
-                {% include "general/components/button_submit.html" with btn_type="btn-large" color="indigo lighten-1" id="btn_create" icon_name="create" btn_name="Continue" %}
-            {% endif %}
-        </form>
+        {% comment %}
+            <form method="POST" id="create_form">
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form %}
+                        <div class="input-field {{ size }}">
+                            {{ field }}
+                        </div>
+                    {% endfor %}                
+                </div>
+                {% if final_step %}
+                    {% include "general/components/button_submit.html" with btn_type="btn-large" color="indigo lighten-1" id="btn_create" icon_name="create" btn_name="Finalize" %}
+                {% else %}
+                    {% include "general/components/button_submit.html" with btn_type="btn-large" color="indigo lighten-1" id="btn_create" icon_name="create" btn_name="Continue" %}
+                {% endif %}
+            </form>
+        {% endcomment %}
     </div>
 {% endblock %}

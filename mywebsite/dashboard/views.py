@@ -2,9 +2,11 @@ from django.conf import settings
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, View
+from django.db.models import F
 
 from dashboard.forms import CreateProductForm, CreateProductFormII, FormSelector
 from django.shortcuts import reverse, redirect
+from dashboard import models
 
 
 class IndexView(View):
@@ -46,6 +48,18 @@ class ListItemsView(View):
 class SettingsView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'pages/settings.html')
+
+    def post(self, request, **kwargs):
+        user_settings = models.DashboardSetting.objects.get(id__exact=1)
+        if user_settings.exists():
+            if 'nightmode' in kwargs:
+                current_state_is_true = user_settings.nightmode
+                if current_state_is_true:
+                    user_settings.night_mode = False
+                else:
+                    user_settings.night_mode = True
+                user_settings.save()
+        return JsonResponse(data={'status': 'Saved'})
 
 class DashboardLoginView(View):
     def get(self, request, *args, **kwargs):
