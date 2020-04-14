@@ -2,16 +2,23 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from accounts.forms import UserChangeForm, UserCreationForm
+from accounts.forms import CustomUserCreationForm
 from accounts.models import MyUser, MyUserProfile, SubscribedUser
 
 
 @admin.register(MyUser)
 class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'name', 'surname', 'is_active',)
-    list_filter  = ('is_active',)
-    readonly_fields = ('password',)
+    list_display = ['email', 'name', 'surname', 'is_active', 'admin']
+    list_filter  = ['is_active']
+    readonly_fields = ['password']
     search_fields = ['name', 'surname', 'email']
+    fieldsets = [
+        ['Details', {'fields': ['name', 'surname']}],
+        ['Credentials', {'fields': ['email', 'password']}],
+        ['Permissions', {'fields': ['is_active', 'admin']}]
+    ]
+    ordering = ['email']
+    
 
 @admin.register(MyUserProfile)
 class MyUserProfileAdmin(admin.ModelAdmin):

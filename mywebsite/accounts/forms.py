@@ -1,39 +1,37 @@
 from django import forms
 from django.contrib.admin import AdminSite
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import (AuthenticationForm,
-                                       ReadOnlyPasswordHashField)
+                                       ReadOnlyPasswordHashField,
+                                       UserCreationForm, UserChangeForm)
 from django.forms import CharField, EmailField
-from django.forms.widgets import EmailInput, PasswordInput, TextInput, Select
+from django.forms.widgets import EmailInput, PasswordInput, Select, TextInput
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import authenticate
 
 from accounts.models import MyUser, MyUserProfile
 
 
-class UserCreationForm(forms.ModelForm):
+class CustomUserCreationForm(UserCreationForm):
+    email     = EmailField(required=True)
     password1 = CharField(label=_('Password'), widget=PasswordInput)
     password2 = CharField(label=_('Password confirmation'), widget=PasswordInput)
 
     class Meta:
         model = MyUser
-        fields = ('email',)
+        fields = ['surname', 'name', 'email', 'password',\
+                    'admin', 'staff']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
-        # Vérifier que les deux mots de passe
-        # sont similaire. Oui ? Retourner 
-        # le mot de passe #2
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError(_("Passwords don't match"))
 
         return password2
 
     def save(self, commit=True):
-        # Sauvegarder le mot de passe
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
 
@@ -42,12 +40,12 @@ class UserCreationForm(forms.ModelForm):
 
         return user
         
-class UserChangeForm(forms.ModelForm):
+class CustomUserChangeForm(UserChangeForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = MyUser
-        fields = ('email', 'password',)
+        fields = ['email', 'password']
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -74,11 +72,36 @@ class UserLoginForm(AuthenticationForm):
 
         return self.cleaned_data
 
-class UserSignupForm(forms.Form):
-    name         = CharField(widget=TextInput(attrs={'placeholder': _('Joe')}))
-    surname      = CharField(widget=TextInput(attrs={'placeholder': _('Doe')}))
-    email       = EmailField(widget=EmailInput(attrs={'placeholder': _('johndoe@gmail.com')}))
-    password    = CharField(widget=PasswordInput(attrs={'placeholder': _('johndoe')}))
+    def authenticate(self):
+        pass
+
+class UserSignupForm(UserCreationForm):
+    class Meta:
+        model = MyUser
+        fields = ['name', 'surname', 'email']
+        widgets = {
+            'surname': TextInput(attrs={'placeholder': 'Nom'}),
+            'name': TextInput(attrs={'placeholder': 'Prénom'}),
+            'email': EmailInput(attrs={'placeholder': 'Email'}),
+        }
+
+    def clean(self):
+        password1 = self.cleaned_data.get('password1')
+
+        if password1 is None:
+            raise forms.ValidationError('Veuillez entrer un mot de passe')
+
+        if len(password1) < 10:
+            raise forms.ValidationError('Votre mot de passe doit comporter au moins 10 charactères')
+
+        return self.cleaned_data
+
+# class UserSignupForm(forms.Form):
+#     name         = CharField(widget=TextInput(attrs={'placeholder': _('Joe')}))
+#     surname      = CharField(widget=TextInput(attrs={'placeholder': _('Doe')}))
+#     email       = EmailField(widget=EmailInput(attrs={'placeholder': _('johndoe@gmail.com')}))
+#     password    = CharField(widget=PasswordInput(attrs={'placeholder': _('Mot de passe')}))
+
 
 
 

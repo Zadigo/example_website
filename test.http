@@ -2,11 +2,19 @@
 
 # GET http://127.0.0.1:8000/api/v1/product/1 HTTP/1.1
 
-PUT http://127.0.0.1:8000/api/v1/product/create HTTP/1.1
+# PUT http://127.0.0.1:8000/api/v1/product/create HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "name": "Eugenie",
+#     "surname": "Bouchard",
+#     "price": 300
+# }
+
+POST http://127.0.0.1:8000/api/v1/dashboard/settings HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Eugenie",
-    "surname": "Bouchard",
-    "price": 300
+    "night_mode": true,
+    "other_option": false
 }

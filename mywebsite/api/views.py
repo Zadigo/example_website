@@ -9,11 +9,25 @@ from rest_framework.generics import ListAPIView
 
 from api.serializers import ProductSerializer
 
+try:
+    from dashboard.models import DashboardSetting
+except:
+    pass
+
 
 class BaseAPIView(APIView):
     @classmethod
     def get_extra_actions(cls):
         return []
+
+class DashboardSettingsView(BaseAPIView):
+    def post(self, request):
+        if request.data:
+            user = DashboardSetting.objects.get(user='User')
+            user.update(**request.data)
+            if updated:
+                return Response({'updated': True}, status=200)
+        return Response({'updated': False}, status=202)
 
 # class ProductsExample(ListAPIView):
 #     """An API class to return a simple list of products"""

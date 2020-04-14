@@ -46,7 +46,7 @@ var firstsettings = {
     },
     methods: {
         applysetting: function(optiontitle) {
-            this.$emit('applysetting', optiontitle)
+            this.$emit("applysetting", optiontitle)
         }
     }
 }

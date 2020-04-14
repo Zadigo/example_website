@@ -158,94 +158,6 @@ var deletebutton = {
     }
 }
 
-var vuetable = {
-    props: ["products"],
-    template: "\
-        <table class='highlight responsive-table'>\
-            <thead>\
-                <tr>\
-                    <th>\
-                        <label>\
-                            <input @click='selectall' type='checkbox' name='select_all' id='selct_all' />\
-                            <span></span>\
-                        </label>\
-                    </th>\
-                    <th v-for='title in titles' :key='title'>{{ title|capitalize }}</th>\
-                </tr>\
-            </thead>\
-            <tbody v-if='nondeletedproducts==0'>Vous n'avez aucun produits</tbody>\
-            <tbody v-else>\
-                <tr v-if='!product.deleted' v-for='(product, index) in products' :key='product.id'>\
-                    <td>\
-                        <p>\
-                            <label>\
-                                <input @click='selectitem(index)' type='checkbox' :name='product.name|slugify' :id='product.name|slugify' :checked='product.checked'>\
-                                <span></span>\
-                            </label>\
-                        </p>\
-                    </td>\
-                    <td><a :href='\"/dashboard/list/\" + product.id'>{{ product.id }}</a></td>\
-                    <td>{{ product.name }}</td>\
-                    <td>{{ product.surname }}</td>\
-                    <td>{{ product.price|euros }}</td>\
-                    <td>\
-                        <a :href='\"/dashboard/list/\" + product.id + \"/update/\"'><i class='material-icons'>create</i></a>\
-                        <a @click='deletesingleitem(product.id)'><i class='material-icons'>delete</i></a>\
-                    </td>\
-                </tr>\
-            </tbody>\
-        </table>\
-    ",
-    data() {
-        return {
-            titles: ["iD", "name", "surname", "price", "update"]
-        }
-    },
-    methods: {
-        selectitem: function(index) {
-            this.$emit('selectitem', index)
-        },
-        selectall: function(index) {
-            this.$emit('selectall')
-        },
-        deletesingleitem: function(productid) {
-            this.$emit('deletesingleitem', productid)
-        }
-    },
-    computed: {
-        nondeletedproducts() {
-            // Keeps track of the products that are
-            // not marked as deleted in order to
-            // to perform certain actions
-            var self = this
-            var numberofproducts = self.$props.products.length
-
-            self.$props.products.forEach(product => {
-                if (product.deleted === true) {
-                    numberofproducts -= 1
-                }
-            })
-            return numberofproducts
-        }
-    },
-    filters: {
-        capitalize: function(value) {
-            // Capitalize the first
-            // letter of the title
-            return value.toUpperCase()
-        },
-        slugify: function(value) {
-            // Transforms words such as
-            // 'eugenie bouchard' becomes
-            // 'eugenie_bouchard'
-            value.toLowerCase().replace(" ", "_")
-        },
-        euros: function(value) {
-            return value + "€"
-        }
-    }
-}
-
 var messages = {
     template: "\
         <transition name='show_message'>\
@@ -264,7 +176,7 @@ var messages = {
 
 var dashboard = new Vue({
     el: "#vue_dashboard",
-    components: {vuetable, deletebutton, createform, 
+    components: {vuetable_one, vuetable_two, deletebutton, createform, 
                     updateform, messages, vuecards, settingstemplate},
     data() {
         return {

@@ -23,6 +23,18 @@
             "name": "Selena",
             "surname": "Gomez",
             "price": 215
+        },
+        {
+            "id": 5,
+            "name": "Eugenie",
+            "surname": "Bouchard",
+            "price": 389
+        },
+        {
+            "id": 6,
+            "name": "Kylie",
+            "surname": "Jenner",
+            "price": 564
         }
     ]
 }

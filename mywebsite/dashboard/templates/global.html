@@ -11,13 +11,14 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+        <link rel="stylesheet" href="{% static 'user_details.css' %}">
     </head>
     <body>
-        {% block sidebar %}{% endblock %}
+        <!-- {% block sidebar %}{% endblock %} -->
 
         {% block hero %}
             <main>
-                <div class="dashboard" id="{% block vue_identifier %}vue_dashboard{% endblock %}">
+                <div class="dashboard" id="vue_dashboard">
                     <div class="wrapper">
                         {% include "./components/topnav.html" %}
                         <div class="main">
@@ -51,10 +52,9 @@
             });
         </script>
 
-        <script src="{% static 'forms.js' %}"></script>
-        <script src="{% static 'profile.js' %}"></script>
-        <script src="{% static 'settings.js' %}"></script>
-        <script src="{% static 'sidebar.js' %}"></script>
-        <script src="{% static 'dashboard.js' %}"></script>
+        <!-- SIDEBAR -->
+        <!-- <script src="{% static 'sidebar.js' %}"></script> -->
+        <!-- VUEJS -->
+        {% block vue_scripts %}{% endblock %}
     </body>
 </html>

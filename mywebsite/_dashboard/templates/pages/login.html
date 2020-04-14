@@ -1,0 +1,29 @@
+{% extends "global.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block hero %}
+<div class="dashboard">
+    <div class="login" style="background-image: url('/media/hero1.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m5 l5 offset-m4 offset-l4">
+                    <div class="box">
+                        <div class="card-panel registration">
+                            <form method="post">
+                                <div class="input-field">
+                                    <input type="email" name="email" id="email" autocomplete="email" placeholder="Email">
+                                </div>
+                                <div class="input-field">
+                                    <input type="password" name="password" id="password" autocomplete="current-password" placeholder="Password">
+                                </div>
+                                <button class="btn-large waves-effect waves-light right" type="submit"><i class="material-icons left">lock</i> Se connecter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -32,21 +32,32 @@ class SignupView(View):
         return render(request, 'registration/signup.html', context)
 
     def post(self, request, **kwargs):
-        name = request.POST['name']
-        surname = request.POST['surname']
+        # name = request.POST['name']
+        # surname = request.POST['surname']
         email = request.POST['email']
-        password = request.POST['password']
+        # password = request.POST['password']
 
         user_exists = MyUser.objects.filter(email__iexact=email).exists()
         if user_exists:
-            return redirect(reverse('profile'))
+            return redirect(reverse('login'))
             
         else:
-            user = MyUser.objects.create_user(email, name=name, surname=surname, password=password)
+            # user = MyUser.objects.create_user(email, name=name, surname=surname, password=password)
+            # if user:
+            #     login(request, authenticate(request, email=email, password=password))
+            #     return redirect(request.GET.get('next') or reverse('profile'))
 
-            if user:
-                login(request, authenticate(request, email=email, password=password))
-                return redirect(request.GET.get('next') or reverse('profile'))
+            form = UserSignupForm(data=request.POST)
+            if form.is_valid():
+                user = form.save()
+                if user:
+                    email = form.cleaned_data.get('email')
+                    password = form.cleaned_data.get('password2')
+                    login(request, authenticate(request, email=email, password=password))
+                    return redirect(request.GET.get('next') or reverse('profile'))
+            else:
+                return render(request, 'registration/signup.html', {'form': form})
+
 
 class LoginView(View):
     """View that lets the user login to his account"""
@@ -59,7 +70,7 @@ class LoginView(View):
         # 'username'
         email   = request.POST['username']
         password  = request.POST['password']
-
+        
         user    = authenticate(request, email=email, password=password)
         if user:
             login(request, user)
