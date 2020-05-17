@@ -30,5 +30,8 @@
         </p>
     {% endif %}
 
-    <button type="submit" class="btn">{{ button_name }}</button>
+    <button type="submit" class="btn-large">
+        <i class="material-icons left">{{ icon|default:"linked_camera" }}</i>
+        {{ button_name }}
+    </button>
 </form>

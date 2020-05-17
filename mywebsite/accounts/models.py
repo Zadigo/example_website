@@ -2,12 +2,12 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from accounts.managers import MyUserManager
+from accounts import managers
 
 
 class MyUser(AbstractBaseUser):
@@ -20,7 +20,7 @@ class MyUser(AbstractBaseUser):
     admin            = models.BooleanField(default=False)
     staff            = models.BooleanField(default=False)
     
-    objects = MyUserManager()
+    objects = managers.MyUserManager()
 
     USERNAME_FIELD      = 'email'
     REQUIRED_FIELDS     = []
@@ -64,7 +64,7 @@ class MyUserProfile(models.Model):
         return self.myuser.email
 
 class SubscribedUser(models.Model):
-    """People who subscribed to ..."""
+    """People who subscribed to the website"""
     email       = models.EmailField(blank=True, null=True)
     created_on  = models.DateField(auto_now_add=True)
 

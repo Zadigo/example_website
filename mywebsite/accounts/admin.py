@@ -1,8 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from accounts.forms import CustomUserCreationForm
 from accounts.models import MyUser, MyUserProfile, SubscribedUser
 
 
@@ -18,7 +16,6 @@ class MyUserAdmin(admin.ModelAdmin):
         ['Permissions', {'fields': ['is_active', 'admin']}]
     ]
     ordering = ['email']
-    
 
 @admin.register(MyUserProfile)
 class MyUserProfileAdmin(admin.ModelAdmin):

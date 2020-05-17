@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="navbar-fixed">
-    <nav class="{{ nav_color|default:'white' }}">
+    <nav class="{{ nav_color|default:'blue' }}">
         <div class="nav-wrapper">
             <!-- Sidenav button -->
             <a href="#" data-target="mobile-demo" class="sidenav-trigger">
@@ -10,7 +10,7 @@
 
             {% if is_mobile %}
                 <a href="{% url 'home' %}" class="brand-logo">
-                    <img src="{% static 'logo.png' %}" alt="Nawoka">
+                    <img src="{% static 'logo.png' %}" alt="Website">
                 </a>
                 <ul id="ecommerce-mobile" class="right">
                     {% include "./links.html" with sidenav="False" %}
@@ -18,7 +18,7 @@
             {% else %}
                 <div class="container">
                     <a href="{% url 'home' %}" class="brand-logo">
-                        <img src="{% static 'logo.png' %}" alt="Nawoka">
+                        <img src="{% static 'logo.png' %}" alt="Website">
                     </a>
                     <ul id="ecommerce-mobile" class="right">
                         {% include "./links.html" with sidenav="False" %}

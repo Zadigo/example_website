@@ -10,7 +10,7 @@
             {% block profile_content_one %}
                 <div class="col s12 l4">
                     <!-- SIDE MENU -->
-                    {% include "accounts/components/side_menu.html" %}
+                    {% include "../../components/accounts/side_menu.html" %}
                 </div>
 
                 <div class="col s12 l8">
@@ -18,10 +18,11 @@
                 </div>
             {% endblock %}
         </div>
+        <div class="csrf">{% csrf_token %}</div>
     </section>
 {% endblock %}
 
 {% block extra_scripts %}
+    <script src="{% static '_profile.js' %}"></script>
     <script src="{% static 'accounts.js' %}"></script>
-    <!-- <script src="{% static 'accounts/profile.js' %}"></script> -->
 {% endblock %}

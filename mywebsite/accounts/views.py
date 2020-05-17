@@ -2,13 +2,12 @@ import datetime
 import re
 
 from django.contrib import messages
-from  django.contrib.messages import error, success
 from django.contrib.auth import (authenticate, login, logout,
                                  update_session_auth_hash)
 from django.contrib.auth.forms import (PasswordChangeForm, PasswordResetForm,
                                        SetPasswordForm)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages import add_message
+from django.contrib.messages import add_message, error, success
 from django.core.mail import BadHeaderError, send_mail
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import (Http404, HttpResponse, get_object_or_404,
@@ -20,16 +19,18 @@ from django.views.generic import View
 from accounts.forms import UserLoginForm, UserSignupForm
 from accounts.models import MyUser
 
+
+
+
 # #####################
 #  REGISTRATION VIEWS
 # #####################
-
 
 class SignupView(View):
     """View that helps the user create a new account"""
     def get(self, request, *args, **kwargs):
         context = {'consent': True, 'form': UserSignupForm}
-        return render(request, 'registration/signup.html', context)
+        return render(request, 'pages/registration/signup.html', context)
 
     def post(self, request, **kwargs):
         # name = request.POST['name']
@@ -56,26 +57,24 @@ class SignupView(View):
                     login(request, authenticate(request, email=email, password=password))
                     return redirect(request.GET.get('next') or reverse('profile'))
             else:
-                return render(request, 'registration/signup.html', {'form': form})
-
+                return render(request, 'pages/registration/signup.html', {'form': form})
 
 class LoginView(View):
     """View that lets the user login to his account"""
     def get(self, request, *args, **kwargs):
-        return render(request, 'registration/login.html', context={'form': UserLoginForm})
+        return render(request, 'pages/registration/login.html', context={'form': UserLoginForm})
 
     def post(self, request, **kwargs):
         # HACK: Even with the email field,
         # the latter is referenced as
         # 'username'
-        email   = request.POST['username']
-        password  = request.POST['password']
+        email = request.POST['username']
+        password = request.POST['password']
         
-        user    = authenticate(request, email=email, password=password)
+        user = authenticate(request, email=email, password=password)
         if user:
             login(request, user)
             return redirect(request.GET.get('next') or 'home')
-
         else:
             error(request, 'We could not find your account')
             return redirect('login')
@@ -86,13 +85,11 @@ class LogoutView(View):
         logout(request)
         return redirect('home')
 
-
-
 class ForgotPasswordView(View):
     """THelps a non authenticated user reset his password"""
     def get(self, request, *args, **kwargs):
         context = {'form': PasswordResetForm}
-        return render(request, 'registration/forgot_password.html', context)
+        return render(request, 'pages/registration/forgot_password.html', context)
 
     def post(self, request, **kwargs):
         form = PasswordResetForm(request.POST)
@@ -111,7 +108,7 @@ class ForgotPasswordView(View):
                     'form': PasswordResetForm,
                     'form_button_registration': _('Nouveau mot de passe')
                 }
-                return render(request, 'registration/forgot_password.html', context=context)
+                return render(request, 'pages/registration/forgot_password.html', context=context)
 
         return redirect('login')
 
@@ -127,7 +124,7 @@ class UnauthenticatedChangePasswordView(View):
             'form': SetPasswordForm(MyUser.objects.get(id=1)),
             'form_button_registration': _('Modifier')
         }
-        return render(request, 'registration/forgot_password_confirm.html', context)
+        return render(request, 'pages/registration/forgot_password_confirm.html', context)
 
     def post(self, request, **kwargs):
         user_token = request.GET.get('user_token')

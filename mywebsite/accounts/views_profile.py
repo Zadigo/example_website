@@ -34,14 +34,20 @@ class ProfileView(LoginRequiredMixin, View):
                     'city': profile.city,
                     'zip_code': profile.zip_code
                 }
-            )
+            ),
+            'forms': {
+                'userform': {
+                    'name': user.name,
+                    'surname': user.surname
+                }
+            }
         }
 
         if 'vue' in request.GET:
             if request.GET.get('vue') == 'true':
-                return render(request, 'accounts/vue/profile.html', context)
+                return render(request, 'pages/accounts/vue/profile.html', context)
 
-        return render(request, 'accounts/profile.html', context)
+        return render(request, 'pages/accounts/profile.html', context)
 
     def post(self, request, **kwargs):
         form = None
@@ -50,12 +56,15 @@ class ProfileView(LoginRequiredMixin, View):
         user_profile = user.myuserprofile_set.get(myuser=user_id.id)
 
         form_id = request.POST.get('form_id')
-        
+
         if form_id == 'userform':
             form = BaseProfileForm(request.POST, instance=user)
 
         if form_id == 'detailsform':
             form = AddressProfileForm(request.POST, instance=user_profile)
+            # VUE
+            # data = self.correct_vue_post_data(request.POST)
+            # MyUserProfile.objects.update(**data)
 
         if not form:
             return JsonResponse({'error': 'Form not identified'}, status=500)
@@ -64,6 +73,14 @@ class ProfileView(LoginRequiredMixin, View):
                 form.save()
 
         return JsonResponse({'success': 'success'}, status=200)
+    
+    def correct_vue_post_data(self, data):
+        """Corrects the query dict in order to be saved correctly
+        to the database"""
+        data = data.dict()
+        data.pop('form_id')
+        data.pop('csrfmiddlewaretoken')
+        return {key: value for key, value in data.items()}
 
 class ProfileDataView(LoginRequiredMixin, View):
     """Help the user manage his data
@@ -82,7 +99,7 @@ class ProfileDataView(LoginRequiredMixin, View):
         except:
             context = {}
 
-        return render(request, 'accounts/data.html', context)
+        return render(request, 'pages/accounts/data.html', context)
 
 class ProfileDeleteView(LoginRequiredMixin, View):
     """Help the user delete his account
@@ -96,7 +113,7 @@ class PaymentMethodsView(LoginRequiredMixin, View):
     """Allows the customer to update his/her payment method"""
     
     def get(self, request, *args, **kwargs):
-        return render(request, 'accounts/payment_methods.html', {})
+        return render(request, 'pages/accounts/payment_methods.html', {})
 
     def post(self, request, *kwargs):
         try:
@@ -121,7 +138,7 @@ class ChangePasswordView(LoginRequiredMixin, View):
         context = {
             'form': PasswordChangeForm(request.user),
         }
-        return render(request, 'accounts/reset_password.html', context)
+        return render(request, 'pages/accounts/reset_password.html', context)
 
     def post(self, request, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
