@@ -21,13 +21,12 @@
             </div>
 
             <div class="col s12 m6">
-                {# Passes the contact color to Vue JS for the button color #}
-                <div class="contact_color hide">{{ contact_color|default:'red darken-1' }}</div>
                 <div class="card-panel grey lighten-3">
                     <h5>Register</h5>
                     <div id="app">
-                        <contactform />
+                        <registrationform @dosubmit="submitform" v-bind:fields="fields" />
                     </div>
+                    <div class="csrf">{% csrf_token %}</div>
                 </div>
             </div>
         </div>
