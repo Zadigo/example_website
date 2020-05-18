@@ -1,3 +1,6 @@
 from django.contrib import admin
+from dashboard import models
 
-# Register your models here.
+@admin.register(models.DashboardSetting)
+class DashboardSettingsAdmin(admin.ModelAdmin):
+    list_display = ['name']

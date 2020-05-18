@@ -1,0 +1,29 @@
+<!-- Table  -->
+<table class="table table-hover">
+    <thead class="blue-grey lighten-4">
+        <tr>
+            <th>#</th>
+            <th>Lorem</th>
+            <th>Ipsum</th>
+            <th>Dolor</th>
+        </tr>
+    </thead>
+
+    <!-- Table body -->
+    <tbody>
+        {% for item in items %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>
+                    <a href="{% url 'dashboard_details' item.id %}">{{ item.name }}</a>
+                </td>
+                <td>{{ item.country }}</td>
+                <td>{{ item.likes }}</td>
+            </tr>
+        {% empty %}
+            <tr scope="row">
+                <td colspan="5">Vous n'avez pas de célébrité</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
