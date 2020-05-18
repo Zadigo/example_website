@@ -1,30 +1,5 @@
-{% extends "dashboard.html" %}
+{% extends "dashboard/index.html" %}
 
-{% block title %}Products{% endblock %}
-
-
-{% block main %}
-    <!-- ACTIONBAR -->
-    <div class="row">
-        <div class="col s12 m12 l12 correct-padding">
-            <div class="btn-group right">
-                <a href="{% url 'create' %}" class="btn-large">Add</a>
-                <deletebutton @deleteitems="applydeletemultiple" v-bind:selectedproducts="selectedproducts" />
-            </div>
-        </div>
-    </div>
-
-    <!-- CONTENT -->
-    <div class="card-panel special">
-        <div class="header">Products</div>
-        <div class="content">
-            <vuetable_one @selectitem="doselect" @selectall="getall" @deletesingleitem="applydeletesingle" v-bind:products="products" />
-        </div>
-    </div>
+{% block content %}
     
-    {% comment "Second type of table" %}
-        <div class="special-table">
-            <vuetable_two @deletesingleitem="applydeletesingle" v-bind:products="products" />
-        </div>
-    {% endcomment %}
 {% endblock %}

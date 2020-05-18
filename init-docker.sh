@@ -18,7 +18,7 @@ chmod +x /usr/local/bin/docker-compose
 
 read -p "Install nginx-proxy [yes|no]? " install_nginx_proxy
 
-if [ $install_nginx_proxy = "yes" ]; then
+if [ $install_nginx_proxy="yes" ]; then
     # Create a network for nginx-proxy
     docker network create nginx-proxy
     # Install nginx-proxy: this is a container that allows to process
@@ -31,14 +31,14 @@ fi
 # Pulls the cadvisor container for monitoring purposes
 read -p "Install Cadvisor [yes|no]?" install_cadvisor
 
-if [ $cadvisor = "yes" ]; then
+if [ $cadvisor=="yes" ]; then
     docker pull cadvisor
 fi
 
 # Pulls the PGAdmin container
 read -p "Install PG Admin [yes|no]?" install_pgadmin
 
-if [ $install_pgadmin = "yes" ]; then
+if [ $install_pgadmin=="yes" ]; then
     docker pull dpage/pgadmin4
 fi
 
