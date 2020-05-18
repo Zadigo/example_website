@@ -15,14 +15,14 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>
-                    <a href="{% url 'dashboard_details' item.id %}">{{ item.name }}</a>
+                    <a href="{% url 'dashboard_details' item.id %}">{{ item.username|default:"-" }}</a>
                 </td>
-                <td>{{ item.country }}</td>
-                <td>{{ item.likes }}</td>
+                <td>{{ item.name|default:"-" }}</td>
+                <td>{{ item.created_on|default:"-" }}</td>
             </tr>
         {% empty %}
             <tr scope="row">
-                <td colspan="5">Vous n'avez pas de célébrité</td>
+                <td colspan="5">Vous n'avez pas de users</td>
             </tr>
         {% endfor %}
     </tbody>
