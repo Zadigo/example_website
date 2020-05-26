@@ -1,18 +1,19 @@
-from django.conf.urls import re_path, url
-
+from django.conf.urls import url
 from dashboard import views
 
 urlpatterns = [
-    # url(r'^settings/$', views.SettingsView.as_view(), name='settings'),
-    # url(r'^login/$', views.DashboardLoginView.as_view(), name='dashboard_login'),
-    # url(r'^list/cards/$', views.ListItemsCardsView.as_view(), name='list_items_cards'),
-    
-    url(r'list/(?P<pk>\d+)/update/$', views.UpdateItemView.as_view(), name='dashboard_update'),
-    url(r'list/users/(?P<pk>\d+)$', views.UserDetailsView.as_view(), name='user_details'),
-    url(r'list/(?P<pk>\d+)$', views.ItemDetailsView.as_view(), name='dashboard_details'),
-
-    url(r'^create/$', views.CreateNewView.as_view(), name='dashboard_create'),
-    url(r'list/users$', views.ListUsersView.as_view(), name='dashboard_users'),
-    url(r'list/$', views.ListItemsView.as_view(), name='dashboard_products'),
-    url(r'^index/$', views.IndexView.as_view(), name='index')
+    url(r'^settings/$', views.Settings.as_view(), name='settings'),
+    url(r'^products/(?P<pk>\d+)/update$', views.UpdateProductView.as_view(), name='update'),
+    url(r'^products/(?P<pk>\d+)/orders$', views.SingleProductOrdersView.as_view(), name='product_orders'),
+    url(r'^products/(?P<method>(products|carts))/(?P<pk>\d+)/delete$', views.deleteview, name='delete_item'),
+    url(r'^products/(?P<pk>\d+)/delete$', views.deleteview, name='delete_product'),
+    url(r'^products/(?P<pk>\d+)$', views.ProductView.as_view(), name='dashboard_product'),
+    url(r'^orders$', views.ProductOrdersView.as_view(), name='customer_orders'),
+    url(r'^products/new$', views.CreateProductView.as_view(), name='dashboard_create'),
+    url(r'^users/$', views.UsersView.as_view(), name='dashboard_users'),
+    url(r'^carts/$', views.CartsView.as_view(), name='dashboard_carts'),
+    url(r'^images/$', views.ImagesView.as_view(), name='manage_images'),
+    url(r'^search/$', views.SearchView.as_view(), name='dashboard_search'),
+    url(r'^products/$', views.ProductsView.as_view(), name='dashboard_products'),
+    url(r'^$', views.IndexView.as_view(), name='index')
 ]

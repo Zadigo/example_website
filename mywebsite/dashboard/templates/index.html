@@ -19,6 +19,8 @@
   <!-- MATEERIAL DESIGN BOOTSTRAP -->
   <link href="{% static 'mdb.css' %}" rel="stylesheet">
 
+  <!-- MATERIALIZE -->
+
   <link href="{% static 'style.css' %}" rel="stylesheet">
 
   <style>
@@ -406,6 +408,7 @@
   <!-- VUEJS -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+  {% block vuejs_scripts %}{% endblock %}
 
   <!-- Charts -->
   {% block chart_scripts %}

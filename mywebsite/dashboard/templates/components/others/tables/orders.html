@@ -1,11 +1,9 @@
-<!-- Table  -->
+{% load table_header_tag %}
+
 <table class="table table-hover">
     <thead class="blue-grey lighten-4">
         <tr>
-            <th>#</th>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Active</th>
+            {% header_tags 'products' 2 %}
         </tr>
     </thead>
 
@@ -15,14 +13,16 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>
-                    <a href="{ url 'dashboard_details' item.id }">{{ item.email|default:"-" }}</a>
+                    <a href="{% url 'product' item.id %}">{{ item.reference }}</a>
                 </td>
-                <td>{{ item.full_name|default:"-" }}</td>
+                <td>{{ item.quantity }}</td>
                 <td>{{ item.active }}</td>
+                <td><a href="{% url 'update' item.id %}">update</a></td>
+                <td><a href="{ url 'delete' item.id }">delete</a></td>
             </tr>
         {% empty %}
             <tr scope="row">
-                <td colspan="5">Vous n'avez pas de users</td>
+                <td colspan="5">Vous n'avez pas de célébrité</td>
             </tr>
         {% endfor %}
     </tbody>

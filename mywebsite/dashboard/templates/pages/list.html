@@ -16,9 +16,11 @@
     <div class="col-md-12 mb-4">
         <div class="card">
             <div class="card-body">
-                {% include "../components/others/tables/products.html" with items=celebrities %}
+                {% include "../components/others/tables/products.html" with items=products %}
             </div>
         </div>
     </div>
 </div>
+
+{% include "../components/navs/pagination.html" with href="dashboard_products" %}
 {% endblock %}
