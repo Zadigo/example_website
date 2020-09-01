@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}
+    {% trans "MyWebsite: Build a website quickly" %}
+{% endblock %}
+
+{% block hero %}
+    {% with hero_image="" %}
+        <div class="hero red darken-3 responsivity" style="background-image: url({% static 'images/hero/hero2.jpg' %});">
+            <div class="hero-wrapper">
+                <div class="call-to-action">
+                    <div class="lead">{% trans "Build a website quickly" %}</div>
+                    <div class="lead-subtitle">{% trans "Build a website quickly with this template" %}</div>
+                    <a href="{ url '' }" class="btn-large grey darken-4 waves-effect waves-light" id="btn_call_to_action">
+                        {% trans "Start shopping" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+    
+    <!-- BENEFITS -->
+    {% include "project_components/home/benefits.html" %}
+
+    <!-- CONTACT -->
+    {% include "project_components/home/contact.html" %}
+{% endblock %}
+
+{% block vuejs_scripts %}
+
+{% endblock %}

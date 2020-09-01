@@ -1,26 +1,23 @@
 from django import forms
-from django.contrib.admin import AdminSite
-from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.forms import (AuthenticationForm,
-                                       ReadOnlyPasswordHashField,
-                                       UserCreationForm, UserChangeForm)
-from django.forms import CharField, EmailField
-from django.forms.widgets import EmailInput, PasswordInput, Select, TextInput
+from django.contrib.auth import authenticate
+from django.contrib.auth import forms as auth_forms
+from django.contrib.auth import password_validation
+from django.contrib.auth.tokens import default_token_generator
+from django.forms import fields, widgets
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
+from accounts import widgets as custom_widgets
 from accounts.models import MyUser, MyUserProfile
 
 
-class CustomUserCreationForm(UserCreationForm):
-    email     = EmailField(required=True)
-    password1 = CharField(label=_('Password'), widget=PasswordInput)
-    password2 = CharField(label=_('Password confirmation'), widget=PasswordInput)
+class MyUserCreationForm(forms.ModelForm):
+    password1 = fields.CharField(label=_('Password'), widget=widgets.PasswordInput)
+    password2 = fields.CharField(label=_('Password confirmation'), widget=widgets.PasswordInput)
 
     class Meta:
         model = MyUser
-        fields = ['surname', 'name', 'email', 'password',\
-                    'admin', 'staff']
+        fields = ['email', 'is_staff', 'product_manager']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -40,19 +37,30 @@ class CustomUserCreationForm(UserCreationForm):
 
         return user
         
-class CustomUserChangeForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField()
+
+class MyUserChangeForm(forms.ModelForm):
+    password = auth_forms.ReadOnlyPasswordHashField()
 
     class Meta:
         model = MyUser
         fields = ['email', 'password']
 
     def clean_password(self):
-        return self.initial["password"]
+        return self.initial['password']
 
-class UserLoginForm(AuthenticationForm):
-    username    = EmailField(widget=EmailInput(attrs={'placeholder': _('Email professionnel')}))
-    password    = CharField(strip=False, widget=PasswordInput(attrs={'placeholder': _('Mot de passe')}))
+
+class UserLoginForm(auth_forms.AuthenticationForm):
+    username    = fields.EmailField(
+        widget=widgets.EmailInput(
+            attrs={'class': 'form-control', 'placeholder': _('Email')}
+        )
+    )
+    password    = fields.CharField(
+        strip=False, 
+        widget=widgets.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': _('Mot de passe'), 'autocomplete': 'current-password'}
+        )
+    )
     
     def clean(self):
         email    = self.cleaned_data.get('email')
@@ -66,68 +74,110 @@ class UserLoginForm(AuthenticationForm):
 
             if self.user_cache:
                 self.confirm_login_allowed(self.user_cache)
+            else:
+                raise forms.ValidationError("Vous n'êtes pas autorisé à vous connecté")
 
         return self.cleaned_data
 
-    def authenticate(self):
-        pass
 
-class UserSignupForm(UserCreationForm):
+class UserSignupForm(auth_forms.UserCreationForm):
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Mot de passe'}),
+        strip=False,
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirmation du mot de passe'}),
+        strip=False
+    )
+
     class Meta:
+        fields = ['firstname', 'lastname', 'email']
         model = MyUser
-        fields = ['name', 'surname', 'email']
         widgets = {
-            'surname': TextInput(attrs={'placeholder': 'Nom'}),
-            'name': TextInput(attrs={'placeholder': 'Prénom'}),
-            'email': EmailInput(attrs={'placeholder': 'Email'}),
+            'firstname': widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'Prénom'}),
+            'lastname': widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom'}),
+            'email': widgets.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
         }
 
     def clean(self):
         password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
 
-        if password1 is None:
+        if not password1:
             raise forms.ValidationError('Veuillez entrer un mot de passe')
+        
+        if password1 != password2:
+            raise forms.ValidationError('Les mots de passe ne correspondent pas')
 
         if len(password1) < 10:
             raise forms.ValidationError('Votre mot de passe doit comporter au moins 10 charactères')
 
         return self.cleaned_data
 
-# class UserSignupForm(forms.Form):
-#     name         = CharField(widget=TextInput(attrs={'placeholder': _('Joe')}))
-#     surname      = CharField(widget=TextInput(attrs={'placeholder': _('Doe')}))
-#     email       = EmailField(widget=EmailInput(attrs={'placeholder': _('johndoe@gmail.com')}))
-#     password    = CharField(widget=PasswordInput(attrs={'placeholder': _('Mot de passe')}))
+
+class CustomPassowordResetForm(auth_forms.PasswordResetForm):
+    email = forms.EmailField(
+        label=_('Email'),
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={'class': 'form-control', 'autocomplete': 'email', 'placeholder': 'Email'}
+        )
+    )
+
+    def save(self, request, from_email):
+        super().save(
+            from_email=from_email,
+            subject_template_name='components/emails/password_reset_subject.txt',
+            email_template_name='components/emails/password_reset_email.html',
+            request=request
+        )
+
+
+class CustomSetPasswordForm(auth_forms.SetPasswordForm):
+    new_password1 = forms.CharField(
+        label=_('Nouveau mot de passe'),
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Nouveau mot de passe','autocomplete': 'off'}
+        ),
+        strip=False
+    )
+    new_password2 = forms.CharField(
+        label=_('Nouveau mot de passe confirmation'),
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Nouveau mot de passe confirmation', 'autocomplete': 'off'}
+        ),
+        strip=False,
+    )
+
+
+class CustomChangePasswordForm(CustomSetPasswordForm):
+    old_password = forms.CharField(
+        label=_("Old password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Ancien mot de passe',
+                                          'autocomplete': 'current-password', 'autofocus': True}),
+    )
 
 
 
-
-
-# #####################
-#   Profile forms
-# #####################
 
 class BaseProfileForm(forms.ModelForm):
     class Meta:
         model   = MyUser
-        fields  = ['name', 'surname']
+        fields  = ['firstname', 'lastname', 'email']
         widgets = {
-            'name': TextInput(attrs={'placeholder': 'John'}),
-            'surname': TextInput(attrs={'placeholder': 'Doe'}),
+            'firstname': custom_widgets.FirstNameInput(attrs={'placeholder': 'John'}),
+            'lastname': custom_widgets.LastNameInput(attrs={'placeholder': 'Doe'}),
+            'email': custom_widgets.TextInput(attrs={'placeholder': 'john.doe@gmail.com'}),
         }
+
 
 class AddressProfileForm(forms.ModelForm):
     class Meta:
         model   = MyUserProfile
         fields  = ['address', 'city', 'zip_code']
         widgets = {
-            'address': TextInput(attrs={'placeholder': '173 rue de Rivoli'}),
-            'city': TextInput(attrs={'placeholder': 'Paris'}),
-            'zip_code': TextInput(attrs={'placeholder': '59120'})
+            'address': custom_widgets.AddressLineOne(attrs={'placeholder': '173 rue de Rivoli'}),
+            'city': custom_widgets.TextInput(attrs={'placeholder': 'Paris'}),
+            'zip_code': custom_widgets.TextInput(attrs={'placeholder': '59120'})
         }
-
-class AnonymousUserForm(forms.Form):
-    address = CharField(max_length='100', required=True, widget=TextInput(attrs={'autocomplete': 'address-line-1', 'placeholder': '34 rue de Paris'}))
-    city = CharField(max_length='45', required=True, widget=TextInput(attrs={'autocomplete': 'city', 'placeholder': 'Lille'}))
-    zip_code = CharField(max_length='100', required=True, widget=TextInput(attrs={'autocomplete': 'zip-code', 'placeholder': '59000'}))
-    country = CharField(max_length='45', widget=Select(attrs={'autocomplete': 'country', 'placeholder': 'France'}, choices=(('france', 'France'),)))

@@ -22,9 +22,8 @@ from django.urls import path, include
 from mywebsite.views import HeroView
 
 urlpatterns = [
-    url('api/v1/', include('api.urls')),
-    # url('', include('social_django.urls')),
-    path('dashboard/', include('dashboard.urls')),
+    # url('api/v1/', include('api.urls')),
+    # path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     url('^$', HeroView.as_view(), name='home'),

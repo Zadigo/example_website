@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="navbar-fixed">
+    <nav class="{{ nav_color|default:'blue' }}">
+        <div class="nav-wrapper">
+            <!-- Sidenav button -->
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+
+            {% if is_mobile %}
+                <a href="{% url 'home' %}" class="brand-logo">
+                    <img src="{% static 'logo.png' %}" alt="Website">
+                </a>
+                <ul id="ecommerce-mobile" class="right">
+                    {% include "./links.html" with sidenav="False" %}
+                </ul>
+            {% else %}
+                <div class="container">
+                    <a href="{% url 'home' %}" class="brand-logo">
+                        <img src="{% static 'logo.png' %}" alt="Website">
+                    </a>
+                    <ul id="ecommerce-mobile" class="right">
+                        {% include "./links.html" with sidenav="False" %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+
+{% include "project_components/navs/sidenav.html" %}

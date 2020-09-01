@@ -1,0 +1,12 @@
+<li><a href="{% url 'home' %}" id="home">Home</a></li>
+{% if not user.is_authenticated %}
+    <li><a href="{% url 'accounts:login' %}" id="home">Login</a></li>
+    <li><a href="{% url 'accounts:signup' %}" id="home">Signup</a></li>
+    <li><a href="{% url 'accounts:logout' %}" id="home">Logout</a></li>
+{% else %}
+    <li><a href="{% url 'accounts:profile:home' %}" id="home">Profile</a></li>
+{% endif %}
+    
+{% if user.is_admin %}
+    <li><a href="/admin/" target="_blank" id="home">Admin</a></li>
+{% endif %}

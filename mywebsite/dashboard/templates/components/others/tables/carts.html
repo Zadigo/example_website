@@ -1,28 +1,38 @@
-{% load table_header_tag dates_tags %}
+{% extends "components/others/tables/base.html" %}
+{% load table dates i18n %}
 
-<table class="table table-hover">
-    <thead class="blue-grey lighten-4">
+{% block table_header %}
+    {% header "ID" "Produit" "Total" "Complétée" "Depuis" %}
+    <th colspan="1"></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for cart in carts %}
         <tr>
-            {% header_tags 'products' 2 %}
+            <td>
+                {{ cart.id }}
+            </td>
+            <th scope="row">
+                <a href="{% url 'dashboard:search' %}?s={{ cart.product.name }}">
+                    {{ cart.quantity }} x {{ cart.product.name }}
+                </a>
+            </th>
+            <td>{{ cart.get_total }}</td>
+            <td>
+                {% if cart.has_orders %}
+                    {% include "components/others/badge.html" with type="danger" badge_name="Oui" %}
+                {% else %}
+                    {% include "components/others/badge.html" with type="success" badge_name="Non" %}
+                {% endif %}
+            </td>
+            <td>{{ cart.created_on|in_cart_since }}</td>
+            <td><a href="{% url 'dashboard:delete_item' 'carts' cart.id %}"><i class="fa fa-trash"></i></a></td>
         </tr>
-    </thead>
-
-    <!-- Table body -->
-    <tbody>
-        {% for item in items %}
-            <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>
-                    <a href="{% url 'dashboard_product' item.id %}">{{ item.cart_id }}</a>
-                </td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.created_on|in_cart_since }}</td>
-                <td><a href="{% url 'delete_item' 'carts' item.id %}">delete</a></td>
-            </tr>
-        {% empty %}
-            <tr scope="row">
-                <td colspan="5">Vous n'avez pas de célébrité</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% empty %}
+        <tr scope="row">
+            <td class="text-center font-weight-bold" colspan="5">
+                {% trans "Vous n'avez aucun coupons" %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

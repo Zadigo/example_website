@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'django_extensions',
-    'social_django',
+
+    # 'rest_framework',
+    # 'django_extensions',
+    # 'social_django',
     'accounts',
-    'dashboard'
+    # 'dashboard'
 ]
 
 MIDDLEWARE = [
@@ -242,3 +243,7 @@ EMAIL_USE_LOCALTIME = True
 # MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

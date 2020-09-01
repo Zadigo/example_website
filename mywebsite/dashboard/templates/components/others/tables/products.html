@@ -1,29 +1,86 @@
-{% load table_header_tag %}
+{% extends "components/others/tables/base.html" %}
+{% load table i18n %}
 
-<table class="table table-hover">
-    <thead class="blue-grey lighten-4">
+{% block table_header %}
+    {% comment "Feature for selecting multiple items in a table" %}
+        <th>
+            <checkbox-data-component 
+                @returndata="selectall" 
+                v-bind:key="'all'" 
+                :id="'all'" 
+                :value="'all'" 
+            />
+        </th>
+    {% endcomment %}
+    <th colspan="1"></th>
+    {% header "ID" "Nom" "Collection" "Prix" "Statut" %}
+    <th colspan="2"></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for product in products %}
         <tr>
-            {% header_tags 'products' 2 %}
-        </tr>
-    </thead>
+            <td>
+                <checkbox-data-component @returndata="doselection" :name="'key'"
+                    v-bind:key="'{{ product.id }}'" :id="'{{ product.id }}'" :value="'{{ product.id }}'">
+                </checkbox-data-component>
+            </td>                
 
-    <!-- Table body -->
-    <tbody>
-        {% for item in items %}
-            <tr>
-                <th scope="row">{{ item.id }}</th>
-                <td>
-                    <a href="{% url 'dashboard_product' item.id %}">{{ item.name }}</a>
+            <td>{{ product.id }}</td>
+
+            <th scope="row" class="bootrstrap-link">
+                <a href="{% url 'dashboard:products:update' product.id %}">
+                    {{ product.name }}
+                </a>
+            </th>
+            <td>{{ product.collection.name }}</td>
+            {% with price=product.get_price %}
+                {% if product.is_discounted %}
+                    <td class="red-text">{{ price }}</td>
+                {% else %}
+                    <td>{{ price }}</td>
+                {% endif %}                    
+            {% endwith %}
+            <td>
+                {% if product.active %}
+                    {% include "../badge.html" with type="success" badge_name="actif" %}								
+                {% else %}
+                    {% include "../badge.html" with type="danger" badge_name="inactif" %}								
+                {% endif %}
+            </td>
+            <td>
+                {% if product.active %}
+                    <a href="{{ product.get_absolute_url }}" target="_blank">
+                        <div class="fa fa-eye text-muted"></div>
+                    </a>                    
+                {% else %}
+                    <a href="{{ product.get_preview_url }}" target="_blank">
+                        <div class="fa fa-eye text-muted"></div>
+                    </a>
+                {% endif %}
+            </td>
+
+            {% comment "Feature for deleting a product on the products page" %}
+                {% if user.is_admin %}
+                    <td><a href="{% url 'dashboard:dashboard_delete_product' product.id %}">delete</a></td>
+                {% endif %}                
+            {% endcomment %}
+        </tr>
+    {% empty %}
+        <tr scope="row">
+            {% if request.path == "/dashboard/search/" %}
+                <td class="text-center font-weight-bold" colspan="7">
+                    {% trans "Nous n'avons pas trouvé de produits correspondants" %}
                 </td>
-                <td>{{ item.get_price }}</td>
-                <td>{{ item.active }}</td>
-                <td><a href="{% url 'update' item.id %}">update</a></td>
-                <td><a href="{% url 'delete_item' 'products' item.id %}">delete</a></td>
-            </tr>
-        {% empty %}
-            <tr scope="row">
-                <td colspan="5">Vous n'avez pas de célébrité</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            {% else %}
+                <td class="text-center font-weight-bold" colspan="7">
+                    {% trans "Vous n'avez pas encore de produits" %}
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block paginate_number %}
+    {{ products.count }}
+{% endblock %}

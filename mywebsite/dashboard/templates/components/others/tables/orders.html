@@ -1,29 +1,37 @@
-{% load table_header_tag %}
+{% extends "components/others/tables/base.html" %}
+{% load table i18n %}
 
-<table class="table table-hover">
-    <thead class="blue-grey lighten-4">
+{% block table_header %}
+    {% header "ID" "Référence" "Somme" "Statut" "Date" %}
+{% endblock %}
+
+{% block table_body %}
+    {% for order in orders %}
         <tr>
-            {% header_tags 'products' 2 %}
+            <td>{{ order.id }}</td>
+            <th scope="row" class="bootrstrap-link">
+                <a href="{% url 'dashboard:customer_order' order.id %}">
+                    {{ order.reference }}
+                </a>
+            </th>
+            <td>{{ order.payment }}</td>
+            <td>
+                
+                {% if order.refund %}
+                    {% include "../badge.html" with type="dark" badge_name="Remboursement" %}
+                {% elif order.accepted %}
+                    {% include "../badge.html" with type="primary" badge_name="Livraison" %}
+                {% elif order.completed %}
+                    {% include "../badge.html" with type="success" badge_name="Terminé" %}
+                {% else %}
+                    {% include "../badge.html" with type="danger" badge_name="En attente" %}										
+                {% endif %}
+            </td>
+            <td>{{ order.created_on }}</td>
         </tr>
-    </thead>
-
-    <!-- Table body -->
-    <tbody>
-        {% for item in items %}
-            <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>
-                    <a href="{% url 'product' item.id %}">{{ item.reference }}</a>
-                </td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.active }}</td>
-                <td><a href="{% url 'update' item.id %}">update</a></td>
-                <td><a href="{ url 'delete' item.id }">delete</a></td>
-            </tr>
-        {% empty %}
-            <tr scope="row">
-                <td colspan="5">Vous n'avez pas de célébrité</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% empty %}
+        <tr scope="row">
+            <td class="text-center font-weight-bold" colspan="6">Vous n'avez pas encore de de commandes</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

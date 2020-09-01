@@ -1,24 +1,32 @@
 from django.conf.urls import include, url
-from django.contrib import admin
-from django.views.generic import TemplateView
+from django.urls import path
 
-from accounts import views
-from accounts.views_profile import ProfileView, ProfileDeleteView, ProfileDataView, PaymentMethodsView, ChangePasswordView
+from accounts import views, views_profile
+
+app_name = 'accounts'
+
+passwordpatterns = [
+    url(r'^forgot-password/confirm/(?P<uidb64>[A-Z]+)/(?P<token>\w+\-\w+)$',
+        views.UnauthenticatedPasswordResetView.as_view(), name='reset'),
+    url(r'^forgot-password$', views.ForgotPasswordView.as_view(), name='forgot')
+]
+
+profilepatterns = [
+    url(r'^change-password$', views_profile.ChangePasswordView.as_view(), name='change_password'),
+    url(r'^contact-preferences$', views_profile.ContactPreferencesView.as_view(), name='contact'),
+    url(r'^payment-methods$', views_profile.PaymentMethodsView.as_view(), name='payment'),
+    url(r'^delete$', views_profile.ProfileDeleteView.as_view(), name='delete'),
+    url(r'^data$', views_profile.ProfileDataView.as_view(), name='data'),
+    url(r'^$', views_profile.ProfileView.as_view(), name='home'),
+]
 
 urlpatterns = [
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
-    
-    url(r'^profile/payment-methods/$', PaymentMethodsView.as_view(), name='payment_methods'),
-    url(r'^profile/delete/$', ProfileDeleteView.as_view(), name='delete_account'),
-    url(r'^profile/data/$', ProfileDataView.as_view(), name='profile_data'),
-    url(r'^profile/change-password/$', ChangePasswordView.as_view(), name='change_password'),
-    
-    url(r'^forgot-password/confirm/(?P<uidb64>[A-Z]+)/(?P<token>\d+\w?\-[a-z0-9]+)', 
-            views.UnauthenticatedChangePasswordView.as_view(), name='password_reset_confirm'),
-    url(r'^forgot-password/$', views.ForgotPasswordView.as_view(), name='forgot_password'),
-    url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
-    url(r'^signup/$', views.SignupView.as_view(), name='signup'),
-    
-    url(r'^profile/$', ProfileView.as_view(), name='profile'),
+    path('profile/', include((profilepatterns, app_name), namespace='profile')),
+    path('password/', include((passwordpatterns, app_name), namespace='password')),
+
+    # url(r'^oauth/', include('social_django.urls', namespace='social')),
+
+    url(r'^login$', views.LoginView.as_view(), name='login'),
+    url(r'^logout$', views.LogoutView.as_view(), name='logout'),
+    url(r'^signup$', views.SignupView.as_view(), name='signup'),
 ]
