@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 
 # @method_decorator(cache_page(240 * 60), name='dispatch')
 class HeroView(TemplateView):
-    template_name = 'pages/home/hero.html'
+    template_name = 'pages/home.html'
 
     def post(self, request, **kwargs):
         return JsonResponse({'success': 'success'})
