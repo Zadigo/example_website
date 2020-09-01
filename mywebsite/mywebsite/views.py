@@ -4,7 +4,7 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
 
-@method_decorator(cache_page(240 * 60), name='dispatch')
+# @method_decorator(cache_page(240 * 60), name='dispatch')
 class HeroView(TemplateView):
     template_name = 'pages/home/hero.html'
 

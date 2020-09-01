@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 'rest_framework',
-    # 'django_extensions',
+    'django_extensions',
     # 'social_django',
     'accounts',
     # 'dashboard'
@@ -71,8 +71,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect'
+                'social_django.context_processors.login_redirect',
+
+                'django.template.context_processors.debug'
             ],
+            'libraries': {
+                'navs': 'templatetags.navs'
+            }
         },
     },
 ]
@@ -129,14 +134,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static')
-# ]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
 
 MEDIA_URL = '/media/'
 
@@ -159,22 +161,18 @@ AUTHENTICATION_BACKENDS = (
 
 # SOCIAL DJANGO
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'accounts:login'
 
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'accounts:logout'
 
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'accounts:profile:home'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 
-# DJANGO EXTENSIONS
-
-SHELL_PLUS = 'ipython'
-
-RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8000'
+# LOGGING
 
 # LOGGING = {
 #     'handlers': {

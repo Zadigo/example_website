@@ -12,7 +12,7 @@
                 <div class="call-to-action">
                     <div class="lead">{% trans "Build a website quickly" %}</div>
                     <div class="lead-subtitle">{% trans "Build a website quickly with this template" %}</div>
-                    <a href="{ url '' }" class="btn-large grey darken-4 waves-effect waves-light" id="btn_call_to_action">
+                    <a href="{% url 'home' %}" class="btn-large grey darken-4 waves-effect waves-light" id="btn_call_to_action">
                         {% trans "Start shopping" %}
                     </a>
                 </div>
@@ -28,5 +28,5 @@
 {% endblock %}
 
 {% block vuejs_scripts %}
-
+    {% include "pages/home/vue/contact.html" %}
 {% endblock %}

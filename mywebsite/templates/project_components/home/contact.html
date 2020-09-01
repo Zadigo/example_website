@@ -22,11 +22,11 @@
 
             <div class="col s12 m6">
                 <div class="card-panel grey lighten-3">
-                    <h5>Register</h5>
-                    <div id="app">
-                        <registrationform @dosubmit="submitform" v-bind:fields="fields" />
-                    </div>
                     <div class="csrf">{% csrf_token %}</div>
+                    <h5>Register</h5>
+                    <div id="vue_contact_form">
+                        <contactform />
+                    </div>
                 </div>
             </div>
         </div>
