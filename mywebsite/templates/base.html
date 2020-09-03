@@ -1,153 +1,168 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ LANGUAGE_CODE }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+        <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon">
 
-    <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
 
-    <!-- Meta -->
-    <meta name="author" content="" />
+        <!-- Meta -->
+        <meta name="author" content="" />
 
-    <meta name="theme-color" content="#484848" />
+        <meta name="theme-color" content="#484848" />
 
-    {% block page_description %}
-        <meta name="description" content="">
-    {% endblock %}
-
-    {% block share_metatags %}
-        <meta name="twitter:card" content="" />
-        <meta name="twitter:site" content="" />
-        <meta name="twitter:creator" content="" />
-
-        <meta property="og:url" content="" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="" />
-
-        {% block og_description %}
-            <meta property="og:description" content="" />
+        {% block page_description %}
+            <meta name="description" content="">
         {% endblock %}
 
-        {% block og_image %}
-            <meta property="og:image" content="" />
-            <meta property="og:image:type" content="image/jpeg" />
-            <!-- <meta property="og:image:height" content="200"> -->
-            <!-- <meta property="og:image:width" content="200"> -->
-        {% endblock %}
+        {% block share_metatags %}
+            <meta name="twitter:card" content="" />
+            <meta name="twitter:site" content="" />
+            <meta name="twitter:creator" content="" />
 
-        <meta property="og:image:alt" content="Nawoka" />
-    {% endblock %}
+            <meta property="og:url" content="" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="" />
 
-    <meta property="keywords" content="{% block meta_keywords %}{% endblock %}">
-
-    <!-- Structured data -->
-    {% block structured_data %}
-        {% include "project_components/seo/organization.html" %}
-    {% endblock %}
-
-    <!-- Google stylesheets -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
-    <!-- Custom sheets -->
-    <link rel="stylesheet" href="{% static 'mdb.css' %}">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
-    {% block extra_css %}{% endblock extra_css %}
-
-    <link rel="alternate" href="mywebsite.fr" hreflang="fr-fr" />
-
-    {% block datalayer %}
-        <script>window.dataLayer = window.dataLayer || [];</script>
-        {% block datalayer_push %}{% endblock %}
-    {% endblock %}
-
-    <!-- Analytics -->
-    {# This is a specific technique to use Google Optimize with GTM #}
-    {# {% include "project_components/analytics/google_analytics.html" with ga_tag="" optimize_tag="" %} #}
-
-    {# {% include "project_components/analytics/tag_manager.html" with gtm_id="" %} #}
-    {# {% include "project_components/analytics/facebook.html" with id="" %} #}
-    {% block facebook_events %}{% endblock %}
-
-    <!-- Optimize -->
-    {# {% include "project_components/analytics/optimize_anti_flicker.html" with optimize_tag="" %} #}
-
-    <!-- Mailchimp -->
-    {# {% include "project_components/analytics/mailchimp.html" with mailchimp_id="" %} #}
-
-    <!-- Adwords remarketing  -->
-    {# {% include "project_components/analytics/remarketing.html" with remarketing_id="" %} #}
-    {# {% block remarketing %}{% endblock %} #}
-</head>
-
-<body>
-    {# {% include "project_components/analytics/google_no_script.html" with gtm_id="" %} #}
-
-    <!-- Facebook Pixel events -->
-    {% block facebook_event %}{% endblock %}
-
-    <!-- Navbar -->
-    {% block nav %}
-        {% include "project_components/navs/nav.html" %}
-    {% endblock %}
-
-    <!-- Main content -->
-    {% block main %}
-        <main>
-            {% block hero %}
-                <div class="container">
-                    {% block container %}{% endblock %}
-                </div>
+            {% block og_description %}
+                <meta property="og:description" content="" />
             {% endblock %}
-        </main>        
-    {% endblock %}
 
-    <!-- Footer -->
-    {% block footer %}
-        {% if is_mobile %}
-            {% include "navs/mini_footer.html" %}
+            {% block og_image %}
+                <meta property="og:image" content="" />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:image:height" content="800">
+                <meta property="og:image:width" content="800">
+            {% endblock %}
+
+            <meta property="og:image:alt" content="Nawoka" />
+        {% endblock %}
+
+        <meta property="keywords" content="{% block meta_keywords %}{% endblock %}">
+
+        <!-- Structured data -->
+        {% block structured_data %}
+            {% include "project_components/seo/organization.html" %}
+        {% endblock %}
+
+        <!-- Google stylesheets -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
+        <!-- Custom sheets -->
+        <link rel="stylesheet" href="{% static 'mdb.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        {% block extra_css %}{% endblock extra_css %}
+
+        <link rel="alternate" href="mywebsite.fr" hreflang="fr-fr" />
+
+        {% block datalayer %}
+            <script>window.dataLayer = window.dataLayer || [];</script>
+            {% block datalayer_push %}{% endblock %}
+        {% endblock %}
+
+        <!-- Analytics -->
+        {# This is a specific technique to use Google Optimize with GTM #}
+        {# {% include "project_components/analytics/google_analytics.html" with ga_tag="" optimize_tag="" %} #}
+
+        {# {% include "project_components/analytics/tag_manager.html" with gtm_id="" %} #}
+        {# {% include "project_components/analytics/facebook.html" with id="" %} #}
+        {% block facebook_events %}{% endblock %}
+
+        <!-- Optimize -->
+        {# {% include "project_components/analytics/optimize_anti_flicker.html" with optimize_tag="" %} #}
+
+        <!-- Mailchimp -->
+        {# {% include "project_components/analytics/mailchimp.html" with mailchimp_id="" %} #}
+
+        <!-- Adwords remarketing  -->
+        {# {% include "project_components/analytics/remarketing.html" with remarketing_id="" %} #}
+        {# {% block remarketing %}{% endblock %} #}
+    </head>
+
+    <body>
+        {# {% include "project_components/analytics/google_no_script.html" with gtm_id="" %} #}
+
+        <!-- Facebook Pixel events -->
+        {% block facebook_event %}{% endblock %}
+
+        <!-- Navbar -->
+        {% block nav %}
+            {% include "project_components/navs/nav.html" %}
+        {% endblock %}
+
+        <!-- Main content -->
+        {% block main %}
+            <main>
+                {% block hero %}
+                    <div class="container">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% block container %}{% endblock %}
+                    </div>
+                {% endblock %}
+            </main>        
+        {% endblock %}
+
+        <!-- Footer -->
+        {% block footer %}
+            {% if is_mobile %}
+                {% include "navs/mini_footer.html" %}
+            {% else %}
+                {% include "project_components/navs/footer.html" %}
+            {% endif %}
+        {% endblock %}
+
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <!-- STRIPE -->
+        <script src="https://js.stripe.com/v3/"></script>
+
+        <!-- Lodash -->
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+
+        <!-- Minified JavaScript -->
+
+        <!-- Vue -->
+        {% if debug %}
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         {% else %}
-            {% include "project_components/navs/footer.html" %}
+            <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         {% endif %}
-    {% endblock %}
 
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="{% static 'mdb.js' %}"></script>
+        <script src="{% static 'popper.js' %}"></script>
+        
+        <script>
+            $(document).ready(function () {
+            
+            });
+        </script>
 
-    <!-- Lodash -->
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+        <!-- Custom scripts -->
 
-    <!-- Minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-
-    <!-- Vue -->
-    {% if debug %}
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
-    {% else %}
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    {% endif %}
-
-    <!-- Materialize scripts -->
-    <script src="{% static 'mdb.js' %}"></script>
-    <script src="{% static 'popper.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-           
-        });
-    </script>
-
-    <!-- Custom scripts -->
-
-    <!-- Extra scripts -->
-    {% block extra_scripts %}{% endblock %}
-</body>
+        <!-- Extra scripts -->
+        {% block extra_scripts %}{% endblock %}
+        
+        {% block vuejs_scripts %}{% endblock %}
+        
+        <!-- CHAT -->
+        {% block chat %}{% endblock %}
+    </body>
 
 </html>

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,10 +74,12 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
 
-                'django.template.context_processors.debug'
+                'django.template.context_processors.debug',
+                'mywebsite.context_processors.i18n',
             ],
             'libraries': {
-                'navs': 'templatetags.navs'
+                'navs': 'templatetags.navs',
+                'utils': 'accounts.templatetags.utils',
             }
         },
     },
@@ -149,14 +152,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.open_id.OpenIdAuth',
-    'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
+AUTHENTICATION_BACKENDS = [
+    # 'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.open_id.OpenIdAuth',
+    # 'social_core.backends.google.GoogleOpenId',
+    # 'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
     'accounts.backends.EmailAuthenticationBackend'
-)
+]
 
 
 # SOCIAL DJANGO
@@ -259,3 +262,15 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211'
     }
 }
+
+
+# LANGUAGES
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('fr', _('Français')),
+]
