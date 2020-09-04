@@ -274,3 +274,21 @@ LANGUAGES = [
     ('en', _('English')),
     ('fr', _('Français')),
 ]
+
+
+# STRIPE
+
+import stripe
+
+
+STRIPE_TEST_KEYS = []
+
+STRIPE_LIVE_KEYS = []
+
+try:
+    if DEBUG:
+        stripe.api_key = STRIPE_TEST_KEYS[0]
+    else:
+        stripe.api_key = STRIPE_LIVE_KEYS[0]
+except:
+    pass

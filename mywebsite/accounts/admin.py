@@ -74,12 +74,12 @@ class MyUserAdmin(auth_admin.UserAdmin):
     fieldsets = [
         ['Details', {'fields': ['firstname', 'lastname']}],
         ['Credentials', {'fields': ['email', 'password']}],
-        ['Permissions', {'fields': ['is_admin', 'is_staff', 'is_active', 'product_manager']}]
+        ['Permissions', {'fields': ['is_admin', 'is_staff', 'is_active']}]
     ]
     add_fieldsets = [
         [None, {
                 'classes': ['wide'],
-                'fields': ['email', 'password1', 'password2', 'is_admin', 'is_staff', 'is_active', 'product_manager']
+                'fields': ['email', 'password1', 'password2', 'is_admin', 'is_staff', 'is_active']
             }
         ],
     ]

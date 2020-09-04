@@ -13,8 +13,8 @@
             </strong>
         </p>
 
-        <form class="d-flex flex-direction-row justify-content-left">
-            <input type="text" name="{{ input_name }}" class="form-control mr-3" id="input_id" style="height: {{ input_height }};width: {{ input_width }}">
+        <form method="GET" action="{% url 'home' %}" name="q" class="d-flex flex-direction-row justify-content-left">
+            <input type="search" name="{{ input_name }}" class="form-control mr-3" id="input_id" style="height: {{ input_height }};width: {{ input_width }}">
             <button class="btn-indigo btn-lg">
                 {{ button_name }}
             </button>

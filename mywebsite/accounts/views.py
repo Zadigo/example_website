@@ -108,21 +108,16 @@ class LoginView(FormView):
     success_url = '/'
 
     @never_cache
-    def post(self, request, *args, **kwargs):
-        # HACK: Even with the email field,
-        # the latter is referenced as
-        # 'username'
-        email = request.POST['username']
-        password = request.POST['password']
+    def post(self, request, *args, **kwargs):        
+        email = request.POST.get('username')
+        password = request.POST.get('password')
 
         user = auth.authenticate(request, email=email, password=password)
         if user:
             auth.login(request, user)
             return redirect(request.GET.get('next') or 'home')
-        else:
-            messages.error(request, "Nous n'avons pas pu trouver votre compte")
-            return redirect('accounts:login')
-
+        messages.error(request, _("Nous n'avons pas pu trouver votre compte"), extra_tags='alert-danger')
+        return redirect('accounts:login')
 
 # class LogoutView(View):
 #     """Logs out the user from their account"""
