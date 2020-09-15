@@ -5,7 +5,7 @@ register = template.Library()
 
 
 LINKS = [
-    ['home', {'name': 'Home'}],
+    ['hero:home', {'name': 'Home'}],
     ['accounts:login', {'name': 'Login'}],
     ['accounts:signup', {'name': 'Signup'}]
 ]

@@ -47,20 +47,6 @@ class MyUser(AbstractBaseUser):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    def save(self, *args, **kwargs):
-        if self._state.adding:
-            super().save(*args, **kwargs)
-            profile = MyUserProfile.objects.create(myuser=self)
-            try:
-                details = stripe.Customer.create(email=self.email, name=self.get_full_name)
-            except stripe.error.StripeError as e:
-                print(e.args)
-            except Exception as e:
-                print(e.args)
-            else:
-                profile.customer_id = details['id']
-                profile.save()
-
 
 class MyUserProfile(models.Model):
     """User profile model used to complete the base user model"""
@@ -81,25 +67,23 @@ class MyUserProfile(models.Model):
     def get_full_address(self):
         return f'{self.address}, {self.city}, {self.zip_code}'
 
-
-class SubscribedUser(models.Model):
-    """People who subscribed to the website"""
-    email       = models.EmailField(blank=True, null=True)
-    created_on  = models.DateField(auto_now_add=True)
-
-    objects = models.Manager()
-
-    def __str__(self):
-        return self.email
-
-
+    def clean(self, *args, **kwargs):
+        try:
+            details = stripe.Customer.create(
+                email=self.myuser.email, 
+                name=self.myuser.get_full_name()
+            )
+        except stripe.error.StripeError as e:
+            pass
+        else:
+            self.customer_id = details['customer_id']
 
 
 # #####################
 #       SIGNALS
 # #####################
 
-# @receiver(post_save, sender=MyUser)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         MyUserProfile.objects.create(myuser=instance)
+@receiver(post_save, sender=MyUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        MyUserProfile.objects.create(myuser=instance)

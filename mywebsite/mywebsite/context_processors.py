@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.utils import translation
 
-
 def i18n(request):
     return {
         'LANGUAGES': settings.LANGUAGES,
