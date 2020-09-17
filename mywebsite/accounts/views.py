@@ -115,7 +115,7 @@ class LoginView(FormView):
         user = auth.authenticate(request, email=email, password=password)
         if user:
             auth.login(request, user)
-            return redirect(request.GET.get('next') or 'home')
+            return redirect(request.GET.get('next') or '/')
         messages.error(request, _("Nous n'avons pas pu trouver votre compte"), extra_tags='alert-danger')
         return redirect('accounts:login')
 

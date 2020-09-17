@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     # 'dashboard',
     'hero',
+    'nodesplus',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,7 @@ TEMPLATES = [
             'libraries': {
                 'navs': 'templatetags.navs',
                 'utils': 'accounts.templatetags.utils',
+                'nodes_plus': 'nodesplus.templatetags.nodes_plus',
             }
         },
     },
