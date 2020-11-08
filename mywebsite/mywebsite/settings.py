@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_extensions',
+    'analytics',
     # 'social_django',
     'testapp',
     'accounts',
@@ -81,6 +82,8 @@ TEMPLATES = [
             'libraries': {
                 'utils': 'accounts.templatetags.utils',
                 'nodes_plus': 'nodesplus.templatetags.nodes_plus',
+
+                'analytics_tags': 'analytics.templatetags.analytics_tags'
             }
         },
     },
@@ -142,7 +145,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
 
 MEDIA_URL = '/media/'
 
