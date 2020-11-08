@@ -1,5 +1,5 @@
 {% extends "base_site.html" %}
-{% load i18n static %}
+{% load i18n static cache %}
 
 {% block title %}Home{% endblock %}
 
@@ -15,10 +15,12 @@
 {% block main_tag_style %}mt-0{% endblock %}
 
 {% block main %}
-    <!-- HERO -->
-    {% include "components/hero/base.html" %}
-    <!-- BENEFITS -->
-    {% include "components/benefits/base.html" %}
+    {% cache 3600 hero %}
+        <!-- HERO -->
+        {% include "components/hero/base.html" %}
+        <!-- BENEFITS -->
+        {% include "components/benefits/base.html" %}        
+    {% endcache %}
 {% endblock %}
 
 {% block extra_scripts %}

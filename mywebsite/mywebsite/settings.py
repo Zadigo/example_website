@@ -41,8 +41,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_extensions',
+    'debug_toolbar',
+    'social_django',
+    
     'analytics',
-    # 'social_django',
     'testapp',
     'accounts',
     'hero',
@@ -57,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mywebsite.urls'
@@ -160,8 +164,8 @@ AUTHENTICATION_BACKENDS = [
     # 'social_core.backends.twitter.TwitterOAuth',
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
-    # 'social_core.backends.google.GoogleOAuth2',
-    # 'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
     'accounts.backends.EmailAuthenticationBackend'
 ]
 
