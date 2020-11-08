@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'rest_framework',
+    'rest_framework',
     'django_extensions',
-    'social_django',
+    # 'social_django',
+    'testapp',
     'accounts',
-    # 'dashboard',
     'hero',
     'nodesplus',
 ]
@@ -56,8 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # 'hero.testing_.TestMiddleWare',
 ]
 
 ROOT_URLCONF = 'mywebsite.urls'
@@ -79,10 +77,8 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
 
                 'django.template.context_processors.i18n',
-                'django.template.context_processors.debug',
             ],
             'libraries': {
-                'navs': 'templatetags.navs',
                 'utils': 'accounts.templatetags.utils',
                 'nodes_plus': 'nodesplus.templatetags.nodes_plus',
             }

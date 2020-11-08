@@ -127,3 +127,32 @@ def non_authenticated_navbar_links(parser, token):
         ('accounts:signup', {'icon': 'signup', 'verbose_name': 'Signup'})
     ]
     return NavbarNode(views, links, for_authenticated=False)
+
+
+@register.simple_tag(takes_context=True)
+def impressions(context, *fields):
+    from django.db.models import QuerySet
+    if not fields:
+        raise TemplateSyntaxError(
+            f"'impression' requires a queryset"
+        )
+    fields = list(fields)
+    queryset = fields[0]
+    if not isinstance(queryset, QuerySet):
+        raise TemplateSyntaxError(
+            f"'impression' requires a queryset as first argument"
+        )
+
+    remaining_bits = fields[1:]
+    if not remaining_bits:
+        raise TemplateSyntaxError(
+            "'impressions' requires a set of fields to use from the quersyet"
+        )
+
+    values = queryset.values(*remaining_bits)
+    values_list = list(values)
+    new_values_list = values_list
+    for index, value in enumerate(new_values_list):
+        value['position'] = index
+    s = str(json.dumps(new_values_list))
+    return mark_safe(s)
