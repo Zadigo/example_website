@@ -1,4 +1,5 @@
 import datetime
+import json
 import re
 
 import stripe
@@ -10,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control, cache_page
 from django.views.generic import TemplateView, View
 
 from accounts import forms
@@ -55,22 +56,21 @@ class InformationView(LoginRequiredMixin, View):
 
         position = int(request.POST.get('position'))
 
+        form = None
+
         if position == 0:
             form = self.forms['form1'](request.POST, instance=user)
 
         if position == 1:
             form = self.forms['form2'](request.POST, instance=user_profile)
 
-        if not form:
-            messages.error(request, _("An error occured - FOR-NR"),
-                           extra_tags='alert-danger')
-            # return JsonResponse(data={'state': False})
+        if form is None:
+            messages.error(request, _("An error occured - FOR-NR"), extra_tags='alert-danger')
             return redirect(reverse('accounts:profile:home'))
         else:
             if form.is_valid():
                 form.save()
 
-        # return JsonResponse(data={'state': True})
         messages.success(request, _("Informations modifiées"), extra_tags='alert-success')
         return redirect(reverse('accounts:profile:home'))
 
@@ -131,8 +131,12 @@ class ChangePasswordView(LoginRequiredMixin, View):
         return redirect('/profile/')
 
 
+# @method_decorator(cache_page(100 * 60), name='dispatch')
 class ContactPreferencesView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/profile/contact.html'
 
     def post(self, request, **kwargs):
-        pass
+        data = {'state': False}
+        data = json.loads(request.body)
+        data.update({'state': True})
+        return JsonResponse(data=data)

@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.core.mail import send_mail
 
 
-# @method_decorator(cache_page(240 * 60), name='dispatch')
+@method_decorator(cache_page(240 * 60), name='dispatch')
 class HeroView(TemplateView):
     template_name = 'pages/home.html'
 

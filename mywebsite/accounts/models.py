@@ -71,7 +71,7 @@ class MyUserProfile(models.Model):
         try:
             details = stripe.Customer.create(
                 email=self.myuser.email, 
-                name=self.myuser.get_full_name()
+                name=self.myuser.get_full_name
             )
         except stripe.error.StripeError as e:
             pass
