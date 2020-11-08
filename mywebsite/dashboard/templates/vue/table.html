@@ -25,8 +25,8 @@
     })
 
     var tableapp = new Vue({
-        el: "#vue_table_app",
-        name: "TableApplication",
+        el: "#vue_dashboard_app",
+        name: "Table",
         delimiters: ["[[", "]]"],
         data() {
             return {
@@ -45,19 +45,19 @@
             appendselection: function (value, state) {
                 if (this.$data.selections.includes(value)) {
                     if (state === false) {
-                        this.$data.selections.pop(value)
+                        this.selections.pop(value)
                     }
                 } else {
                     if (state === true) {
-                        this.$data.selections.push(value)
+                        this.selections.push(value)
                     }
                 }
             },
             doselection: function (value, state) {
                 if (state) {
-                    this.$data.selections.push(value)
+                    this.selections.push(value)
                 } else {
-                    this.$data.selections.pop(value)
+                    this.selections.pop(value)
                 }
             },
             selectall: function (method, state) {

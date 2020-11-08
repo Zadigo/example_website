@@ -1,0 +1,27 @@
+{% extends "components/tables/base_table.html" %}
+{% load i18n table %}
+
+{% block table_header %}
+    {% header "ID" "Référence" "Somme" "Statut" %}
+{% endblock %}
+
+{% block table_body %}
+    {% for order in latest_orders %}
+        <tr>
+            <th scope="row">{{ order.id }}</th>
+            <td>{{ order.reference }}</td>
+            <td>{{ order.payment }}</td>
+            <td>
+                {% if order.completed %}
+                <span class="badge badge-success badge-pill pull-right">
+                    {% trans "Terminer" %}
+                </span>
+                {% else %}
+                <span class="badge badge-danger badge-pill pull-right">
+                    {% trans "En attente" %}
+                </span>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

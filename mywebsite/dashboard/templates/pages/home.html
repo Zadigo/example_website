@@ -1,13 +1,17 @@
 {% extends "index.html" %}
-{% load i18n table %}
+{% load i18n %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
 	<div class="row wow fadeIn">
-		<!-- CHART-1 -->
+		<!-- CHART -->
 		<div class="col-md-9 mb-4">
-			{% include "components/charts/bar.html" with chart_name="myChart" endpoint="dashboard:api:chart" %}
+			<div class="card">
+				<div class="card-body">
+					<line-chart-component :chartid="'simple-bar-chart'" />
+				</div>
+			</div>
 		</div>
 
 		<!-- STATS -->
@@ -25,37 +29,16 @@
 					<p class="font-weight-bold text-uppercase">
 						{% trans "Dernières commandes" %}
 					</p>
-					<table class="table table-hover">
-						<thead class="blue lighten-4">
-							{% header "ID" "Référence" "Somme" "Statut" %}
-						</thead>
-						<tbody>
-							{% for order in latest_orders %}
-								<tr>
-									<th scope="row">{{ order.id }}</th>
-									<td>{{ order.reference }}</td>
-									<td>{{ order.payment }}</td>
-									<td>
-										{% if order.completed %}
-											<span class="badge badge-success badge-pill pull-right">
-												{% trans "Terminer" %}
-											</span>										
-										{% else %}
-											<span class="badge badge-danger badge-pill pull-right">
-												{% trans "En attente" %}
-											</span>										
-										{% endif %}
-									</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+					{% include "components/tables/orders_resume.html" %}
 				</div>
 			</div>
 		</div>
 	</div>
 {% endblock %}
 
-{% block chart_scripts %}
-	{% include "scripts/bar_chart.html" %}
+{% block vuejs_scripts %}
+	<!-- CHARTS -->
+	{% include "vue/charts/line.html " %}
+	<!-- VUE -->
+	{% include "vue/home.html" %}
 {% endblock %}

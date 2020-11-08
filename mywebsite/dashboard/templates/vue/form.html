@@ -32,9 +32,12 @@
     })
 
     var formapp = new Vue({
-        el: "#general_form",
+        el: "#vue_dashboard_app",
         name: "Form",
         delimiters: ["[[", "]]"],
+        components: {
+            "duplication-component": duplicationapp
+        },
         data() {
             return {
                 selection: [],
@@ -46,22 +49,7 @@
         beforeMount() {
             if (product !== "") {
                 this.$data.product = product
-
-                var images = []
-                try {
-                    images = product.images
-                } catch {
-                    // DO NOTHING
-                }
-                if (images.length > 0) {
-                    _.forEach(images, (image) => {
-                        image["id"] = image.pk
-                    })
-                    this.$data.images = images
-                }
             }
-
-            this.$data.allimages = otherimages
         }
     })    
 </script>

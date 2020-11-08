@@ -6,9 +6,7 @@
         {{ form.name }}
 
         <label class="mt-3" for="id_description">{% trans "Description" %}</label>
-        {% comment "Quill editor for advanced editing" %}
-            {% include "components/edit/quill_editor.html" %}
-        {% endcomment %}
+        <quill-editor />
 
         {% if description_as_field %}
             {{ description_as_field }}

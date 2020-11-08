@@ -100,3 +100,18 @@
         transform: translateY(0px);
     }
 }
+
+
+.general-transition-enter-active {
+    transition: all .5s ease;
+}
+.general-transition-enter,
+.general-transition-leave-to {
+    opacity: 0;
+    transform: scale(.9, .9);
+}
+.general-transition-enter-to,
+.general-transition-leave {
+    opacity: 1;
+    transform: scale(1, 1);
+}

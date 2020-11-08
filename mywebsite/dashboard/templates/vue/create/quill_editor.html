@@ -1,0 +1,49 @@
+<script>
+    Vue.component("quill-editor", {
+        template: `
+            <div id="editor"></div>
+            `,
+        data() {
+            return {
+                quill: null
+            }
+        },
+        mounted() {
+            this.quill = new Quill("#editor", {
+                modules: {
+                    toolbar: [
+                        ["bold", "italic", "underline", "strike"],
+                        ["link", "image"],
+                        [{ "header": 1 }, { "header": 2 }],
+                        // [{ "color": [] }, { "background": [] }],
+                        // [{ "font": ["Roboto", "Lato"] }],
+                        ["clean"],
+                    ],
+                },
+                // handlers: {
+                //     "link": function (value) {
+                //         var url =prompt("Enter url:")
+                //         this.quill.format("link", url)
+                //     }
+                // },
+                theme: "snow"
+            })
+
+            var quill = this.quill
+
+            quill.on("text-change", function (delta, source) {
+                setTimeout(() => {
+                    $("input#html").val(quill.root.innerHTML)
+                    $("input#contents").html(quill.getContents())
+                }, 1000);
+            })
+        },
+        methods: {
+            startaction: function () {
+                var htmlcontent = this.quill.root.innerHTML
+                var content = JSON.stringify(this.quill.getContents())
+                this.$emit("startaction", htmlcontent)
+            }
+        }
+    })
+</script>

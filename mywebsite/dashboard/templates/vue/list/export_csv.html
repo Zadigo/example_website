@@ -1,7 +1,6 @@
 {% load i18n %}
 
 <script>
-    // var exportcsvapp = new Vue({
     Vue.component("export-csv-component", {
         name: "ExportCSV",
         delimiters: ["[[", "]]"],
@@ -24,12 +23,19 @@
             }
         },
         beforeMount() {
-            var products = JSON.parse($("#on_current_page").text())
+            try {
+                var products = JSON.parse($("#on_current_page").text())
+            } catch (error) {
+                console.log("Products is not defined (Export CSV).")
+                console.error(error)
+                products = []
+            }
+
             var ids = []
             _.forEach(products, (product) => {
                 ids.push(product.pk)
             })
-            this.$data.oncurrentpage =ids
+            this.$data.oncurrentpage = ids
         },
         computed: {
             constructurl() {
