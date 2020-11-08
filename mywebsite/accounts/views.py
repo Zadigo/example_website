@@ -25,11 +25,15 @@ class SignupView(FormView):
     def post(self, request, *args, **kwargs):
         old_form = super().post(request, *args, **kwargs)
         form = self.form_class(request.POST)
+        message = {
+            'level': messages.ERROR,
+            'extra_tags': 'alert-danger'
+        }
         if form.is_valid():
             email = form.cleaned_data['email']
             user = MYUSER.objects.filter(email__iexact=email)
             if user.exists():
-                messages.error(request, _("Vous possédez déjà un compte chez nous"), extra_tags='alert-danger')
+                message.update({'message': _("Vous possédez déjà un compte chez nous")})
                 return redirect('accounts:login')
             else:
                 new_user = form.save()
@@ -38,11 +42,7 @@ class SignupView(FormView):
                     auth.login(request, auth.authenticate(request, email=email, password=password))
                     return self.get_redirect_url(request)
         else:
-            message = {
-                'message': _("Une erreur est arrivée - SIG-ER"),
-                'level': messages.ERROR,
-                'extra_tags': 'alert-danger'
-            }
+           message.update({'message': _("Une erreur est arrivée - SIG-ER")})
         messages.add_message(request, **message)
         return old_form
 
