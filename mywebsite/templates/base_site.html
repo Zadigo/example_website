@@ -4,41 +4,11 @@
 {% block theme_color %}#484848{% endblock %}
 
 {% block extra_css %}
-    <link href="{% static 'style.css' %}" rel="stylesheet">
-    <link href="{% static 'nav.css' %}" rel="stylesheet">
-    <link href="{% static 'dropdowns.css' %}" rel="stylesheet">
-    <link href="{% static 'ecommerce.css' %}" rel="stylesheet">
-    <link href="{% static 'banners.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dropdowns.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block analytics %}
-    <!-- ANALYTICS -->
-    {# This is a specific technique to use Google Optimize with GTM #}
-    {# {% include "analytics/google_analytics.html" with ga_tag="" optimize_tag="" %} #}
-
-    {# {% include "analytics/tag_manager.html" with gtm_id="G" %} #}
-    {# {% include "analytics/facebook.html" with id="" %} #}
-    {% block facebook_events %}{% endblock %}
-
-    <!-- OPTIMIZE -->
-    {# {% include "analytics/optimize_anti_flicker.html" with optimize_tag="" %} #}
-
-    <!-- MAILCHIMP -->
-    {# {% include "analytics/mailchimp.html" %} #}
-
-    <!-- ADWORDS REMARKETING  -->
-    {# {% include "analytics/remarketing.html" with remarketing_tag="" %} #}
-    {% block remarketing %}{% endblock %}
-
-    <!-- PINTEREST -->
-    {# {% include "analytics/pinterest.html" with verification_code="" %} #}
-    {% endblock %}
-
-    {% block extra_analytics %}
-    {# {% include "analytics/google_no_script.html" with gtm_id="" %} #}
-
-    <!-- FACEBOOK PIXELS -->
-    {% block facebook_event %}{% endblock %}
 {% endblock %}
 
 {% comment %}
@@ -53,13 +23,10 @@
     </div>
 {% endcomment %}
 
-{% block main_tag_style %}mt-4 mt-sm-2 mt-md-5 mt-lg-5{% endblock %}
-
 {% block main %}
     <div class="container dark-grey-text mt-5">
         {% for message in messages %}
-            <div class="alert {% if message.tags %}{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show"
-                role="alert">
+            <div class="alert {% if message.tags %}{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

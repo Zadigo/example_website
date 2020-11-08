@@ -1,0 +1,54 @@
+<script>
+    var formcomponent = {
+        name: "ContactForm",
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                items: {
+                    name: null,
+                    email: null,
+                    message: null,
+                    newsletter: false
+                }
+            }
+        },
+        methods: {
+            sendmessage: function () {
+                this.$emit("sendmessage", this.items)
+            }
+        }
+    }
+
+    var contact = new Vue({
+        el: "#vue-contact-form",
+        delimiters: ["[[", "]]"],
+        components: {
+            "form-component": formcomponent
+        },
+        data() {
+            return {
+                sent: false,
+                success: false,
+            }
+        },
+        methods: {
+            dosend: function (data) {
+                fetch("{% url 'hero:contact' %}", {
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify(data)
+                })
+                .then((response) => {
+                    response.json().then((data) => {
+                        this.success = true
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
+        }
+    })
+</script>
