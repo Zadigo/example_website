@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+.mt-6, .my-6 {
+  margin-top: 6rem !important;
+}
+
+.fs-1x {
+  font-size: 2.4rem !important;
+}
+
+.fs-2x {
+  font-size: 3.2rem !important;
+}
+
+.fs-3x {
+  font-size: 4.8rem !important;
+}
+
+.fs-4x {
+  font-size: 6.4rem !important;
+}
+
+.bg-transparent-1 {
+  opacity: .5;
+}
+
+section.section {
+  height: 100vh;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 5rem !important;
+}
+
+.banner {
+  height: auto;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+}
+
+.banner a {
+  color: black;
+}
+
+.banner.banner-2x {
+  padding: 4rem !important;
+}
+
+@media only screen and (min-width: 320px) {
+  .banner i {
+    display: none;
+  }
+  .banner div {
+    text-align: left;
+  }
+}
+
+@media only screen and (min-width: 553px) {
+  .banner i {
+    display: none;
+  }
+  .banner div {
+    text-align: left;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .banner i {
+    display: initial;
+  }
+}
+
+.sidebar-fixed {
+  height: 100vh;
+  width: 270px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  z-index: 1050;
+  background-color: #fff;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.sidebar-fixed .list-group .active {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+}
+
+.sidebar-fixed .logo-wrapper {
+  padding: 2.5rem;
+}
+
+.sidebar-fixed .logo-wrapper img {
+  max-height: 50px;
+}
+
+@media (min-width: 1200px) {
+  .navbar, .page-footer, main {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .sidebar-fixed {
+    display: none;
+  }
+}
+
+.statistics-card .icon {
+  position: relative;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+}
+
+.statistics-card .icon i {
+  opacity: .8;
+  margin: 0;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.statistics-card p {
+  margin: 0;
+}
+/*# sourceMappingURL=style.css.map */

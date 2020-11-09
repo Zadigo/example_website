@@ -1,0 +1,36 @@
+<script>
+    Vue.component("table-component", {
+        name: "Table",
+        mixins: [tablemixins],
+        delimiters: ["[[", "]]"],
+        template: `
+        <table class="table table-hover">
+            <thead class="blue-grey lighten-4">
+                <tr>
+                    <th v-for="header in headers" :key="header">
+                        [[ header ]]
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <transition-group tag="tr" name="table-rows" v-for="row in rows" :key="row.id">
+                    <th v-for="(value, index) in row.row" :key="index" :scope="isrow(index)">
+                        [[ value ]]    
+                    </th>
+                </transition-group>
+            </tbody>
+        </table>
+        `,
+        data() {
+            return {
+                headers: ["#", "Lorem", "Ipsum", "Dolor"],
+                rows: [
+                    { id: 1, row: ["Kendall Jenner", 24, "USA", "single"] },
+                    { id: 2, row: ["Hailey Baldwin", 22, "USA", "single"] },
+                    { id: 3, row: ["Sophie Turner", 24, "USA", "married"] },
+                ]
+            }
+        }
+    })
+</script>

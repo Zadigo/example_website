@@ -1,0 +1,117 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- FONT AWESOME -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <!-- MD BOOTSTRAP -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css">
+        <!-- CUSTOM -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/transitions.css' %}">
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+        <style>
+            .map-container {
+                overflow: hidden;
+                padding-bottom: 56.25%;
+                position: relative;
+                height: 0;
+            }
+
+            .map-container iframe {
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+            }
+        </style>
+    </head>
+
+    <body class="grey lighten-3">
+        <div id="vue_dashboard_app">
+            <header>
+                <!-- Navbar -->
+                {% include "components/navbar.html" %}
+                <!-- Sidebar -->
+                {% include "components/sidebar.html" %}
+            </header>
+            
+            <!-- Main -->
+            <main class="pt-5 mx-lg-5">
+                <div class="container-fluid mt-5">
+                    <!-- Heading -->
+                    {% block heading %}{% endblock %}
+                    <!-- Container -->
+                    {% block main %}{% endblock %}
+                </div>
+            </main>
+        </div>
+    </body>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../js/wow.js"></script>
+
+    <!-- Initializations -->
+    <script type="text/javascript">
+        new WOW().init();
+    </script>
+
+    <!-- Velocity -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    
+    <!-- Gsap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    
+    <!-- Lodash -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <!-- Waypoint -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js"></script>
+    
+    <!-- <script>
+        var waypoint = new Waypoint({
+            element: document.getElementById("waypoint-1"),
+            handler: function (direction) {
+                if (direction === "down") {
+                    document.getElementById("scroll-to-top").classList.remove("d-none")
+                } else {
+                    document.getElementById("scroll-to-top").classList.add("d-none")
+                }
+            },
+            offset: 70
+        })
+    </script> -->
+    
+    <!-- Vue JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    {% block extra_scripts %}{% endblock %}
+
+    {% block vuejs_scripts %}
+        <!-- Global -->
+        {% include "vue/dashboard/global.html" %}
+    {% endblock %}
+</html>

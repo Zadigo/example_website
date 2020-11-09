@@ -1,0 +1,83 @@
+{% extends "dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Index" %}{% endblock %}
+
+{% block heading %}
+    {% include "components/heading.html" with header_title="Index" %}
+{% endblock %}
+
+{% block main %}
+    <div class="row wow fadeIn animated">
+        <div class="col-md-9 mb-4">
+            <!-- CHART -->
+            <div class="card">
+                <div class="card-body">
+                    <bar-chart-component :chartid="'mychart1'" />
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mt-4">
+                        <div class="card-body"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card mt-4">
+                        <div class="card-body"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <table-component />
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action waves-effect">Sales
+                            <span class="badge badge-success badge-pill pull-right">22%
+                                <i class="fas fa-arrow-up ml-1"></i>
+                            </span>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action waves-effect">Traffic
+                            <span class="badge badge-danger badge-pill pull-right">5%
+                                <i class="fas fa-arrow-down ml-1"></i>
+                            </span>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action waves-effect">Orders
+                            <span class="badge badge-primary badge-pill pull-right">14</span>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action waves-effect">Issues
+                            <span class="badge badge-primary badge-pill pull-right">123</span>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action waves-effect">Messages
+                            <span class="badge badge-primary badge-pill pull-right">8</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                
+{% endblock %}
+
+{% block vuejs_scripts %}
+    {{ block.super }}
+    <!-- Charts -->
+    {% include "vue/dashboard/charts/bar.html" %}
+    <!-- Table -->
+    {% include "vue/dashboard/tables/table.html" %}
+    <!-- Dashboard -->
+    {% include "vue/dashboard/app.html" %}
+{% endblock %}
