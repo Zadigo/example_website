@@ -14,6 +14,7 @@ apipatterns = [
 urlpatterns = [
     path('api/', include((apipatterns, app_name), namespace='api')),
 
+    url(r'^products/id$', views.ProductView.as_view(), name='product'),
     url(r'^products$', views.ProductsView.as_view(), name='products'),
     url(r'^$', views.IndexView.as_view(), name='index')
 ]

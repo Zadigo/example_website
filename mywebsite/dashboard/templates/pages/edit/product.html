@@ -1,0 +1,65 @@
+{% extends "pages/edit/base.html" %}
+{% load i18n %}
+
+{% block extra_css %}
+    <style>
+        .ql-editor {
+            height: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block actions_top %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <h3 class="m-0">Product Name</h3>
+                        <spinner-button-component :id="'edit'" :text="'Soumettre'" :color="'btn-primary'" />
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block left %}
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="name">{% trans "Nom du produit" %}</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Name" autocomplete="off" autocapitalize="on">
+            </div>
+
+            <div class="form-group">
+                <quill-editor @startaction="addcontent" />
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block right %}
+    <div class="card">
+        <div class="card-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Eveniet non at ad ratione ullam accusamus dolore commodi! 
+            Veritatis atque fugiat distinctio commodi cupiditate, 
+            nemo magni facilis molestiae beatae doloremque porro!
+        </div>
+    </div>
+{% endblock %}
+
+{% block vuejs_scripts %}
+    {{ block.super }}
+    <!-- Quill -->
+    {% include "vue/dashboard/quill.html" %}
+    <!-- Dashboard -->
+    {% include "vue/dashboard/edition_app.html" %}
+{% endblock %}

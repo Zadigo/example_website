@@ -25,6 +25,10 @@ class ProductsView(TemplateView):
         return JsonResponse(data=json.dumps(items), safe=False)
 
 
+class ProductView(TemplateView):
+    template_name = 'pages/edit/product.html'
+
+
 @require_POST
 def duplicate_products(request, **kwargs):
     return JsonResponse(data={})

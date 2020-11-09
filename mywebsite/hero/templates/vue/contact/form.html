@@ -43,11 +43,20 @@
                 .then((response) => {
                     response.json().then((data) => {
                         this.success = true
+                        this.resetitems()
                     })
                 })
                 .catch((error) => {
                     console.log(error)
                 })
+            },
+            resetitems: function () {
+                this.items = {
+                    name: null,
+                    email: null,
+                    message: null,
+                    newsletter: false
+                }
             }
         }
     })

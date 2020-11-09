@@ -1,0 +1,26 @@
+{% extends "dashboard.html" %}
+{% load i18n %}
+
+{% block main %}
+    <form action="window.location.href;" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-row">
+            {% block actions_top %}{% endblock %}
+        </div>
+
+        <div class="form-row">
+            <div class="col-8 mt-4">
+                {% block left %}{% endblock %}
+            </div>
+        
+            <div class="col-4 mt-4">
+                {% block right %}{% endblock %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            {% block actions_bottom %}{% endblock %}
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,50 @@
+<script>
+    Vue.component("quill-editor", {
+        template: `
+        <div id="quill-editor">
+            <div class="form-group">
+                <div id="editor"></div>
+            </div>
+
+            <div v-if="true" class="actions text-right">
+                <button @click="startaction" class="btn btn-large btn-primary">
+                    Submit
+                </button>
+            </div>
+        </div>
+        `,
+        data() {
+            return {
+                quill: null
+            }
+        },
+        mounted() {
+            this.quill = new Quill("#editor", {
+                modules: {
+                    toolbar: [
+                        ["bold", "italic", "underline", "strike"],
+                        ["link", "image"],
+                        [{ "header": 1 }, { "header": 2 }],
+                        // [{ "color": [] }, { "background": [] }],
+                        // [{ "font": ["Roboto", "Lato"] }],
+                        ["clean"],
+                    ],
+                },
+                // handlers: {
+                //     "link": function (value) {
+                //         var url =prompt("Enter url:")
+                //         this.quill.format("link", url)
+                //     }
+                // },
+                theme: "snow"
+            })
+        },
+        methods: {
+            startaction: function () {
+                var htmlcontent = this.quill.root.innerHTML
+                var content = JSON.stringify(this.quill.getContents())
+                this.$emit("startaction", htmlcontent)
+            }
+        }
+    })
+</script>

@@ -83,7 +83,7 @@
                                                 </td>
                                                 <td scope="row">[[ item.id ]]</td>
                                                 <td class="row-edit">
-                                                    [[ item.title ]]
+                                                    <a href="{% url 'dashboard:product' %}">[[ item.title ]]</a>
                                                     <!-- <row-edit-component @togglebox="hideothereditboxes" :item="item" :key="'id_' + item.id" /> -->
                                                 </td>
                                                 <td>[[ item.userId ]]</td>

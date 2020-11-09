@@ -21,7 +21,7 @@
 
 <script>
     var buttonmixins = {
-        props: ["id", "text", "color", "isdisabled"],
+        props: ["id", "text", "color", "size", "isdisabled"],
         delimiters: ["[[", "]]"],
     }
 
@@ -29,10 +29,18 @@
         name: "Button",
         mixins: [buttonmixins],
         template: `
-        <button @click="startaction" type="button" class="btn btn-sm" :color="color" :disabled="isdisabled">
+        <button @click="startaction" type="button" class="btn" :class="color, buttonsize" :disabled="isdisabled">
             <slot></slot>    
         </button>
         `,
+        computed: {
+            buttonsize() {
+                if (this.size === undefined) {
+                    return "btn-sm"
+                }
+                return this.size
+            }
+        },
         methods: {
             startaction: function () {
                 this.$emit("startaction")
