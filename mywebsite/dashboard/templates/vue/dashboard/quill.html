@@ -5,21 +5,18 @@
             <div class="form-group">
                 <div id="editor"></div>
             </div>
-
-            <div v-if="true" class="actions text-right">
-                <button @click="startaction" class="btn btn-large btn-primary">
-                    Submit
-                </button>
-            </div>
         </div>
         `,
         data() {
             return {
-                quill: null
+                quill: null,
+                htmltext: null,
+                deltaitems: null
             }
         },
         mounted() {
-            this.quill = new Quill("#editor", {
+            var self = this
+            var editor = new Quill("#editor", {
                 modules: {
                     toolbar: [
                         ["bold", "italic", "underline", "strike"],
@@ -38,6 +35,14 @@
                 // },
                 theme: "snow"
             })
+
+            editor.on("text-change", function (delta) {
+                self.htmltext = editor.root.innerHTML
+                self.deltaitems = editor.getContents()
+                $("#html").val(self.htmltext)
+                $("#deltas").val(JSON.stringify(self.deltaitems))
+            })
+            this.quill = editor
         },
         methods: {
             startaction: function () {

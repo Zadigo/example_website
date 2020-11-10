@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block main %}
-    <form action="window.location.href;" enctype="multipart/form-data">
+    <form id="edit-form" method="POST" action="{% url 'dashboard:product' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
         <div class="form-row">

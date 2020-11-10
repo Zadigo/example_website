@@ -11,7 +11,13 @@ apipatterns = [
     url(r'^duplicate$', views.duplicate_products, name='duplicate')
 ]
 
+settingspatterns = [
+    url(r'^general$', views.SettingsGeneralView.as_view(), name='general'),
+    url(r'^$', views.SettingsHomeView.as_view(), name='home'),
+]
+
 urlpatterns = [
+    path('settings/', include((settingspatterns, app_name), namespace='settings')),
     path('api/', include((apipatterns, app_name), namespace='api')),
 
     url(r'^products/id$', views.ProductView.as_view(), name='product'),

@@ -1,9 +1,12 @@
 import json
 
+from django.contrib.messages import success
 from django.core.cache import cache
 from django.http import request
 from django.http.response import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 from requests import get as get_request
@@ -25,8 +28,28 @@ class ProductsView(TemplateView):
         return JsonResponse(data=json.dumps(items), safe=False)
 
 
+@method_decorator(cache_page(15 * 60), name='dispatch')
 class ProductView(TemplateView):
     template_name = 'pages/edit/product.html'
+
+    def post(self, request, **kwargs):
+        success(request, 'Item was updated', extra_tags='alert-success')
+        return redirect('dashboard:product')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['create_mode'] = True
+        return context
+
+
+@method_decorator(cache_page(15 * 60), name='dispatch')
+class SettingsHomeView(TemplateView):
+    template_name = 'pages/settings/home.html'
+
+
+@method_decorator(cache_page(15 * 60), name='dispatch')
+class SettingsGeneralView(TemplateView):
+    template_name = 'pages/settings/general.html'
 
 
 @require_POST

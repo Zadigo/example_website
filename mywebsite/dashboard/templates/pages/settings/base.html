@@ -1,0 +1,12 @@
+{% extends "dashboard.html" %}
+{% load i18n %}
+
+{% block main %}
+    <div class="col-8">
+        {% block settings_left %}{% endblock %}
+    </div>
+
+    <div class="col-4">
+        {% block settings_right %}{% endblock %}
+    </div>
+{% endblock %}

@@ -4,6 +4,13 @@
         name: "Edition",
         data() {
             return {}
+        },
+        methods: {
+            submitform: function () {
+                setTimeout(() => {
+                    $("#edit-form").submit()
+                }, 3000);
+            }
         }
     })
 </script>

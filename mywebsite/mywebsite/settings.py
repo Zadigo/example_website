@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'social_django',
     
     'analytics',
+    'dashboard',
     'testapp',
     'accounts',
     'hero',

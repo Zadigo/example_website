@@ -22,7 +22,7 @@
 <script>
     var buttonmixins = {
         props: ["id", "text", "color", "size", "isdisabled"],
-        delimiters: ["[[", "]]"],
+        delimiters: ["[[", "]]"]
     }
 
     Vue.component("button-component", {
@@ -210,6 +210,74 @@
         methods: {
             startaction: function () {
                 this.$emit("startaction", this.value)
+            }
+        }
+    })
+
+    Vue.component("checkbox-component", {
+        props: ["initvalue", "id", "label"],
+        name: "CheckBox",
+        delimiters: ["[[", "]]"],
+        template: `
+        <div class="custom-control custom-checkbox">
+            <input @change="startaction" v-model="clicked" :id="id" type="checkbox" class="custom-control-input">
+
+            <label class="custom-control-label" :for="id">
+                [[ label ]]
+            </label>
+        </div>
+        `,
+        data() {
+            return {
+                clicked: false
+            }
+        },
+        beforeMount() {
+            if (this.$props.initvalue === undefined) {
+                this.clicked = false
+            } else {
+                this.clicked = this.$props.initvalue
+            }
+        },
+        methods: {
+            startaction: function () {
+                this.$emit("startaction", this.clicked)
+            }
+        }
+    })
+</script>
+
+<script>
+    Vue.component("toggle-component", {
+        props: ["initvalue", "id", "label"],
+        name: "ToggleComponent",
+        delimiters: ["[[", "]]"],
+        template: `
+        <div class="form-group">
+            <checkbox-component @startaction="togglevisibility" :initvalue="initvalue" :id="id" :label="label" />
+
+            <transition name="general-transition" tag="div">
+                <div v-if="isvisible" class="form-group">
+                    <slot></slot>
+                </div>
+            </transition>
+        </div>
+        `,
+        data() {
+            return {
+                isvisible: false
+            }
+        },
+        beforeMount() {
+            if (this.$props.initvalue === undefined) {
+                this.isvisible = false
+            } else {
+                this.isvisible = this.$props.initvalue
+            }
+        },
+        methods: {
+            togglevisibility: function (state) {
+                this.isvisible = state
             }
         }
     })
