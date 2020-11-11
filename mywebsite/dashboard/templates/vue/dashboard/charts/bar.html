@@ -2,12 +2,6 @@
     var chartmixins = {
         props: ["chartid"],
         template: `<canvas :id="chartid"></canvas>`,
-        data() {
-            return {
-                labels: [],
-                chartdata: []
-            }
-        },
         mounted() {
             var mychart = document.getElementById(this.$props.chartid)
             var ctx = mychart.getContext("2d")
@@ -18,27 +12,18 @@
     }
 
     Vue.component("bar-chart-component", {
+        props: ["labels", "chartdata"],
         name: "BarChart",
         mixins: [chartmixins],
-        data() {
-            return {
-                labels: [],
-                chartdata: []
-            }
-        },
-        beforeMount() {
-            this.labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
-            this.chartdata = [12, 19, 3, 5, 2, 3]
-        },
         methods: {
             draw: function (ctx) {
                 var barchart = new Chart(ctx, {
                     type: "bar",
                     data: {
-                        labels: this.labels,
+                        labels: this.$props.labels,
                         datasets: [{
                             label: "# of Votes",
-                            data: this.chartdata,
+                            data: this.$props.chartdata,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
