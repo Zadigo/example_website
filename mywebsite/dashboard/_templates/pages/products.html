@@ -1,0 +1,176 @@
+{% extends "dashboard.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Produits" %}{% endblock %}
+
+{% block extra_css %}
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block heading %}
+    {% include "components/heading.html" with header_title="Produits" %}
+{% endblock %}
+
+{% block main %}
+    <div class="row wow fadeIn">
+        <div class="col-12">
+            <!-- Interface -->
+            <data-table-interface :items="items" inline-template>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <!-- Search -->
+                            <div class="col-4 text-right">
+                                <div class="form-group">
+                                    <input v-model="search" type="search" name="search" class="form-control" id="search"
+                                        placeholder="Search table">
+                                </div>
+                            </div>
+    
+                            <!-- Actions -->
+                            <transition name="general-transition">
+                                <div class="col-auto">
+                                    <button class="btn btn-md btn-outline-primary m-0" data-toggle="modal" data-target="#duplicate">
+                                        {% trans "Télécharger CSV" %}
+                                    </button>
+
+                                    <div v-if="showactionbutton" class="btn-group">
+                                        <button @click="duplicateitems(items)" type="button" class="btn btn-md btn-primary m-0">
+                                            {% trans "Dupliquer" %} <div class="badge ml-3 blue lighten-2">[[ numberofselectedvalues ]]
+                                            </div>
+                                        </button>
+    
+                                        <button type="button" class="btn btn-md btn-primary dropdown-toggle px-3 m-0"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+    
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">First</a>
+                                            <a @click.prevent="deleteitems()" class="dropdown-item" href>{% trans "Supprimer" %}</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href data-toggle="modal" data-target="#duplicate">
+                                                {% trans "Télécharger CSV" %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </transition>
+                        </div>
+                    </div>
+    
+                    <!-- Waypoint -->
+                    <div id="waypoint-1"></div>
+    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Loader -->
+                                <div v-if="loading" class="loader" id="loader-7"></div>
+        
+                                <!-- Table -->
+                                <data-table-component v-else :items="dosearch" inline-template>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th scope="col">
+                                                <select-all-checkbox-component @startaction="selectall" :id="'id_all'"
+                                                    :everythingselected="everythingselected" />
+                                            </th>
+                                            <th @click="sortcolumnby(header)" v-for="header in headers" :key="header"
+                                                class="sortable-header">
+                                                [[ header ]]
+                                                <i class="fa fa-filter ml-3" :class="headerisselected(header)"></i>
+                                            </th>
+                                        </thead>
+    
+                                        <tbody name="posts-table" is="transition-group">
+                                            <tr v-for="item in sorteditems" :key="item.id">
+                                                <td>
+                                                    <data-checkbox-component @startaction="toggleitemselection" :item="item" :key="'item_' + item.id" />
+                                                </td>
+                                                <td scope="row">[[ item.id ]]</td>
+                                                <td class="row-edit">
+                                                    <a href="{% url 'dashboard:product' %}">[[ item.title ]]</a>
+                                                    <!-- <row-edit-component @togglebox="hideothereditboxes" :item="item" :key="'id_' + item.id" /> -->
+                                                </td>
+                                                <td>[[ item.userId ]]</td>
+                                                <td>[[ item.completed ]]</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </data-table-component>
+                            </div>
+                        </div>
+    
+                        <!-- Modal -->
+                        <div class="modal fade" id="duplicate" tabindex="-1" role="dialog" aria-labelledby="duplicate"
+                            aria-hidden="true">
+    
+                            <div class="modal-dialog modal-sm" role="document">
+                                <!-- CSV -->
+                                <csv-component :selectedvaluesids="selectedvaluesids"
+                                    :numberofselectedvalues="numberofselectedvalues" inline-template>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">
+                                                {% trans "Télécharger le fichier CSV" %}
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+    
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <radios-component @radioaction="showinputfield" :radios="radios" />
+                                                </div>
+    
+                                                <div v-if="inputvisible" class="col-12">
+                                                    <input type="text" name="specific" id="specific">
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                data-dismiss="modal">{% trans "Fermer" %}</button>
+                                            <spinner-button-component @doaction="downloadcsvfile" :id="'download-csv'"
+                                                :color="'btn-primary'" :text="'Download CSV'" />
+                                        </div>
+                                    </div>
+                                </csv-component>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="card-footer text-right">
+                        <div class="row">
+                            <div class="col-auto offset-7">
+                                <div class="table-footer d-flex flex-direction-row justify-content-right">
+                                    <p>
+                                        <select-component @startaction="sliceitems"
+                                            :options="[10, 25, 50, 100, totalnumberofitems]" :initvalue="sliceat" />
+                                    </p>
+                                    <p class="ml-3">
+                                        Showing [[ sliceat ]] to [[ totalnumberofitems ]] of [[ totalnumberofitems ]] items
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </data-table-interface>
+        </div>
+    </div>
+{% endblock %}
+
+{% block vuejs_scripts %}
+    {{ block.super }}
+    <!-- Datatable -->
+    {% include "vue/dashboard/datatable_app.html" %}
+{% endblock %}
