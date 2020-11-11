@@ -2,6 +2,16 @@
     var chartmixins = {
         props: ["chartid"],
         template: `<canvas :id="chartid"></canvas>`,
+        // data() {
+        //     return {
+        //         loading: true
+        //     }
+        // },
+        // created() {
+        //     setTimeout(() => {
+        //         this.loading = false
+        //     }, 1000);
+        // },
         mounted() {
             var mychart = document.getElementById(this.$props.chartid)
             var ctx = mychart.getContext("2d")
@@ -10,7 +20,9 @@
             this.draw(ctx)
         }
     }
+</script>    
 
+<script>
     Vue.component("bar-chart-component", {
         props: ["labels", "chartdata"],
         name: "BarChart",

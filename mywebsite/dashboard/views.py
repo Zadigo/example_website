@@ -10,6 +10,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 from requests import get as get_request
+from dashboard import forms
 
 
 class IndexView(TemplateView):
@@ -55,6 +56,10 @@ class ProductView(TemplateView):
         return context
 
 
+class ProfileView(TemplateView):
+    template_name = 'pages/edit/profile.html'
+
+
 @method_decorator(cache_page(15 * 60), name='dispatch')
 class SettingsHomeView(TemplateView):
     template_name = 'pages/settings/home.html'
@@ -67,7 +72,10 @@ class SettingsGeneralView(TemplateView):
 
 @require_POST
 def duplicate_products(request, **kwargs):
-    return JsonResponse(data={})
+    new_items = [
+        {'id': 576, 'title': 'Kendall Jenner', 'userId': 4, 'completed': False}
+    ]
+    return JsonResponse(data=new_items, safe=False)
 
 
 @require_POST
@@ -83,3 +91,8 @@ def download_csv(request, **kwargs):
     else:
         pass
     return JsonResponse(data={})
+
+
+@require_POST
+def edit_row(request, **kwargs):
+    pass

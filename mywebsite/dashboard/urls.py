@@ -20,6 +20,7 @@ urlpatterns = [
     path('settings/', include((settingspatterns, app_name), namespace='settings')),
     path('api/', include((apipatterns, app_name), namespace='api')),
 
+    url(r'^profile/id$', views.ProfileView.as_view(), name='profile'),
     url(r'^products/id$', views.ProductView.as_view(), name='product'),
     url(r'^products$', views.ProductsView.as_view(), name='products'),
     url(r'^$', views.IndexView.as_view(), name='index')

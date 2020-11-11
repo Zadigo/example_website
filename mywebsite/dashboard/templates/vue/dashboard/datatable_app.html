@@ -157,9 +157,15 @@
         },
         data() {
             return {
+                loading: true,
                 search: null,
                 sliceat: 10
             }
+        },
+        created() {
+            setTimeout(() => {
+                this.loading = false
+            }, 1000);
         },
         mounted() {
             if (localStorage.sliceat) {
@@ -202,11 +208,22 @@
             },
         },
         methods: {
-            duplicateitems: function () {
-                this.newpostrequest("{% url 'dashboard:api:duplicate' %}", this.selectedvaluesids)
+            duplicateitems: function (items) {
+                var request = this.newpostrequest(
+                    "{% url 'dashboard:api:duplicate' %}", 
+                    this.selectedvaluesids
+                )
+                request.then((response) => {
+                    response.json().then((data) => {
+                        _.forEach(data, (item) => {
+                            item["selected"] = false
+                            items.push(item)
+                        })
+                    })
+                })
             },
             deleteitems: function () {
-                this.newpostrequest("{% url 'dashboard:api:delete' %}", this.selectedvaluesids)
+                var request = this.newpostrequest("{% url 'dashboard:api:delete' %}", this.selectedvaluesids)
             },
             sliceitems: function (value) {
                 localStorage.setItem("sliceat", value)
