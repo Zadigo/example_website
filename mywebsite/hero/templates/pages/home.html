@@ -16,10 +16,10 @@
 
 {% block main %}
     {% cache 3600 hero %}
-        <!-- HERO -->
-        {% include "components/hero/base.html" %}
-        <!-- BENEFITS -->
-        {% include "components/benefits/base.html" %}        
+        <!-- Hero -->
+        {% include "layouts/hero.html" %}
+        <!-- Benefits -->
+        {% include "layouts/benefits/base.html" %}        
     {% endcache %}
 {% endblock %}
 
