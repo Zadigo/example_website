@@ -22,7 +22,12 @@
         },
         methods: {
             downloadcsvfile: function () {
-                this.newgetrequest("{% url 'dashboard:api:csv' %}")
+                var request = this.newgetrequest("{% url 'dashboard:api:csv' %}")
+                request.then((response) => {
+                    response.json().then((data) => {
+                        
+                    })
+                })
             },
             showinputfield: function (id) {
                 if (id === "specfic") {
@@ -223,7 +228,21 @@
                 })
             },
             deleteitems: function () {
-                var request = this.newpostrequest("{% url 'dashboard:api:delete' %}", this.selectedvaluesids)
+                var request = this.newpostrequest(
+                    "{% url 'dashboard:api:delete' %}", 
+                    this.selectedvaluesids
+                )
+                request.then((response) => {
+                    response.json().then((data) => {
+                        var notify = $.notify({
+                            type: "success",
+                            allow_dismiss: true,
+                            title: "Something to do",
+                            message: "Hello World"
+                        })
+                        notify.update({title: "Whatever"})
+                    })
+                })
             },
             sliceitems: function (value) {
                 localStorage.setItem("sliceat", value)

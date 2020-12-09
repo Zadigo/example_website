@@ -1,0 +1,5 @@
+{% for link, details in links %}
+    <a href="{% url link %}" class="list-group-item active waves-effect">
+        <i class="{{ details.icon }} mr-3"></i>{{ details.title }}
+    </a>
+{% endfor %}
