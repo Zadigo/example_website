@@ -3,22 +3,20 @@ import json
 import re
 
 import stripe
+from accounts import forms
+from accounts.models import MyUser, MyUserProfile
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseForbidden, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import (cache_control, cache_page,
-                                           never_cache)
+from django.views.decorators.cache import cache_page, never_cache
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, View
-
-from accounts import forms
-from accounts.models import MyUser, MyUserProfile
 
 
 @method_decorator(cache_page(3600 * 60), name='dispatch')

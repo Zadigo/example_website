@@ -1,4 +1,4 @@
-{% extends "pages/profile/base.html" %}
+{% extends "layouts/profile_base.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Mon compte" %}{% endblock %}
@@ -6,7 +6,7 @@
 {% block profile_content %}
     <div class="card">
         <div class="card-body">
-            <form-component id="base" position="0">
+            <form-component id="base" position="0" key="base">
                 <slot>
                     {% for field in form1 %}
                         <div class="form-group">
@@ -20,7 +20,7 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <form-component id="profile" position="1">
+            <form-component id="profile" position="1" key="profile">
                 <slot>
                     {% for field in form2 %}
                         <div class="form-group">
@@ -34,6 +34,8 @@
 {% endblock %}
 
 {% block vuejs_scripts %}
+    <!-- Global -->
     {% include "vue/global.html" %}
+    <!-- App -->
     {% include "vue/profile.html" %}
 {% endblock %}

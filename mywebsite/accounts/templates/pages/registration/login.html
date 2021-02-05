@@ -1,4 +1,4 @@
-{% extends "pages/registration/base.html" %}
+{% extends "layouts/registration_base.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Se connecter" %}{% endblock title %}
@@ -6,14 +6,14 @@
 {% block section_id %}login{% endblock %}
 
 {% block social %}
-    {% include "components/registration/social.html" %}
+    {% include "includes/registration/social.html" %}
 {% endblock %}
 
 {% block registration_form %}
-    {% include "components/registration/form.html" with form_id="login_form" button_name="Se connecter" %}
+    {% include "includes/registration/form.html" with form_id="login_form" button_name="Se connecter" %}
 {% endblock %}
 
 {% block extra_registration_links %}
-    {% include "components/registration/p_tag.html" with text="Forgot your password?" href="accounts:password:forgot" action_text="Send yourself a new one" %}
-    {% include "components/registration/p_tag.html" with text="Don't have an account?" href="accounts:signup" action_text="Get yours now" %}
+    {% include "includes/registration/p_tag.html" with text="Forgot your password?" href="accounts:password:forgot" action_text="Send yourself a new one" %}
+    {% include "includes/registration/p_tag.html" with text="Don't have an account?" href="accounts:signup" action_text="Get yours now" %}
 {% endblock %}

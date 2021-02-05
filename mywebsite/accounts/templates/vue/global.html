@@ -1,18 +1,37 @@
 {% load i18n %}
 
 <script>
+    Vue.component("confirm-button", {
+        props: ["text", "submitted", "state"],
+        name: "ConfirmButton",
+        delimiters: ["[[", "]]"],
+        template: `
+        <button @click="$emit('sendconfirmation')" :class="{'disabled': !state}" class="btn btn-md btn-primary">
+            <span v-if="submitted" 
+                class="spinner-border spinner-border-sm" 
+                    role="status" aria-hidden="true">
+            </span>
+            
+            <span v-else>
+                <i class="fa fa-check mr-3"></i>
+                [[ text ]]
+            </span>
+        </button>
+        `
+    })
+
     Vue.component("form-component", {
         props: ["id", "position"],
         name: "Form",
         delimiters: ["[[", "]]"],
         template: `
-        <form @submit.prevent="submitform" method="POST" :id="id">
+        <form @submit.prevent="submitform" :id="id" method="POST">
             {% csrf_token %}
 
             <slot></slot>
 
             <div class="form-group">
-                <input type="hidden" name="position" :value="position">
+                <input :value="position" type="hidden" name="position">
             </div>
 
             <div class="form-row">
@@ -31,26 +50,4 @@
             }
         }
     })
-
-    Vue.component("confirm-button", {
-        props: ["state", "submitted"],
-        name: "ConfirmButton",
-        delimiters: ["[[", "]]"],
-        template: `
-        <button @click="sendconfirmation" class="btn btn-md btn-primary" :class="{'disabled': !state}">
-            <span v-if="!submitted">
-                <i class="fa fa-check mr-3"></i>
-                <slot></slot>
-            </span>
-
-            <span v-else class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-        `,
-        methods: {
-            sendconfirmation: function () {
-                this.$emit("sendconfirmation")
-            }
-        }
-    })
-
 </script>

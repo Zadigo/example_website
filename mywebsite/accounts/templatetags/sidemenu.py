@@ -15,7 +15,7 @@ LINKS = [
 ]
 
 
-@register.inclusion_tag('components/profile/links.html')
+@register.inclusion_tag('includes/profile/links.html')
 def links():
     for link in LINKS:
         link[1]['href'] = reverse(link[0])

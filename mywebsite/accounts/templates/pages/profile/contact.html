@@ -1,4 +1,4 @@
-{% extends "pages/profile/base.html" %}
+{% extends "layouts/profile_base.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Préférences de contact" %}{% endblock title %}
@@ -30,11 +30,9 @@
                     </div>
 
                     <div class="col-12 text-right">
-                        <confirm-button @sendconfirmation="submitdata" :state="hasselecteditems" :submitted="submitted">
-                            <slot>
-                                {% trans "Confimer vos préférences" %}
-                            </slot>
-                        </confirm-button>
+                        <confirm-button @sendconfirmation="submitdata" 
+                            text="{% trans 'Confimer vos préférences' %}" 
+                                :state="hasselecteditems" :submitted="submitted" />
                     </div>
                 </div>
             </contact-preference-component>
