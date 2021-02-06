@@ -159,8 +159,6 @@ class CustomChangePasswordForm(CustomSetPasswordForm):
     )
 
 
-
-
 class BaseProfileForm(forms.ModelForm):
     class Meta:
         model   = MyUser

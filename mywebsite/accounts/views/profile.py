@@ -1,6 +1,7 @@
 import datetime
 import json
 import re
+from django.http.response import Http404
 
 import stripe
 from accounts import forms
@@ -16,13 +17,29 @@ from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import cache_page, never_cache
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic import TemplateView, View
+from django.template.exceptions import TemplateDoesNotExist
+from django.template import Context
+from django.views.decorators.debug import sensitive_post_parameters
+
+class ProfileMixin:
+    queryset = None
+
+    def get_context_data(self, request, **kwargs) -> dict:
+        context = super().get_context_data()
+        user, profile = self.get_user()
+        context.update({'user': user, 'profile': profile})
+        return context
+
+    def get_object(self, request, **kwargs):
+        return request.user, request.user.myuserprofile
 
 
 @method_decorator(cache_page(3600 * 60), name='dispatch')
 class IndexView(TemplateView):
     template_name = 'pages/profile/index.html'
-
+        
 
 @method_decorator(never_cache, name='dispatch')
 class InformationView(LoginRequiredMixin, View):

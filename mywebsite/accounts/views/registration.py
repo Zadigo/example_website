@@ -10,8 +10,11 @@ from django.contrib.messages import add_message, error, success
 from django.core.mail import BadHeaderError, send_mail
 from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render, reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView, View
 
 MYUSER = auth.get_user_model()
@@ -21,7 +24,7 @@ class SignupView(FormView):
     template_name = 'pages/registration/signup.html'
     success_url = '/login'
 
-    @never_cache
+    @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         template_response = super().post(request, *args, **kwargs)
         form = self.form_class(request.POST)
@@ -60,17 +63,34 @@ class LoginView(FormView):
     template_name = 'pages/registration/login.html'
     success_url = '/'
 
-    @never_cache
+    @method_decorator(sensitive_post_parameters('password'))
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
-        email = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user = auth.authenticate(request, email=email, password=password)
-        if user:
-            auth.login(request, user)
-            return redirect(request.GET.get('next') or self.success_url)
-        messages.error(request, _("Nous n'avons pas pu trouver votre compte"), extra_tags='alert-danger')
-        return redirect(reverse('accounts:login'))
+        # The authentication happens in the form
+        # itself. If a user was returned via the
+        # user_cache, then use that obj to login
+        # the person on the plateform
+        form = self.get_form()
+        if form.is_valid():
+            user = form.get_user()
+            if user is not None:
+                auth.login(self.request, user)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid()
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = super().get_form_class()
+        return form_class(**self.get_form_kwargs())
+
+    def get_form_kwargs(self):
+        # Updated in order to instantiate
+        # the form with the request object
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
 
 
 class LogoutView(RedirectView):

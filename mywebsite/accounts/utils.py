@@ -1,14 +1,8 @@
-from django.apps import apps as django_apps
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+import hashlib
+import secrets
+from hashlib import md5
 
-
-def get_user_profile_model():
-    try:
-        return django_apps.get_model(settings.AUTH_USER_PROFILE_MODEL, require_ready=False)
-    except ValueError:
-        raise ImproperlyConfigured("AUTH_USER_PROFILE_MODEL must be of the form 'app_label.model_name'")
-    except LookupError:
-        raise ImproperlyConfigured(
-            "AUTH_USER_PROFILE_MODEL refers to model '%s' that has not been installed" % settings.AUTH_USER_PROFILE_MODEL
-        )
+def new_directory_path(instance, filename):
+    _, extension = filename.split('.')
+    new_file_name = f'{secrets.token_hex(5)}.{extension}'
+    return f'avatars/user_{instance.myuser.id}/{new_file_name}'

@@ -1,7 +1,9 @@
 from django.forms import widgets
-
+from django.utils.translation import gettext_lazy as _
 
 class CustomInput(widgets.Input):
+    input_type = 'text'
+
     def get_context(self, name, value, attrs):
         if attrs is None:
             attrs = dict()
@@ -10,13 +12,27 @@ class CustomInput(widgets.Input):
         return context
 
 
+class PasswordInput(CustomInput):
+    input_type = 'password'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['attrs']['placeholder'] = _('Password')
+        return context
+
+
 class TextInput(CustomInput):
     template_name = 'widgets/input.html'
-    input_type = 'text'
 
 
 class EmailInput(CustomInput):
     input_type = 'email'
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['attrs']['autocomplete'] = 'email'
+        context['widget']['attrs']['placeholder'] = _('Email')
+        return context
 
 
 class TelephoneInput(TextInput):

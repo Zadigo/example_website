@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <!-- ADD NEW PAYMENT -->
-    {% include "components/profile/payments/add_card.html" %}
+    <!-- Add new payment -->
+    {% include "includes/profile/payments/add_card.html" %}
 {% endblock profile_content %}
 
 {% block vuejs_scripts %}
-    {% include "vue/global.html" %}
+    <!-- App -->
     {% include "vue/payment.html" %}
 {% endblock %}

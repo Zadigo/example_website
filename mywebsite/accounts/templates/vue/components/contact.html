@@ -49,7 +49,7 @@
                         "X-CSRFToken": "{{ csrf_token }}",
                     },
                     credentials: "same-origin",
-                    body: JSON.stringify(formdata)
+                    body: formdata
                 })
                 .then((response) => {
                     response.json().then((data) => {
