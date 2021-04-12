@@ -1,5 +1,5 @@
 {% extends "base_site.html" %}
-{% load i18n static %}
+{% load i18n static profile_sidebar %}
 
 {% block navbar %}
     {% include "project_components/navs/nav.html" %}
@@ -13,7 +13,7 @@
             {% block base_profile_content %}
                 <div class="col-sm-12 col-lg-4 col-xl-4 offset-lg-1 offset-xl-1">
                     <!-- Side menu -->
-                    {% include "includes/profile/sidemenu.html" %}
+                    {% sidebar %}
                 </div>
 
                 <div class="col-sm-12 col-lg-6 col-xl-6">

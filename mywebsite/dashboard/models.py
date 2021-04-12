@@ -23,4 +23,3 @@ class DashboardSetting(models.Model):
 # def create_user_settings(sender, instance, created, **kwargs):
 #     if created:
 #         DashboardSetting.objects.create(user=instance)
-

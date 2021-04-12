@@ -122,27 +122,14 @@ def delete_avatar_on_update(sender, instance, **kwargs):
     if not is_s3_backend:
         if instance.pk:
             try:
-                old_image = MyUserProfile.objects.get(pk=instance.pk)
+                current_profile = MyUserProfile.objects.get(id=instance.pk)
+                old_image = current_profile.avatar
             except:
                 return False
             else:
-                new_image = instance.url
+                new_image = instance.avatar
                 if old_image and old_image != new_image:
-                    if os.path.isfile(old_image.url.path):
-                        os.remove(old_image.url.path)
+                    if os.path.isfile(old_image.path):
+                        os.remove(old_image.path)
     else:
         instance.url.delete(save=False)
-
-
-# @receiver(pre_save, sender=MyUserProfile)
-# def delete_old_avatar(sender, instance, **kwargs):
-#     if instance.pk:
-#         try:
-#             old_avatar = MyUserProfile.objects.get(pk=instance.pk)
-#         except:
-#             return False
-#         else:
-#             new_avatar = instance.avatar
-#             if old_avatar and old_avatar != new_avatar:
-#                 if os.path.isfile(old_avatar.avatar.path):
-#                     os.remove(old_avatar.avatar.path)

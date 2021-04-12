@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <script>
     var csvcomponent = {
         props: ["selectedvaluesids", "numberofselectedvalues"],
@@ -7,11 +9,13 @@
         data() {
             return {
                 radios: [
-                    { id: "all", label: "Download all", selected: true },
-                    { id: "selection", label: "Download selected items", selected: false },
-                    { id: "specific", label: "Choose specific items to download", selected: false },
+                    { id: "all", label: "{% trans 'Download all' %}", selected: true },
+                    { id: "selection", label: "{% trans 'Download selected items' %}", selected: false },
+                    { id: "specific", label: "{% trans 'Choose specific items to download' %}", selected: false },
                 ],
-                inputvisible: false
+                inputvisible: false,
+                issubmitted: false,
+                downloadlink: undefined
             }
         },
         computed: {
@@ -22,11 +26,26 @@
         },
         methods: {
             downloadcsvfile: function () {
-                var request = this.newgetrequest("{% url 'dashboard:api:csv' %}")
+                this.issubmitted = true
+                var request = this.newgetrequest(
+                    "{% url 'dashboard:api:csv' %}", 
+                    { selected_values_id: this.selectedvaluesids }
+                )
                 request.then((response) => {
                     response.json().then((data) => {
-                        
+                        if (data.state) {
+                            setTimeout(() => {
+                                this.issubmitted = false
+                                
+                                setTimeout(() => {
+                                    this.downloadlink = data.download_link
+                                }, 3000);
+                            }, 2000);
+                        }
                     })
+                })
+                .catch((error) => {
+                    console.error(error)
                 })
             },
             showinputfield: function (id) {

@@ -1,27 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block theme_color %}#484848{% endblock %}
 
 {% block extra_css %}
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/dropdowns.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/style.css' %}" rel="stylesheet"> -->
+    <!-- <link href="{% static 'css/dropdowns.css' %}" rel="stylesheet"> -->
 {% endblock %}
 
 {% block analytics %}
 {% endblock %}
-
-{% comment %}
-    <div class="top-banner sales-policies green">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">A</div>
-                <div class="col-4">B</div>
-                <div class="col-4">C</div>
-            </div>
-        </div>
-    </div>
-{% endcomment %}
 
 {% block main %}
     <div class="container dark-grey-text mt-5">

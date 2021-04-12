@@ -2,9 +2,9 @@ import datetime
 import re
 
 from accounts import forms, models
-from accounts._forms.passwords import (CustomPasswordResetForm,
-                                       CustomSetPasswordForm)
-from accounts._forms.registration import UserLoginForm, UserSignupForm
+from accounts.forms.passwords import (CustomPasswordResetForm,
+                                      CustomSetPasswordForm)
+from accounts.forms.registration import UserLoginForm, UserSignupForm
 from django.contrib import auth, messages
 from django.contrib.messages import add_message, error, success
 from django.core.mail import BadHeaderError, send_mail

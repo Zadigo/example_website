@@ -85,12 +85,11 @@ def delete_products(request, **kwargs):
 
 @require_POST
 def download_csv(request, **kwargs):
-    selected_items = request.POST.get('selecteditems', None)
-    if selected_items is None:
-        pass
-    else:
-        pass
-    return JsonResponse(data={})
+    data = {'state': False}
+    selected_ids = request.POST.get('selected_values_id', None)
+    if selected_ids:
+        data.update({'state': True, 'download_link': 'http://example.com'})
+    return JsonResponse(data=data)
 
 
 @require_POST

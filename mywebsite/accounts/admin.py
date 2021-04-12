@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.apps import AdminConfig
 from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -7,11 +8,13 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse
-from django.contrib.admin.apps import AdminConfig
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 
-from accounts import forms, models
+from accounts import forms
+from accounts.forms.admin import MyUserChangeForm, MyUserCreationForm
+from accounts.models import MyUser, MyUserProfile
+
 
 class CustomAdminAuthenticationForm(AdminAuthenticationForm):
     def clean(self):
@@ -30,14 +33,14 @@ class CustomAdminAuthenticationForm(AdminAuthenticationForm):
 class CustomAdminSite(AdminSite):
     login_form = AdminAuthenticationForm
 
-
 site = CustomAdminSite()
 
-@admin.register(models.MyUser)
+
+@admin.register(MyUser)
 class MyUserAdmin(auth_admin.UserAdmin):
-    form = forms.MyUserChangeForm
-    add_form = forms.MyUserCreationForm
-    model = models.MyUser
+    # form = MyUserChangeForm
+    add_form = MyUserCreationForm
+    model = MyUser
 
     list_display = ['email', 'firstname', 'lastname', 'is_active', 'is_admin']
     list_filter = ()
@@ -59,7 +62,7 @@ class MyUserAdmin(auth_admin.UserAdmin):
     ordering = ['email']
 
 
-@admin.register(models.MyUserProfile)
+@admin.register(MyUserProfile)
 class MyUserProfileAdmin(admin.ModelAdmin):
     actions      = ('activate_account', 'deactivate_account',)
     list_display = ('myuser', 'telephone',)
