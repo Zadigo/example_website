@@ -28,39 +28,32 @@
                 selecteditems: {}
             }
         },
+
+        beforeMount() {
+            console.log('loading...')
+        },
+
         computed: {
             hasmorethanone() {
                 return this.sections.length > 1
             },
+
             hasselecteditems() {
                 return _.includes(this.selecteditems, true)
             }
         },
+        
         methods: {
             submitdata: function () {
-                var formdata = new FormData()
-                var keys = Object.keys(this.selecteditems).forEach((key) => {
-                    formdata.append(key, this.selecteditems[key])
-                })
                 this.submitted = true
-                fetch(window.location.href, {
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": "{{ csrf_token }}",
-                    },
-                    credentials: "same-origin",
-                    body: formdata
-                })
+                this.$api.profile.updatePreferences(this.selecteditems)
                 .then((response) => {
-                    response.json().then((data) => {
-                        setTimeout(() => {
-                            this.submitted = false
-                        }, 3000);
-                    })
+                    setTimeout(() => {
+                        this.submitted = false
+                    }, 1000);
                 })
                 .catch((error) => {
-                    this.submitted = false
-                    console.error(error)
+                    console.log(error)
                 })
             }
         }

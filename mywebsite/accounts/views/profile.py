@@ -42,7 +42,7 @@ class IndexView(TemplateView):
     template_name = 'pages/profile/index.html'
         
 
-@method_decorator(never_cache, name='dispatch')
+# @method_decorator(never_cache, name='dispatch')
 class InformationView(LoginRequiredMixin, View):
     forms = {
         'form1': forms.BaseProfileForm,
@@ -145,7 +145,7 @@ class ChangePasswordView(LoginRequiredMixin, View):
         return redirect('/profile/')
 
 
-@method_decorator(cache_page(3600 * 60), name='dispatch')
+# @method_decorator(cache_page(3600 * 60), name='dispatch')
 class ContactPreferencesView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/profile/contact.html'
 

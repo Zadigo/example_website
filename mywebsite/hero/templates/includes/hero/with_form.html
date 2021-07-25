@@ -28,8 +28,8 @@
     <div class="col-md-6 col-xl-5 mb-4">
         <div class="card">
             <div class="card-body">
-                <div id="vue-contact-form">
-                    <form-component @sendmessage="dosend" inline-template>
+                <contact-component inline-template>
+                    <form-component inline-template>
                         <form @submit.prevent="$emit('sendmessage', items)" id="contact-form">
                             <h3 class="dark-grey-text text-center">
                                 <strong>{% trans "Write to us:" %}</strong>
@@ -68,7 +68,7 @@
                             </div>
                         </form>
                     </form-component>
-                </div>
+                </contact-component>
             </div>
         </div>
     </div>

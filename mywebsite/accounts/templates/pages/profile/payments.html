@@ -4,41 +4,50 @@
 {% block title %}{% trans "Modes de paiement" %}{% endblock %}
 
 {% block profile_content %}
-    <div class="card">
-        <div class="card-header">
-            <h4>{% trans "Moyens de paiement" %}</h4>
-        </div>
+    <payment-component inline-template>
+        <section>
+            <div class="card">
+                <div class="card-header">
+                    <h4>{% trans "Moyens de paiement" %}</h4>
+                </div>
 
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12">
-                    <ul class="list-group">
-                        {% for subscription in subscriptions %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ subscription.name }}
-                                
-                                <a href="{% url 'subscription:cancel' %}">
-                                    {% trans "Annuler" %}
-                                    </a href="{% url 'subscription:cancel' %}">
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <img src="{% static 'dropdown.svg' %}" alt="image" class="card-img-top" role="img">
+        
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="list-group">
+                                {% for subscription in subscriptions %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ subscription.name }}
+                                        
+                                        <a href="{% url 'subscription:cancel' %}">
+                                            {% trans "Annuler" %}
+                                            </a href="{% url 'subscription:cancel' %}">
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-12">
+                            <add-payment-button @showform="doshow" name="{% trans 'Ajouter un moyen de paiement' %}" />
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <add-payment-button @showform="doshow" name="{% trans 'Ajouter un moyen de paiement' %}" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add new payment -->
-    {% include "includes/profile/payments/add_card.html" %}
+    
+            <!-- Add new payment -->
+            {% include "includes/profile/payments/add_card.html" %}
+        </section>
+    </payment-component>    
 {% endblock profile_content %}
 
+{% block extra_scripts %}
+    <script src="{% static 'js/payment/accounts_components.js' %}"></script>
+{% endblock %}
+
 {% block vuejs_scripts %}
-    <!-- App -->
     {% include "vue/payment.html" %}
 {% endblock %}

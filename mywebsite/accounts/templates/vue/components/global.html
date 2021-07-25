@@ -2,15 +2,12 @@
 
 <script>
     Vue.component("confirm-button", {
-        props: ["text", "submitted", "state"],
+        props: ["text", "state"],
         name: "ConfirmButton",
         delimiters: ["[[", "]]"],
         template: `
-        <button @click="$emit('sendconfirmation')" :class="{'disabled': !state}" class="btn btn-md btn-primary">
-            <span v-if="submitted" 
-                class="spinner-border spinner-border-sm" 
-                    role="status" aria-hidden="true">
-            </span>
+        <button @click="$emit('startAction')" :class="{'disabled': state}" class="btn btn-md btn-primary">
+            <span v-if="state" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             
             <span v-else>
                 <i class="fa fa-check mr-3"></i>
@@ -36,16 +33,21 @@
 
             <div class="form-row">
                 <div class="col-12 text-right">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-check mr-3"></i>
-                        {% trans 'Valider' %}
-                    </button>
+                    <confirm-button @startAction="submitForm" :state="buttonState" text="{% trans 'Valider' %}" />
                 </div>
             </div>
         </form>
         `,
+
+        data() {
+            return {
+                buttonState: false
+            }
+        },
+
         methods: {
-            submitform: function () {
+            submitForm: function () {
+                this.buttonState = true
                 this.$el.submit()
             }
         }

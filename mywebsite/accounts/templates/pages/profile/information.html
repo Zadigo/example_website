@@ -7,13 +7,11 @@
     <div class="card">
         <div class="card-body">
             <form-component id="base" position="0" key="base">
-                <slot>
-                    {% for field in form1 %}
-                        <div class="form-group">
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                </slot>
+                {% for field in form1 %}
+                    <div class="form-group">
+                        {{ field }}
+                    </div>
+                {% endfor %}
             </form-component>
         </div>
     </div>
@@ -21,13 +19,11 @@
     <div class="card mt-3">
         <div class="card-body">
             <form-component id="profile" position="1" key="profile">
-                <slot>
-                    {% for field in form2 %}
-                        <div class="form-group">
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                </slot>
+                {% for field in form2 %}
+                    <div class="form-group">
+                        {{ field }}
+                    </div>
+                {% endfor %}
             </form-component>
         </div>
     </div>

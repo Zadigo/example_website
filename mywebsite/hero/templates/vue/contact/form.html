@@ -14,13 +14,10 @@
         }
     }
 
-    var contact = new Vue({
-        el: "#app",
+    Vue.component("contact-component", {
         name: "Contact",
         delimiters: ["[[", "]]"],
-        components: {
-            "form-component": formcomponent
-        },
+        components: { "form-component": formcomponent },
         data() {
             return {
                 sent: false,
@@ -29,22 +26,22 @@
         },
         methods: {
             dosend: function (data) {
-                fetch("{% url 'hero:contact' %}", {
-                    headers: {
-                        "X-CSRFToken": "{{ csrf_token }}"
-                    },
-                    credentials: "same-origin",
-                    body: JSON.stringify(data)
-                })
-                .then((response) => {
-                    response.json().then((data) => {
-                        this.success = true
-                        this.resetitems()
-                    })
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                // fetch("{% url 'hero:contact' %}", {
+                //     headers: {
+                //         "X-CSRFToken": "{{ csrf_token }}"
+                //     },
+                //     credentials: "same-origin",
+                //     body: JSON.stringify(data)
+                // })
+                // .then((response) => {
+                //     response.json().then((data) => {
+                //         this.success = true
+                //         this.resetitems()
+                //     })
+                // })
+                // .catch((error) => {
+                //     console.log(error)
+                // })
             },
             resetitems: function () {
                 this.items = {

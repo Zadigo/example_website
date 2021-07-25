@@ -1,10 +1,10 @@
+from accounts.forms.base import AuthenticationForm
 from accounts.models import MyUser
 from accounts.widgets import EmailInput, PasswordInput, TextInput
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Form, ValidationError, fields, widgets
 from django.utils.crypto import get_random_string, salted_hmac
 from django.utils.translation import gettext_lazy as _
-from accounts.forms.base import AuthenticationForm
 
 
 class UserLoginForm(AuthenticationForm):
