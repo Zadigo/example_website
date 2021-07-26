@@ -1,26 +1,18 @@
-import datetime
 import json
-import re
 
 import stripe
 from accounts import forms
+from accounts.forms.passwords import CustomChangePasswordForm
+from accounts.forms import get_initialized_form, get_model_form
 from accounts.models import MyUser, MyUserProfile
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.template import Context
-from django.template.exceptions import TemplateDoesNotExist
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import cache_page, never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
-from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView, View
 
 
@@ -44,24 +36,45 @@ class IndexView(TemplateView):
 
 # @method_decorator(never_cache, name='dispatch')
 class InformationView(LoginRequiredMixin, View):
-    forms = {
-        'form1': forms.BaseProfileForm,
-        'form2': forms.AddressProfileForm
-    }
+    # forms = {
+    #     'form1': forms.BaseProfileForm,
+    #     'form2': forms.AddressProfileForm
+    # }
 
     def get(self, request, *args, **kwargs):
-        user = get_object_or_404(MyUser, id=request.user.id)
+        # user = get_object_or_404(MyUser, id=request.user.id)
+        # profile = user.myuserprofile
+
+        # context = {
+        #     'form1': self.forms['form1'](
+        #         initial={
+        #             'firstname': user.firstname,
+        #             'lastname': user.lastname,
+        #             'email': user.email
+        #         }
+        #     ),
+        #     'form2': self.forms['form2'](
+        #         initial={
+        #             'address': profile.address,
+        #             'city': profile.city,
+        #             'zip_code': profile.zip_code
+        #         }
+        #     )
+        # }
+        user = request.user
         profile = user.myuserprofile
 
         context = {
-            'form1': self.forms['form1'](
+            'form1': get_initialized_form(
+                0, 
                 initial={
-                    'firstname': user.firstname,
-                    'lastname': user.lastname,
+                    'firstname': user.firstname, 
+                    'lastname': user.lastname, 
                     'email': user.email
                 }
             ),
-            'form2': self.forms['form2'](
+            'form2': get_initialized_form(
+                1,
                 initial={
                     'address': profile.address,
                     'city': profile.city,
@@ -77,13 +90,20 @@ class InformationView(LoginRequiredMixin, View):
 
         position = int(request.POST.get('position'))
 
-        form = None
-
         if position == 0:
-            form = self.forms['form1'](request.POST, instance=user)
+            instance = user
+        elif position == 1:
+            instance = user_profile
+        else:
+            instance = None
 
-        if position == 1:
-            form = self.forms['form2'](request.POST, instance=user_profile)
+        form = get_model_form(position, request, instance)
+
+        # if position == 0:
+        #     form = self.forms['form1'](request.POST, instance=user)
+
+        # if position == 1:
+        #     form = self.forms['form2'](request.POST, instance=user_profile)
 
         if form is None:
             messages.error(request, _("An error occured - FOR-NR"), extra_tags='alert-danger')
@@ -100,15 +120,15 @@ class InformationView(LoginRequiredMixin, View):
 class ProfileDataView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         current_user_email = request.user.email
-        handles = self.request.user.social_auth.get(uid=current_user_email)
-        context = {}
+        handles = self.request.user.social_auth.filter(uid=current_user_email)
+        context = {'handles': handles}
         return render(request, 'pages/profile/data.html', context)
 
 
 @method_decorator(never_cache, name='dispatch')
 class ProfileDeleteView(LoginRequiredMixin, View):
-    """Help the user delete his account
-    """
+    """Help the user delete his account"""
+    
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(MyUser, id=request.user.id)
         user.delete()
@@ -132,13 +152,11 @@ class PaymentMethodsView(LoginRequiredMixin, View):
 @method_decorator(never_cache, name='dispatch')
 class ChangePasswordView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        context = {
-            'form': forms.CustomChangePasswordForm(request.user),
-        }
+        context = {'form': CustomChangePasswordForm(request.user)}
         return render(request, 'pages/profile/change_password.html', context)
 
     def post(self, request, **kwargs):
-        form = forms.CustomChangePasswordForm(request.user, request.POST)
+        form = CustomChangePasswordForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)

@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UserLoginForm(AuthenticationForm):
-    # token = fields.CharField(max_length=50, min_length=50, widget=TextInput())
     pass
 
 

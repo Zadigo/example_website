@@ -9,7 +9,11 @@ class CustomPasswordResetForm(PasswordResetForm):
         label=_('Email'),
         max_length=254,
         widget=EmailInput(
-            attrs={'class': 'form-control', 'autocomplete': 'email', 'placeholder': 'Email'}
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'email',
+                'placeholder': 'Email'
+            }
         )
     )
 
@@ -43,6 +47,11 @@ class CustomChangePasswordForm(CustomSetPasswordForm):
     old_password = CharField(
         label=_("Old password"),
         strip=False,
-        widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Ancien mot de passe',
-                                          'autocomplete': 'current-password', 'autofocus': True}),
+        widget=PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Ancien mot de passe',
+                'autocomplete': 'current-password', 'autofocus': True
+            }
+        ),
     )

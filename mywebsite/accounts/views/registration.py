@@ -1,14 +1,9 @@
-import datetime
-import re
-
-from accounts import forms, models
+from accounts import forms
 from accounts.forms.passwords import (CustomPasswordResetForm,
                                       CustomSetPasswordForm)
 from accounts.forms.registration import UserLoginForm, UserSignupForm
 from django.contrib import auth, messages
-from django.contrib.messages import add_message, error, success
-from django.core.mail import BadHeaderError, send_mail
-from django.http.response import Http404, HttpResponseRedirect
+from django.http.response import Http404
 from django.shortcuts import redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -52,8 +47,10 @@ class SignupView(FormView):
     def get_redirect_url(self, request, intermediate_view=None, user=None):
         if intermediate_view is None:
             return redirect(request.GET.get('next') or reverse('accounts:profile:home'))
+
         if user is None:
             return Http404('User could not identified - INT-US')
+
         request.session['user'] = user.id
         return redirect(intermediate_view)
 
@@ -79,11 +76,6 @@ class LoginView(FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid()
-
-    def get_form(self, form_class=None):
-        if form_class is None:
-            form_class = super().get_form_class()
-        return form_class(**self.get_form_kwargs())
 
     def get_form_kwargs(self):
         # Updated in order to instantiate

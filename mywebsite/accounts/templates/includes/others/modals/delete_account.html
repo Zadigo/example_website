@@ -1,4 +1,4 @@
-{% extends "components/others/modals/modal.html" %}
+{% extends "layouts/modal.html" %}
 {% load i18n %}
 
 {% block modal_id %}delete-account{% endblock %}
@@ -16,5 +16,7 @@
         {% endblocktrans %}
     </p>
 
-    <a href="{% url 'accounts:profile:delete' %}" class="btn btn-sm btn-danger">{% trans 'supprimer' %}</a>
+    <a href="{% url 'accounts:profile:delete' %}" class="btn btn-sm btn-danger" role="link" aria-label="{% trans 'Supprimer mon compte' %}">
+        {% trans 'supprimer' %}
+    </a>
 {% endblock %}
