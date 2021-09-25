@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'mywebsite.urls'
+ROOT_URLCONF = 'example_website.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
                 'social_django.context_processors.login_redirect',
 
                 'django.template.context_processors.i18n',
-                'mywebsite.project.company_context_processor'
+                'example_website.project.company_context_processor'
             ],
             'libraries': {
                 'utils': 'accounts.templatetags.utils',
@@ -87,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mywebsite.wsgi.application'
+WSGI_APPLICATION = 'example_website.wsgi.application'
 
 
 # Database
@@ -291,3 +291,11 @@ try:
         stripe.api_key = STRIPE_LIVE_KEYS[0]
 except:
     pass
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# HERO
+
+HERO = {}
