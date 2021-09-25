@@ -72,14 +72,16 @@
             {% block extra_analytics %}{% endblock %}
             
             <div id="app">
-                <!-- Navbar -->
-                {% block navbar %}{% endblock %}
-    
-                <!-- Main -->
-                {% block main %}{% endblock %}
-       
-                <!-- Footer -->
-                {% block footer %}{% endblock %}
+                <v-app>
+                    <!-- Navbar -->
+                    {% block navbar %}{% endblock %}
+        
+                    <!-- Main -->
+                    {% block main %}{% endblock %}
+           
+                    <!-- Footer -->
+                    {% block footer %}{% endblock %}
+                </v-app>
             </div>
 
             <!-- JQuery -->
