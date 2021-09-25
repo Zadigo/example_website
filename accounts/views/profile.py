@@ -2,8 +2,8 @@ import json
 
 import stripe
 from accounts import forms
-from accounts.forms.passwords import CustomChangePasswordForm
 from accounts.forms import get_initialized_form, get_model_form
+from accounts.forms.passwords import CustomChangePasswordForm
 from accounts.models import MyUser, MyUserProfile
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash

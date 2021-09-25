@@ -8,10 +8,10 @@ var profileApi = ($axios) => ({
     }
 })
 
-var Api = {
+var globalPlugin = {
     install: (Vue, options) => {
         var repositories = {
-            profile: profileApi(axiosClient)
+            profile: profileApi(client)
         }
         Vue.prototype.$api = repositories
     }

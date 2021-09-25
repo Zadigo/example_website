@@ -7,7 +7,7 @@ var router = new VueRouter({
         {
             name: 'new_payment',
             path: '/new-payment',
-            component: someComponent
+            component: null
         }
     ]
 })

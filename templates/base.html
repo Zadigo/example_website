@@ -124,21 +124,16 @@
             <!-- Axios -->
             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-            <script>
-                var axiosClient = axios.create({
-                    baseURL: 'http://127.0.0.1:8000',
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true
-                })
-
-                axiosClient.defaults.headers.common['X-CSRFToken'] = "{{ csrf_token }}"
-            </script>
-
+            <!-- Project -->
+            <script src="{% static 'js/project.js' %}"></script>
+            <script>PROJECT.init.setToken('{{ csrf_token }}')</script>
+            
             <!-- Extra Scripts -->
             {% block extra_scripts %}{% endblock %}
-
+            
             {% block vuejs_scripts %}{% endblock %}
-
+            
+            <script src="{% static 'js/axiosclient.js' %}"></script>
             <script src="{% static 'js/store.js' %}"></script>
             <script src="{% static 'js/router.js' %}"></script>
             <script src="{% static 'js/components.js' %}"></script>
@@ -146,7 +141,7 @@
             <script src="{% static 'js/plugins/api.js' %}"></script>
 
             <script>
-                Vue.use(Api)
+                Vue.use(globalPlugin)
                 Vue.mixin(globalMixin)
 
                 var app = new Vue({

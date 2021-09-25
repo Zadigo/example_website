@@ -299,3 +299,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # HERO
 
 HERO = {}
+
+ENTERPRISE = {
+    'socials': [
+        {'alt': 'Facebook', 'url': 'https://www.facebook.com/mdbootstrap'},
+        {'alt': 'Github', 'url': 'https://github.com/Zadigo'}
+    ]
+}
