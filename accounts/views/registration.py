@@ -75,7 +75,7 @@ class LoginView(FormView):
                 auth.login(self.request, user)
             return self.form_valid(form)
         else:
-            return self.form_invalid()
+            return self.form_invalid(form)
 
     def get_form_kwargs(self):
         # Updated in order to instantiate
