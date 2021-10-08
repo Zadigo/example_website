@@ -1,11 +1,10 @@
+from datetime import datetime
 import os
 
 import stripe
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
@@ -14,8 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-from accounts import managers
-from accounts.utils import new_directory_path
+from accounts.managers import MyUserManager
+from accounts.utils import avatar_dir
 
 
 class MyUser(AbstractBaseUser):
@@ -28,7 +27,7 @@ class MyUser(AbstractBaseUser):
     is_admin            = models.BooleanField(default=False)
     is_staff            = models.BooleanField(default=False)
     
-    objects = managers.MyUserManager()
+    objects = MyUserManager()
 
     USERNAME_FIELD      = 'email'
     REQUIRED_FIELDS     = []
@@ -54,21 +53,27 @@ class MyUser(AbstractBaseUser):
 
 class MyUserProfile(models.Model):
     """User profile model used to complete the base user model"""
-    myuser              = models.OneToOneField(MyUser, on_delete=models.CASCADE)
-    avatar            = models.ImageField(upload_to=new_directory_path, blank=True, null=True)
-    avatar_thumbnail = ImageSpecField(
-        processors=ResizeToFill(width=100, height=100), 
-        format='JPEG', 
-        options={'quality': 50}
-    )
-    customer_id           = models.CharField(max_length=100, blank=True, null=True, help_text='Stripe customer ID')
-    birthdate         = models.DateField(default=timezone.now, blank=True, null=True)
-    telephone           = models.CharField(max_length=20, blank=True, null=True)
-    address            = models.CharField(max_length=150, blank=True, null=True)
-    city               = models.CharField(max_length=100, blank=True, null=True)
-    zip_code           = models.IntegerField(blank=True, null=True)
 
-    objects = models.Manager()
+    myuser = models.OneToOneField(MyUser, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to=avatar_dir, blank=True, null=True)
+    avatar_thumbnail = ImageSpecField(
+        processors=[ResizeToFill(width=100, height=100)],
+        format='JPEG', 
+        options={'quality': 70}
+    )
+
+    customer_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        unique=True,
+        help_text='Stripe customer ID'
+    )
+    birthdate = models.DateField(default=timezone.now, blank=True, null=True)
+    telephone   = models.CharField(max_length=20, blank=True, null=True)
+    address    = models.CharField(max_length=150, blank=True, null=True)
+    city        = models.CharField(max_length=100, blank=True, null=True)
+    zip_code    = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.myuser.email
@@ -77,6 +82,10 @@ class MyUserProfile(models.Model):
     def get_full_address(self):
         return f'{self.address}, {self.city}, {self.zip_code}'
 
+    @property
+    def is_birthday(self):
+        return self.birthdate == datetime.now().date()
+
     def clean(self, *args, **kwargs):
         try:
             details = stripe.Customer.create(
@@ -84,6 +93,8 @@ class MyUserProfile(models.Model):
                 name=self.myuser.get_full_name
             )
         except stripe.error.StripeError as e:
+            # Silently fail if we cannot create
+            # a Stripe customer
             pass
         else:
             self.customer_id = details['customer_id']

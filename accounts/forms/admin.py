@@ -5,8 +5,10 @@ from django.forms.fields import CharField
 from django.forms.widgets import PasswordInput
 from django.utils.translation import gettext_lazy as _
 
+from django.contrib.auth import password_validation
 from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 USER_MODEL = get_user_model()
 
@@ -54,6 +56,15 @@ class MyUserCreationForm(ModelForm):
         model = MyUser
         fields = ['email', 'is_admin', 'is_staff']
 
+    def _post_clean(self):
+        super()._post_clean()
+        password = self.cleaned_data.get('password2')
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except ValidationError as error:
+                self.add_error('password2', error)
+                
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
@@ -66,8 +77,6 @@ class MyUserCreationForm(ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
-
         if commit:
             user.save()
-
         return user

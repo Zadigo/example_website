@@ -2,7 +2,9 @@ from accounts import forms
 from accounts.forms.passwords import (CustomPasswordResetForm,
                                       CustomSetPasswordForm)
 from accounts.forms.registration import UserLoginForm, UserSignupForm
-from django.contrib import auth, messages
+from accounts.views.mixins import MessagesMixin
+from django.contrib import messages
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http.response import Http404
 from django.shortcuts import redirect, render, reverse
 from django.utils.decorators import method_decorator
@@ -12,7 +14,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView, View
 
-USER_MODEL = auth.get_user_model()
+USER_MODEL = get_user_model()
 
 class SignupView(FormView):
     form_class = UserSignupForm
@@ -22,23 +24,20 @@ class SignupView(FormView):
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         template_response = super().post(request, *args, **kwargs)
+        message = {'level': messages.ERROR, 'extra_tags': 'alert-danger'}
+
         form = self.form_class(request.POST)
-        message = {
-            'level': messages.ERROR,
-            'extra_tags': 'alert-danger'
-        }
         if form.is_valid():
             email = form.cleaned_data['email']
-            user = USER_MODEL.objects.filter(email__iexact=email)
-            if user.exists():
-                message.update({'message': _("Vous possédez déjà un compte chez nous")})
+
+            user = authenticate(request, email=email, password=form.cleaned_data['password1'])
+            if user is not None:
+                message.update({'message': _('Vous possédez déjà un compte')})
                 return redirect('accounts:login')
             else:
-                new_user = form.save()
-                if new_user:
-                    password = form.cleaned_data.get('password2')
-                    auth.login(request, auth.authenticate(request, email=email, password=password))
-                    return self.get_redirect_url(request)
+                user = form.save()
+                login(request, user, backend='accounts.backends.EmailAuthenticationBackend')
+            return self.get_redirect_url(request)            
         else:
            message.update({'message': _("Une erreur est arrivée - SIG-ER")})
         messages.add_message(request, **message)
@@ -72,7 +71,7 @@ class LoginView(FormView):
         if form.is_valid():
             user = form.get_user()
             if user is not None:
-                auth.login(self.request, user)
+                login(self.request, user)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -89,58 +88,26 @@ class LogoutView(RedirectView):
     url = '/'
     
     def get(self, request, *args, **kwargs):
-        auth.logout(request)
+        logout(request)
         return super().get(request, *args, **kwargs)
 
 
-class ForgotPasswordView(View):
-    """
-    A single field form where an unauthenticated user can ask for
-    a password reset
-    """
+class ForgotPasswordView(MessagesMixin, FormView):
     form_class = CustomPasswordResetForm
+    template_name = 'pages/registration/forgot_password.html'
+    success_url = '/accounts/login'
 
-    def get(self, request, *args, **kwargs):
-        context = {'form': self.form_class}
-        return render(request, 'pages/registration/forgot_password.html', context)
-
-    def post(self, request, **kwargs):
-        form = self.form_class(request.POST)
-
+    def post(self, request, *args, **kwargs):
+        form = super().get_form()
         if form.is_valid():
             email = form.cleaned_data['email']
-
-            context = {'form': forms.CustomPassowordResetForm}
-
-            user = USER_MODEL.objects.filter(email__iexact=email)
-            if user.exists():
-                try:
-                    # NOTE: Change to append a token to the url
-                    # which will help iD the user in the confirm view
-                    form.save(request, 'contact.mywebsite@gmail.com')
-                except:
-                    message = {
-                        'message': _("Une erreur est arrivé - EMA-ER"),
-                        'level': messages.ERROR,
-                        'extra_tags': 'alert-danger'
-                    }
-                else:
-                    message = {
-                        'message': _(f"Un email a été envoyé à {email}"),
-                        'level': messages.ERROR,
-                        'extra_tags': 'alert-success'
-                    }
-            else:
-                message = {
-                    'message': _("Nous n'avons pas pu vous trouvez votre addresse mail"),
-                    'level': messages.ERROR,
-                    'extra_tags': 'alert-danger'
-                }
-
-            messages.add_message(request, **message)
-            return render(request, 'pages/registration/forgot_password.html', context=context)
-
-        return redirect('accounts:login')
+            
+            queryset = USER_MODEL.objects.filter(email__iexact=email)
+            if not queryset.exists():
+                self.get_fail_message(request, _('Email does not exist'))
+                return super().form_invalid(form)
+        form.save(request, 'our.email@gmail.com')
+        return super().form_valid(form)
 
 
 class UnauthenticatedPasswordResetView(View):
@@ -165,5 +132,5 @@ class UnauthenticatedPasswordResetView(View):
         form = self.form_class(user)
         if form.is_valid():
             form.save()
-        auth.login(request, user)
+        login(request, user)
         return redirect('profile')

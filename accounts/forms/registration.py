@@ -5,10 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import Form, ValidationError, fields, widgets
 from django.utils.crypto import get_random_string, salted_hmac
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.password_validation import validate_password
 
 
 class UserLoginForm(AuthenticationForm):
-    pass
+    """A base form for login users"""
 
 
 class UserSignupForm(UserCreationForm):
@@ -42,5 +43,6 @@ class UserSignupForm(UserCreationForm):
 
         if len(password1) < 10:
             raise ValidationError(_('Votre mot de passe doit comporter au moins 10 charactères'))
-
+        
+        validate_password(password2)
         return self.cleaned_data

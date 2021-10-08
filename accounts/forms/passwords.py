@@ -20,8 +20,8 @@ class CustomPasswordResetForm(PasswordResetForm):
     def save(self, request, from_email):
         super().save(
             from_email=from_email,
-            subject_template_name='components/emails/password_reset_subject.txt',
-            email_template_name='components/emails/password_reset_email.html',
+            subject_template_name='includes/emails/password_reset_subject.txt',
+            email_template_name='includes/emails/password_reset_email.html',
             request=request
         )
 

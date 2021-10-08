@@ -6,7 +6,7 @@ from accounts.views import profile, registration
 app_name = 'accounts'
 
 passwordpatterns = [
-    url(r'^forgot-password/confirm/(?P<uidb64>[A-Z]+)/(?P<token>\w+\-\w+)$',
+    url(r'^forgot-password/confirm/(?P<uidb64>[a-zA-Z]+)/(?P<token>\w+\-\w+)$',
                 registration.UnauthenticatedPasswordResetView.as_view(), name='reset'),
     url(r'^forgot-password$', registration.ForgotPasswordView.as_view(), name='forgot')
 ]

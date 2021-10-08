@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'api',
     'rest_framework',
     'django_extensions',
     'corsheaders',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'analytics',
     'legal',
     'dashboard',
-    'testapp',
     'accounts',
     'hero',
     'nodesplus',

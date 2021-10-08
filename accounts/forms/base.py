@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.forms import Form, ValidationError, fields, widgets
 from django.forms.fields import CharField
 from django.utils.translation import gettext_lazy as _
-
+from django.utils.crypto import get_random_string
 
 class BaseFormMixin(Form):
     token = CharField(max_length=100, required=True)
@@ -49,15 +49,21 @@ class AuthenticationForm(Form):
             if email is not None and password:
                 self.user_cache = authenticate(self.request, email=email, password=password)
                 if self.user_cache is None:
-                    raise ValidationError(self.error_messages['invalid_login'], code='invalid_login', params={'email': self.email_field})
+                    raise ValidationError(
+                        self.error_messages['invalid_login'],
+                        code='invalid_login',
+                        params={'email': self.email_field}
+                    )
                 else:
-                    # self.confirm_login_allowed(self.user_cache)
-                    pass
+                    self.confirm_login_allowed(self.user_cache)
         return self.cleaned_data
 
     def confirm_login_allowed(self, user):
         if not user.is_active:
-            raise ValidationError(self.error_messages['inactive'], code='inactive')
+            raise ValidationError(
+                self.error_messages['inactive'],
+                code='inactive'
+            )
 
     def get_user(self):
         return self.user_cache
