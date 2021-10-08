@@ -1,46 +1,25 @@
 from django.contrib import admin
-from django.contrib.admin.apps import AdminConfig
-from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
-from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import never_cache
+from django.contrib.auth import login
 
-from accounts import forms
-from accounts.forms.admin import MyUserChangeForm, MyUserCreationForm
+from accounts.forms.admin import CustomAdminAuthenticationForm, MyUserChangeForm, MyUserCreationForm
 from accounts.models import MyUser, MyUserProfile
 
 
-class CustomAdminAuthenticationForm(AdminAuthenticationForm):
-    def clean(self):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
-
-        if email is not None and password:
-            self.user_cache = authenticate(self.request, email=email, password=password)
-            if self.user_cache is None:
-                raise self.get_invalid_login_error()
-            else:
-                self.confirm_login_allowed(self.user_cache)
-        return self.cleaned_data
-
-
 class CustomAdminSite(AdminSite):
-    login_form = AdminAuthenticationForm
+    login_form = CustomAdminAuthenticationForm
+    model = MyUser
 
 site = CustomAdminSite()
 
 
-@admin.register(MyUser)
 class MyUserAdmin(auth_admin.UserAdmin):
     # form = MyUserChangeForm
     add_form = MyUserCreationForm
-    model = MyUser
 
     list_display = ['email', 'firstname', 'lastname', 'is_active', 'is_admin']
     list_filter = ()
@@ -62,10 +41,9 @@ class MyUserAdmin(auth_admin.UserAdmin):
     ordering = ['email']
 
 
-@admin.register(MyUserProfile)
 class MyUserProfileAdmin(admin.ModelAdmin):
-    actions      = ('activate_account', 'deactivate_account',)
-    list_display = ('myuser', 'telephone',)
+    list_display = ['myuser', 'telephone']
+    actions = ['activate_account', 'deactivate_account']
     search_fields = ['myuser__firstname', 'myuser__lastname', 'myuser__email']
 
     def activate_account(self, request, queryset):
@@ -74,4 +52,6 @@ class MyUserProfileAdmin(admin.ModelAdmin):
     def deactivate_account(self, request, queryset):
         queryset.update(actif=False)
 
-admin.site.unregister(Group)
+
+site.register(MyUser, MyUserAdmin)
+site.register(MyUserProfile, MyUserProfileAdmin)

@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+FRONT_DIR = os.path.join(BASE_DIR, 'front')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -16,7 +18,7 @@ SECRET_KEY = 'drd&f=j9iq^_#0*r1*9g87^h7k5h3mny%b!k-%43ldlyvn7=20'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '.ngrok.io']
 
 
 # Application definition
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_extensions',
+    'corsheaders',
     'debug_toolbar',
     'social_django',
     
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,7 +65,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(FRONT_DIR, 'dist')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -143,14 +148,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
+STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# AUTHENTICATION BACKENDS
+# Authentication
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
@@ -158,13 +163,13 @@ AUTHENTICATION_BACKENDS = [
     # 'social_core.backends.twitter.TwitterOAuth',
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
     'accounts.backends.EmailAuthenticationBackend'
 ]
 
 
-# SOCIAL DJANGO
+# Social Django
 
 LOGIN_URL = 'accounts:login'
 
@@ -200,9 +205,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = ''
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
 
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
 
 EMAIL_USE_TLS = True
 
@@ -247,12 +252,14 @@ EMAIL_USE_LOCALTIME = True
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Debugging
+
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
 
 
-# CACHE
+# Cache
 
 CACHES = {
     'default': {
@@ -266,7 +273,7 @@ CACHES = {
 }
 
 
-# LANGUAGES
+# Languages
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
@@ -278,7 +285,7 @@ LANGUAGES = [
 ]
 
 
-# STRIPE
+# Stripe
 
 STRIPE_TEST_KEYS = []
 

@@ -23,6 +23,7 @@ django-cors-headers = "*"
 djangorestframework-jwt = "*"
 django-extensions = "*"
 stripe = "*"
+django-debug-toolbar="*"
 
 [requires]
 python_version = "3.8"

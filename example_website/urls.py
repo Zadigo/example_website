@@ -1,4 +1,5 @@
 import debug_toolbar
+from accounts.admin import site
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
@@ -11,7 +12,7 @@ urlpatterns = [
 
     path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('accounts.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', site.urls),
     path('', include('hero.urls')),
 ]
 

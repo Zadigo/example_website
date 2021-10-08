@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, RedirectView, View
 
-MYUSER = auth.get_user_model()
+USER_MODEL = auth.get_user_model()
 
 class SignupView(FormView):
     form_class = UserSignupForm
@@ -29,7 +29,7 @@ class SignupView(FormView):
         }
         if form.is_valid():
             email = form.cleaned_data['email']
-            user = MYUSER.objects.filter(email__iexact=email)
+            user = USER_MODEL.objects.filter(email__iexact=email)
             if user.exists():
                 message.update({'message': _("Vous possédez déjà un compte chez nous")})
                 return redirect('accounts:login')
@@ -112,7 +112,7 @@ class ForgotPasswordView(View):
 
             context = {'form': forms.CustomPassowordResetForm}
 
-            user = MYUSER.objects.filter(email__iexact=email)
+            user = USER_MODEL.objects.filter(email__iexact=email)
             if user.exists():
                 try:
                     # NOTE: Change to append a token to the url
@@ -155,13 +155,13 @@ class UnauthenticatedPasswordResetView(View):
         #     return HttpResponseForbidden(reason='Missing argument')
         
         context = {
-            'form': self.form_class(MYUSER.objects.get(id=1)),
+            'form': self.form_class(USER_MODEL.objects.get(id=1)),
         }
         return render(request, 'pages/registration/forgot_password_confirm.html', context)
 
     def post(self, request, **kwargs):
         # user_token = request.GET.get('user_token')
-        # user = get_object_or_404(MYUSER, id=user_token)
+        # user = get_object_or_404(USER_MODEL, id=user_token)
         form = self.form_class(user)
         if form.is_valid():
             form.save()

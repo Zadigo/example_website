@@ -5,15 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python : Django Template",
+            "name": "Django: Example Website",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\mywebsite\\manage.py",
+            "program": "${workspaceFolder}\\manage.py",
             "args": [
                 "runserver"
             ],
-            "django": true,
-            "justMyCode": true
+            "django": true
         }
     ]
 }

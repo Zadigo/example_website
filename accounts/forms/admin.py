@@ -5,6 +5,31 @@ from django.forms.fields import CharField
 from django.forms.widgets import PasswordInput
 from django.utils.translation import gettext_lazy as _
 
+from django.contrib.admin.forms import AdminAuthenticationForm
+from django.contrib.auth import authenticate, get_user_model
+
+USER_MODEL = get_user_model()
+
+class CustomAdminAuthenticationForm(AdminAuthenticationForm):
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self.user_cache = None
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        # NOTE: Despite the backend changes, the
+        # field is still username - not, email
+        email = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        if email is not None and password:
+            self.user_cache = authenticate(self.request, email=email, password=password)
+
+            if self.user_cache is None:
+                raise self.get_invalid_login_error()
+            self.confirm_login_allowed(self.user_cache)
+        return self.cleaned_data
+
 
 class MyUserChangeForm(ModelForm):
     password = ReadOnlyPasswordHashField(
