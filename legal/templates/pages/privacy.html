@@ -3,12 +3,8 @@
 
 {% block title %}{% trans "Confidentialité et cookies" %} - Nawoka{% endblock title %}
 
-{% block navbar %}
-    {% include "project_components/navs/nav.html" %}
-{% endblock %}
-
 {% block page_description %}
-    <meta name="description" content="Découvrez notre politique de confidentialité">
+    <meta name="description" content="Découvrez notre politique de confidentialité" />
 {% endblock %}
 
 {% block share_metatags %}
@@ -30,14 +26,13 @@
     {% endcomment %}
 {% endblock %}
 
-
-
 {% block container %}
-    <section class="section" id="confidentialite">
-        {% include "components/return_link.html" %}
+    <section class="section my-5" id="confidentialite">
         
         <div class="row wow fadeIn">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-8 offset-md-2">
+                {% include "components/return_link.html" %}
+
                 <div class="card mb-3">
                     <div class="card-body">
                         {% include "components/small_title.html" with title="Utilisation des données personnelles" %}
@@ -125,7 +120,7 @@
                     </div>
                 </div>
                 
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body">
                         {% include "components/small_title.html" with title="Mise en oeuvre des droits des utilisateurs" %}
                         <p>
@@ -163,7 +158,7 @@
                     </div>
                 </div>
                 
-                <div class="card mt-3 d-none">
+                <div class="card d-none">
                     <div class="card-body">
                         <h5>Evolution de la présente clause</h5>      
                         <p>
@@ -202,8 +197,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block footer %}
-    {% include "project_components/navs/footer.html" %}
 {% endblock %}

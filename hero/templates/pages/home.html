@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block navbar %}
-    {% include "layouts/navs/nav.html" %}
+    {% include "includes/navs/nav.html" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -17,14 +17,12 @@
 {% block main_tag_style %}mt-0{% endblock %}
 
 {% block main %}
-    {% comment %}
     {% cache 3600 hero %}
-    {% endcache %}  
-    {% endcomment %}
         <!-- Hero -->
         {% include "layouts/hero.html" %}
         <!-- Benefits -->
         {% include "layouts/benefits/base.html" %}        
+    {% endcache %}  
 {% endblock %}
 
 {% block extra_scripts %}
@@ -43,5 +41,5 @@
 {% endblock %}
 
 {% block footer %}
-    {% include "layouts/navs/footer.html" %}
+    {% include "includes/navs/footer.html" %}
 {% endblock %}

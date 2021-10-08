@@ -1,11 +1,7 @@
 {% extends "base_site.html" %}
-{% load i18n legal %}
+{% load i18n %}
 
 {% block title %}{% trans "Conditions générales de vente" %} - Nawoka{% endblock title %}
-
-{% block navbar %}
-    {% include "project_components/navs/nav.html" %}
-{% endblock %}
 
 {% block page_description %}
     <meta name="description" content="Découvrez nos conditions générales de vente">
@@ -31,9 +27,9 @@
 {% endblock %}
 
 {% block container %}
-    <section class="section" id="cgv">
+    <section class="section my-5" id="cgv">
         <div class="row wow fadeIn">
-            <div class="col-12">
+            <div class="col-sm-12 col-md-8 offset-md-2">
                 {% include "components/return_link.html" %}
                 
                 <div class="card mb-3">
@@ -49,23 +45,23 @@
                     <div class="card-body">
                         <p>
                             Les présentes conditions générales de vente s'appliquent à 
-                            toutes les ventes conclues sur le site Internet {% company_details "name" %}.
+                            toutes les ventes conclues sur le site Internet //company_details//.
                             <br>
                             <br>
                             Le site Internet est un service de :
                             <br>
                             <br>
                             <ul>
-                                <li>L'autoentreprise : {% company_details "name" %}</li>
-                                <li>situé à :  {% company_details "address" %}</li>
-                                <li>adresse URL du site : {% company_details "domain" urlize=True %}
-                                <li>e-mail : {% company_details "email" urlize=True %}
-                                <li>numéro de telephone : {% company_details "telephone" %}</li>
+                                <li>L'autoentreprise : //company_details//</li>
+                                <li>situé à :  //company_details//</li>
+                                <li>adresse URL du site : // company_details //
+                                <li>e-mail : //company_details//
+                                <li>numéro de telephone : //company_details//</li>
                             </ul>
                         </p>
 
                         <p>
-                            Le site Internet {% company_details "domain" urlize=True %} commercialise les produits suivants : {{ services }}.
+                            Le site Internet // company_details // commercialise les produits suivants : {{ services }}.
                             Le client déclare avoir pris connaissance et avoir accepté les conditions générales de vente 
                             antérieurement à la passation de sa commande. La validation de la commande 
                             vaut donc acceptation des conditions générales de vente.    
@@ -85,7 +81,7 @@
                             de toutes autres conditions, et notamment celles applicables pour les ventes en magasin ou au moyen d'autres circuits de distribution et de commercialisation.    
                             <br>
                             <br>
-                            Elles sont accessibles sur le site internet {% company_details "domain" urlize=True %} et prévaudront, le cas échéant, 
+                            Elles sont accessibles sur le site internet // company_details // et prévaudront, le cas échéant, 
                             sur toute autre version ou tout autre document contradictoire.    
                             <br>
                             <br>
@@ -109,12 +105,12 @@
                         <p>
                             Les présentes conditions générales ont pour objet de définir les droits et obligations 
                             des parties dans le cadre de la vente en ligne de biens proposés par le vendeur à l'acheteur, 
-                            à partir du site internet {% company_details "domain" urlize=True %}.    
+                            à partir du site internet // company_details //.    
                     
-                            Les présentes conditions ne concernent que les achats effectués sur le site de {% company_details "domain" urlize=True %}
+                            Les présentes conditions ne concernent que les achats effectués sur le site de // company_details //
                             et livrés exclusivement en métropole ou en Corse. 
                             Pour toute livraison dans les DOM-TOM ou à l’étranger, il convient d'adresser un message 
-                            à l’adresse e-mail suivante : {% company_details "email" urlize=True %}.    
+                            à l’adresse e-mail suivante : //company_details//.    
                         </p>
                         <p>
                             Ces achats concernent les produits suivants:
@@ -196,9 +192,9 @@
                             <br>
                             <br>
                             Pour toute question relative au suivi d'une commande, 
-                            l'acheteur doit appeler le numéro de téléphone suivant: {% company_details "telephone" %} (coût d'un appel local), 
+                            l'acheteur doit appeler le numéro de téléphone suivant: //company_details// (coût d'un appel local), 
                             aux jours et horaires suivants: {{ available_days }}, ou envoyer un mail au vendeur 
-                            à l’adresse mail suivante : {% company_details "email" urlize=True %}.  
+                            à l’adresse mail suivante : //company_details//.  
                         </p>
                     </div>
                 </div>
@@ -220,7 +216,7 @@
                         </p>
                         <p>
                             En cas d'utilisation frauduleuse de la carte bancaire, l'acheteur est invité, 
-                            dès le constat de cette utilisation, à contacter le vendeur au numéro de téléphone suivant: {% company_details "telephone" %}.     
+                            dès le constat de cette utilisation, à contacter le vendeur au numéro de téléphone suivant: //company_details//.     
                         </p>
                     </div>
                 </div>
@@ -325,7 +321,7 @@
                             <br>
                             <br>   
                             Pour les livraisons en France Métropolitaine et en Corse, le délai est de {{ shipping_delay }}  à compter du jour suivant 
-                            celui où l'acheteur a passé sa commande, selon les modalités suivantes: {% company_details "shipping_company" %}.
+                            celui où l'acheteur a passé sa commande, selon les modalités suivantes: //company_details//.
                             <br>
                             <br>
                             Au plus tard, le délai sera de <b>30 jours ouvrables</b> après la conclusion du contrat.    
@@ -347,10 +343,10 @@
                             <br>
                             <br> 
                             Dans ce cas, lorsque le contrat est résolu, le vendeur est tenu de rembourser l'acheteur de la totalité 
-                            des sommes versées, au plus tard dans les {% company_details "return_delay" %} suivant la date à laquelle le contrat a été dénoncé.    
+                            des sommes versées, au plus tard dans les //company_details// suivant la date à laquelle le contrat a été dénoncé.    
                             En cas d'indisponibilité du produit commandé, l'acheteur en sera informé au plus tôt et aura la possibilité 
                             d'annuler sa commande. L'acheteur aura alors le choix de demander soit le remboursement des sommes versées 
-                            dans les {% company_details "return_delay" %} au plus tard de leur versement, soit l'échange du produit.    
+                            dans les //company_details// au plus tard de leur versement, soit l'échange du produit.    
                         </p>
                     </div>
                 </div>
@@ -393,7 +389,7 @@
                         </p>
                         <p>
                             Si les produits nécessitent d'être renvoyés au vendeur, ils doivent faire l'objet 
-                            d'une demande de retour auprès du vendeur dans les {% company_details "return_delay" %} suivant la livraison. 
+                            d'une demande de retour auprès du vendeur dans les //company_details// suivant la livraison. 
                             Toute réclamation formulée hors de ce délai ne pourra être acceptée. Le retour du produit ne pourra 
                             être accepté que pour les produits dans leur état d'origine (emballage, accessoires, notice...).
                         </p>
@@ -415,8 +411,8 @@
                             <br>
                             La réclamation pourra être faite, au choix de l'acheteur :
                             <ul class="browser-default">
-                                <li>numéro de téléphone : {% company_details "telephone" %};</li>
-                                <li> adresse e-mail : {% company_details "email" urlize=True %};</li>  
+                                <li>numéro de téléphone : //company_details//;</li>
+                                <li> adresse e-mail : //company_details//;</li>  
                             </ul>     
                             Toute réclamation non effectuée dans les règles définies ci-dessus et dans les 
                             délais impartis ne pourra être prise en compte et dégagera le vendeur de toute responsabilité 
@@ -430,7 +426,7 @@
                             <br>
                             En cas d'erreur de livraison ou d'échange, tout produit à échanger ou à rembourser 
                             devra être retourné au vendeur dans son ensemble et dans son emballage d'origine, 
-                            en Colissimo Recommandé, à l'adresse suivante : {% company_details "address" %}.   
+                            en Colissimo Recommandé, à l'adresse suivante : //company_details//.   
                             <br>
                             <br>
                             Les frais de retour sont à la charge du vendeur.    
@@ -483,7 +479,7 @@
                             <br>
                             <br>
                             Conformément aux dispositions du code de la consommation, l'acheteur dispose d'un délai de 
-                            {% company_details "return_delay" %} à compter de la date de livraison de sa commande, pour retourner tout article 
+                            //company_details// à compter de la date de livraison de sa commande, pour retourner tout article 
                             ne lui convenant pas et demander l'échange ou le remboursement sans pénalité, à l'exception des frais 
                             de retour qui restent à la charge de l'acheteur.    
                             <br>
@@ -507,8 +503,8 @@
                             <br>
                             <br>
                             Les frais de retour sont à la charge de l'acheteur.
-                            L'échange (sous réserve de disponibilité) ou le remboursement sera effectué dans un délai de {% company_details "return_delay" %}, et au plus tard, 
-                            dans le délai de {% company_details "return_delay" %} à compter de la réception, par le vendeur, des produits retournés 
+                            L'échange (sous réserve de disponibilité) ou le remboursement sera effectué dans un délai de //company_details//, et au plus tard, 
+                            dans le délai de //company_details// à compter de la réception, par le vendeur, des produits retournés 
                             par l'acheteur dans les conditions prévues ci-dessus.    
                             <br>
                             <br>
@@ -777,8 +773,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block footer %}
-    {% include "project_components/navs/footer.html" %}
 {% endblock %}

@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'social_django',
     
     'analytics',
-    'legal',
     'dashboard',
     'accounts',
+    'legal',
     'hero',
     'nodesplus',
 ]

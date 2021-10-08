@@ -1,1 +1,16 @@
-<a href="/"><< Retour</a>
+{% load i18n %}
+
+<div class="card my-4">
+    <div class="card-body">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                    <a href="/">{% trans "Home" %}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {% trans "Privacy" %}
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
