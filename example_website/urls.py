@@ -10,6 +10,7 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
+    path('api/v1/', include('api.urls')),
     path('legal/', include('legal.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('accounts.urls')),

@@ -314,3 +314,20 @@ ENTERPRISE = {
         {'alt': 'Github', 'url': 'https://github.com/Zadigo'}
     ]
 }
+
+
+# CORS
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_REGEX_WHITELIST = [
+    r'^https?\:\/\/localhost\:808\d{1}$',
+    r'^https?\:\/\/192\.168\.0\.\d{3}\:8080$'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'localhost:8080',
+    '192.168.0.103:8080',
+]
