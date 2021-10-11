@@ -1,7 +1,7 @@
 var globalMixin = {
     data () {
         return {
-            currentYear: null
+
         }
     }
 }
