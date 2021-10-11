@@ -1,8 +1,8 @@
 export default ($axios) => ({
-    testApi: () => {
+    getTodos: () => {
         return $axios({
             method: 'get',
-            url: null
+            url: '/todos'
         })
     }
 })
