@@ -1,4 +1,5 @@
 import requests
+from api.serializers.todos import BasePaginator
 from api.serializers.todos import TodoSerializer
 from django.core.cache import cache
 from rest_framework import status
@@ -15,5 +16,10 @@ def get_todos(request, **kwargs):
         cache.set('todos', queryset, 3600)
     serializer = TodoSerializer(data=queryset, many=True)
     serializer.is_valid(raise_exception=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    paginator = BasePaginator()
+    data = paginator.paginate_queryset(queryset, request)
+    return paginator.get_paginated_response(data)
+
+    # return Response(data=serializer.data, status=status.HTTP_200_OK)
 

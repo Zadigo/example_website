@@ -3,14 +3,6 @@
     <div class="row">
       <div class="col-sm-12 col-md-8 offset-md-2">
 
-        <v-card class="text-center">
-          <v-card-text>
-            <v-btn @click="allTodos" color="primary">
-              Get all
-            </v-btn>
-          </v-card-text>
-        </v-card>
-
         <v-toolbar class="my-4" color="orange accent-1">
           <v-toolbar-title class="text-h6 mr-6 hidden-sm-and-down">
             List of todos
@@ -32,20 +24,31 @@
         </v-expansion-panels>
 
       </div>
+    
+      <div class="col-12 text-center">
+        <v-btn @click="getPrevious" class="mr-2">Previous</v-btn>
+        <v-btn @click="getNext">Next</v-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 var _ = require('lodash')
+import { parsePaginationUrl } from '../utils'
 
 export default {
   name: 'TestPage',
   data() {
     return {
       todos: [],
-      search: null
+      search: null,
+      nextDetails: {},
+      previousDetails: {}
     }
+  },
+  beforeMount() {
+    this._getAll()
   },
   computed: {
     searchedTodos() {
@@ -58,15 +61,24 @@ export default {
       }
     }
   },
+
   methods: {
-    allTodos() {
-      this.$api.todos.getTodos()
+    _getAll(limit, offset) {
+      this.$api.todos.getTodos(limit, offset)
       .then((response) => {
-        this.todos = response.data
+        this.todos = response.data['results']
+        this.nextDetails = parsePaginationUrl(response.data.next)
+        this.previousDetails = parsePaginationUrl(response.data.previous)
       })
       .catch((error) => {
         console.error(error)
       })
+    },
+    getNext() {
+      this._getAll(this.nextDetails.limit, this.nextDetails.offset)
+    },
+    getPrevious() {
+      this._getAll(this.previousDetails.limit, this.previousDetails.offset)
     }
   }
 }
