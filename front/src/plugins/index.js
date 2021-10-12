@@ -1,10 +1,12 @@
 import defaultEndpoints from './api'
 import client from '../axiosclient'
+import companyDetails from '../data/company.json'
 
 var globalMixin = {
     data() {
         return {
-            currentYear: null
+            currentYear: null,
+            companyDetails: companyDetails
         }
     }
 }

@@ -1,0 +1,13 @@
+{
+    "legalName": "Example company",
+    "logo": "",
+    "heroImage": "",
+    "socials": [
+        { "name": "Facebook", "icon": "facebook-f", "url": "http://example.com" },
+        { "name": "Instagram", "icon": "instagram", "url": "http://example.com" },
+        { "name": "Youtube", "icon": "youtube", "url": "http://example.com" }
+    ],
+    "partners": [
+        { "name": "zapier", "icon": "zapier" }
+    ]
+}

@@ -20,6 +20,9 @@ npm install --save vuetify @mdi/font
 3. npm install --save @fortawesome/vue-fontawesome@latest
 // npm install --save @fortawesome/fontawesome-free-solid
 
+// Use as <font-awesome-icon :icon="['fab', 'font-awesome']" />
+// npm install --save @fortawesome/free-brands-svg-icons
+
 npm install buefy
 
 npm install js-cookie

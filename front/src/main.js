@@ -7,14 +7,28 @@ import globalPlugins from './plugins'
 import router from './routes'
 import store from './store'
 
+// Styling
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
 // Mixins
 import globalMixin from './mixins'
 
 // Styling
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css')
+library.add(fas, fab)
 
 // Plugins
 Vue.use(globalPlugins)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
+// components
+require('./components/home/homeComponents.js')
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Mixin
 Vue.mixin(globalMixin)
