@@ -25,89 +25,9 @@ body {
     transition: all .5s ease;
 }
 
-
-/* Navbar */
-
-.navbar-light .navbar-brand,.navbar-light .navbar-brand:focus,.navbar-light .navbar-brand:hover {
-    color: rgba(0,0,0,.9)
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0,0,0,.55)
-}
-
-.navbar-light .navbar-nav .nav-link:focus,.navbar-light .navbar-nav .nav-link:hover {
-    color: rgba(0,0,0,.7)
-}
-
-.navbar-light .navbar-nav .nav-link.disabled {
-    color: rgba(0,0,0,.3)
-}
-
-.navbar-light .navbar-nav .nav-link.active,.navbar-light .navbar-nav .show>.nav-link {
-    color: rgba(0,0,0,.9)
-}
-
-.navbar-light .navbar-toggler {
-    color: rgba(0,0,0,.55);
-    border-color: rgba(0,0,0,.1)
-}
-
-.navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
-}
-
-.navbar-light .navbar-text {
-    color: rgba(0,0,0,.55)
-}
-
-.navbar-light .navbar-text a,.navbar-light .navbar-text a:focus,.navbar-light .navbar-text a:hover {
-    color: rgba(0,0,0,.9)
-}
-
-.navbar-dark .navbar-brand,.navbar-dark .navbar-brand:focus,.navbar-dark .navbar-brand:hover {
-    color: #fff
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: hsla(0,0%,100%,.55)
-}
-
-.navbar-dark .navbar-nav .nav-link:focus,.navbar-dark .navbar-nav .nav-link:hover {
-    color: hsla(0,0%,100%,.75)
-}
-
-.navbar-dark .navbar-nav .nav-link.disabled {
-    color: hsla(0,0%,100%,.25)
-}
-
-.navbar-dark .navbar-nav .nav-link.active,.navbar-dark .navbar-nav .show>.nav-link {
-    color: #fff
-}
-
-.navbar-dark .navbar-toggler {
-    color: hsla(0,0%,100%,.55);
-    border-color: hsla(0,0%,100%,.1)
-}
-
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
-}
-
-.navbar-dark .navbar-text {
-    color: hsla(0,0%,100%,.55)
-}
-
-.navbar-dark .navbar-text a,.navbar-dark .navbar-text a:focus,.navbar-dark .navbar-text a:hover {
-    color: #fff
-}
-
-
-
 .form-group {
     margin-bottom: 1rem;
 }
-
 
 .text-smaller {
     font-size: .8rem;

@@ -1,14 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
-    <div class="container-fluid">
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;"> -->
+  <nav :class="extraClass" class="navbar navbar-expand-lg">
+    <div :class="{ 'container': !fluid, 'container-fluid': fluid }">
       <!-- Navbar brand -->
       <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
-        <strong>MDB</strong>
+        <strong>{{ companyDetails.legalName }}</strong>
       </a>
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-        aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
+
+      <button class="navbar-toggler" type="button" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <font-awesome-icon icon="bars" />
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarExample01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item active">
@@ -57,3 +59,36 @@
     </div>
   </nav>
 </template>
+
+
+<script>
+export default {
+  name: 'BaseNavbar',
+  props: {
+    fixedTop: Boolean,
+    fluid: Boolean,
+    theme: {
+      type: String,
+      default: 'light'
+    }
+  },
+
+  computed: {
+      extraClass() {
+        return {
+          'fixed-top scrolling-navbar': this.fixedTop,
+          'navbar-light': this.theme === 'light' | !this.fixedTop,
+          'navbar-dark': this.theme === 'dark'
+        }
+      },
+
+      lightTheme() {
+        return this.theme === 'light' | !this.fixedTop
+      },
+
+      darkTheme() {
+        return this.theme === 'dark'
+      }
+  }
+}
+</script>

@@ -1,11 +1,18 @@
 <template>
-  <base-home-page>
+  <base-jumbotron lead="Learn Bootstrap 5 with MDB" subTitle="Best & free guide of responsive web design" color="blue">
+    <template v-slot:navbar>
+      <base-navbar :fixedTop="false" />
+    </template>
+  </base-jumbotron>
+
+  <!-- <base-home-page>
     <template v-slot:navbar>
       <base-navbar />
     </template>
 
     <template v-slot:intro>
       <base-intro image="https://mdbootstrap.com/img/new/fluid/city/018.jpg">
+      <base-intro image="https://picsum.photos/1200" :mask="0.5">
         <template>
           <div class="text-white">
             <h1 class="mb-3">Learn Bootstrap 5 with MDB</h1>
@@ -21,13 +28,13 @@
     <template>
       <base-brands class="m-0" :items="companyDetails.partners" description="Trusted by product innovators around the world" />
       
-      <!-- <base-section sectionId="section-id" color="blue darken-4">
+      <base-section sectionId="section-id" color="blue darken-4">
         <h1 class="text-white">“Within two months of deploying Appcues, we improved first-week retention by nearly 20%.”</h1>
         <hr class="text-light my-5" >
         <b-btn :to="{ name: 'home' }" variant="primary" class="btn-lg btn-outline mt-4 text-white">Visit this</b-btn>
-      </base-section> -->
+      </base-section>
 
-      <!-- <benefits :items="companyDetails.benefits" sectionId="section-id" color="red darken-1" iconColor="text-red">
+      <benefits :items="companyDetails.benefits" sectionId="section-id" color="red darken-1" iconColor="text-red">
         <template v-slot:heading>
           <div class="col-10 offset-1">
             <h1 class="text-white mb-4">This is a great title</h1>
@@ -38,10 +45,10 @@
             </p>
           </div>
         </template>
-      </benefits>  -->
+      </benefits> 
     </template>
 
-  </base-home-page>
+  </base-home-page> -->
 </template>
 
 <script>

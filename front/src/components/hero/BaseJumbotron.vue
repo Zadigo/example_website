@@ -1,23 +1,22 @@
 <template>
-  <section>
-    <header>
-      <router-view name="nav" />
-    </header>
+  <section ref="link" id="jumbotron">
+    <!-- Navbar -->
+    <slot name="navbar"></slot>
 
-    <main class="my-5">
-      <div class="container">
-        <section>
-          <div id="intro" class="p-5 text-center bg-light shadow-5 rounded-5 mb-5">
-            <h1 class="mb-3 h2">Learn Bootstrap 5 with MDB</h1>
-            <p class="mb-3">Best & free guide of responsive web design</p>
-            <a class="btn btn-primary m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" role="button" rel="nofollow" target="_blank">Start tutorial</a>
-            <a class="btn btn-primary m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank" role="button">Download MDB UI KIT</a>
-          </div>
-        </section>
-
-        <slot></slot>
+    <div :class="{ 'container': containerized }">
+      <div :class="extraClass" class="p-5 text-center" id="intro">
+        <slot name="lead">
+          <h1 class="mb-3 h2">{{ lead }}</h1>
+          <p class="mb-3">{{ subTitle }}</p>
+        </slot>
       </div>
-    </main>
+
+      <!-- Content -->
+      <slot></slot>
+    </div>
+
+    <!-- Footer -->
+    <slot name="footer"></slot>
   </section>
 </template>
 
@@ -25,13 +24,53 @@
 export default {
   name: 'BaseJumbotron',
   props: {
-    hasContainer: Boolean
+    containerized: Boolean,
+    lead: String,
+    subTitle: String,
+    marginTop: {
+      type: Number,
+      default: 0
+    },
+    image: String,
+    color: String
+  },
+
+  mounted() {
+    if (this.containerized) {
+      this.$refs.link.style.marginTop = `${this.marginTop}px`
+    }
+
+    if (this.image != null) {
+      document.getElementById('intro').style.backgroundImage = `url(${this.image})`
+    }
+  },
+
+  computed: {
+    extraClass() {
+      var attrs = {
+        'container shadow-5 rounded-5 mb-5': this.containerized,
+        'bg-image': this.hasImage,
+        'bg-light': this.theme === 'light' | this.theme == null,
+        'bg-dark': this.theme === 'dark'
+      }
+
+      attrs[this.color] = this.hasColor
+      attrs['text-white'] = this.hasColor | this.hasImage | this.darkTheme
+
+      return attrs
+    },
+
+    hasColor() {
+      return this.color != null
+    },
+
+    hasImage() {
+      return this.image != null
+    },
+
+    darkTheme() {
+      return this.theme === 'dark'
+    }
   }
 }
 </script>
-
-<style scoped>
-  #intro {
-    margin-top: 100px;
-  }
-</style>
