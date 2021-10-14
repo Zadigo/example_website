@@ -25,10 +25,10 @@ export default {
 }
 </script>
 
-<style>
-  .navbar .nav-link {
+<style scoped>
+  /* .navbar .nav-link {
     color: #fff !important;
-  }
+  } */
 
   @media (min-width: 991.98px) {
     main {
