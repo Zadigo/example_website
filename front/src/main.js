@@ -29,7 +29,8 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 // components
-require('./components/home/homeComponents.js')
+require('./components/navs')
+require('./components/hero')
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Mixin

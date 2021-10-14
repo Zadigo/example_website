@@ -107,3 +107,8 @@ body {
 .form-group {
     margin-bottom: 1rem;
 }
+
+
+.text-smaller {
+    font-size: .8rem;
+}

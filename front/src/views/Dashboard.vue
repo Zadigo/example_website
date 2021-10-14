@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import BaseNavbar from '../components/dashboard/BaseNavbar.vue'
+import BaseNavbar from '../components/dashboard/BaseDashboardNavbar.vue'
 import BaseSidebar from '../components/dashboard/BaseSidebar.vue'
 import BaseBarChart from '../components/dashboard/charts/BaseBarChart.vue'
 import MinimalStatCard from '../components/dashboard/MinimalStatCard.vue'
