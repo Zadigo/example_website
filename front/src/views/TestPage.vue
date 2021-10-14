@@ -1,85 +1,96 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-8 offset-md-2">
+  <sidebar-interface>
+    <template v-slot:side>
+      <base-sidebar :navbarVisibility="true">
+        <template v-slot:navItems>
+          <base-nav-item name="Home" linkName="home" icon="home" />
+          <base-nav-item name="Users" linkName="products" icon="users" />
+        </template>
+      </base-sidebar>
+    </template>
 
-        <v-toolbar class="my-4" color="orange accent-1">
-          <v-toolbar-title class="text-h6 mr-6 hidden-sm-and-down">
-            List of todos
-          </v-toolbar-title>
-          
-          <v-text-field v-model="search" placeholder="Search" class="m-0" solo></v-text-field>              
-        </v-toolbar>
+    <template v-slot:heading>
+      <v-toolbar maxWidth="100%" class="border-bottom mb-2" style="margin-left:320px;" flat extended>
+        <v-toolbar-title>Your Dashboard</v-toolbar-title>
 
-        <v-expansion-panels class="my-4">
-          <v-expansion-panel v-for="todo in searchedTodos" :key="todo.id">
-            <v-expansion-panel-header>
-              {{ todo.title }}
-            </v-expansion-panel-header>
-            
-            <v-expansion-panel-content>
-              <v-checkbox v-model="todo.completed" label="Completed"></v-checkbox> 
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+        <v-spacer></v-spacer>
 
-      </div>
+        <v-btn icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+
+        <template v-slot:extension>
+          <v-tabs>
+            <v-tab>Item One</v-tab>
+            <v-tab>Item Two</v-tab>
+            <v-tab>Item Three</v-tab>
+          </v-tabs>
+        </template>
+      </v-toolbar>
+    </template>
     
-      <div class="col-12 text-center">
-        <v-btn @click="getPrevious" class="mr-2">Previous</v-btn>
-        <v-btn @click="getNext">Next</v-btn>
+    <template>
+      <div class="row">
+        <div class="col-6">
+          <v-card>
+            <v-card-title>Profile</v-card-title>
+            <v-card-text class="d-flex justify-content-left">
+              <b-avatar size="70" src="http://via.placeholder.com/100" avatar></b-avatar>
+              <div class="ml-5">
+                <label class="mt-2">Name</label>
+                <b-form-input></b-form-input>
+
+                <label class="mt-4">Job</label>
+                <v-combobox :items="[1, 2, 3]" class="border" flat solo></v-combobox>
+              </div>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn class="text-right" color="primary">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+        <div class="col-6">
+          <v-card>
+            <v-card-title>
+              Account settings
+            </v-card-title>
+
+            <v-card-text>
+              <div class="form-group">
+                <label for="">Company name</label>
+                <b-form-input></b-form-input>
+              </div>
+
+              <div class="form-group">
+                <label for="">Account ID</label>
+                <b-form-input></b-form-input>
+              </div>
+
+              <div class="form-group">
+                <label for="">Web application domain</label>
+                <b-form-input></b-form-input>
+              </div>
+
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn class="text-right" color="primary">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </sidebar-interface>
 </template>
 
 <script>
-var _ = require('lodash')
-import { parsePaginationUrl } from '../utils'
+import BaseNavItem from '../components/sidebar/BaseNavItem.vue'
+import BaseSidebar from '../components/sidebar/BaseSidebar.vue'
+import SidebarInterface from '../components/sidebar/SidebarInterface.vue'
 
 export default {
   name: 'TestPage',
-  data() {
-    return {
-      todos: [],
-      search: null,
-      nextDetails: {},
-      previousDetails: {}
-    }
-  },
-  beforeMount() {
-    this._getAll()
-  },
-  computed: {
-    searchedTodos() {
-      if (this.search == null | this.search === '') {
-        return this.todos
-      } else {
-        return _.filter(this.todos, (todo) => {
-          return todo.title.includes(this.search)
-        })
-      }
-    }
-  },
-
-  methods: {
-    _getAll(limit, offset) {
-      this.$api.todos.getTodos(limit, offset)
-      .then((response) => {
-        this.todos = response.data['results']
-        this.nextDetails = parsePaginationUrl(response.data.next)
-        this.previousDetails = parsePaginationUrl(response.data.previous)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-    },
-    getNext() {
-      this._getAll(this.nextDetails.limit, this.nextDetails.offset)
-    },
-    getPrevious() {
-      this._getAll(this.previousDetails.limit, this.previousDetails.offset)
-    }
+  components: { BaseSidebar, SidebarInterface, BaseNavItem }
   }
-}
 </script>

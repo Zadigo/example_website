@@ -19,6 +19,8 @@ import globalMixin from './mixins'
 
 // Styling
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css')
+require('../node_modules/bootstrap-vue/dist/bootstrap-vue.css')
+require('./assets/mdb.css')
 library.add(fas, fab)
 
 // Plugins

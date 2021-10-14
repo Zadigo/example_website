@@ -101,3 +101,9 @@ body {
 .navbar-dark .navbar-text a,.navbar-dark .navbar-text a:focus,.navbar-dark .navbar-text a:hover {
     color: #fff
 }
+
+
+
+.form-group {
+    margin-bottom: 1rem;
+}
