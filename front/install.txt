@@ -48,3 +48,15 @@ npm install -g @ionic/cli
 // Remove typescript in ionic
 
 npm uninstall --save typescript @types/jest @typescript-eslint/eslint-plugin @typescript-eslint/parser @vue/cli-plugin-typescript @vue/eslint-config-typescript
+
+
+
+// Testing
+
+npm install --save-dev jest @vue/test-utils
+npm install vue-jest
+
+# Add this to package.json
+
+"test": "npm run test:unit && npm run lint",
+"test:unit": "jest",
