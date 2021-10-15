@@ -9,6 +9,16 @@ jobs:
       docker:
         - image: python:3
 
+    steps:
+      - checkout
+      - python/install-packages
+          args: pytest
+          pkg-manager: pipenv
+      - run:
+          command: |
+            pipenv run pytest --version
+          name: Testing it
+
 workflows:
   main:
     jobs:
