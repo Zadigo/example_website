@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@1.2
 
 jobs:
-  build-and-test:
+  build-project:
     docker:
       - image: python:3
 
@@ -15,10 +15,10 @@ jobs:
           pkg-manager: pip
       - run:
           command: |
-            pipenv install
-          name: Testing it
+            pipenv install --system --deploy
+          name: Building the project
 
 workflows:
   main:
     jobs:
-      - build-and-test
+      - build-project
