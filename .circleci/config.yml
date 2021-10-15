@@ -5,9 +5,8 @@ orbs:
 
 jobs:
   build-and-test:
-    build:
-      docker:
-        - image: python:3
+    docker:
+      - image: python:3
 
 workflows:
   main:
