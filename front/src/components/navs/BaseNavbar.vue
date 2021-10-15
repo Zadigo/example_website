@@ -1,6 +1,6 @@
 <template>
   <!-- <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;"> -->
-  <nav :class="extraClass" class="navbar navbar-expand-lg">
+  <nav ref="link" :class="extraClass" class="navbar navbar-expand-lg">
     <div :class="{ 'container': !fluid, 'container-fluid': fluid }">
       <!-- Navbar brand -->
       <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
@@ -70,25 +70,65 @@ export default {
     theme: {
       type: String,
       default: 'light'
+    },
+    scrollingNavbar: Boolean
+  },
+
+  created() {
+    // When the user scrolls to a certain level,
+    // animate the navbar (size + color)
+    window.addEventListener('scroll', () => {
+      if (this.scrollingNavbar) {
+        // var defaultColor = 'red'
+
+        if (window.scrollY > 30) {
+          this.$refs.link.classList.add('scrolling-navbar', 'top-nav-collapse', 'red')
+        } else {
+          this.$refs.link.classList.remove('top-nav-collapse', 'red')
+        }
+      }
+    })
+  },
+
+  destroyed() {
+    if (this.scrollingNavbar) {
+      window.removeEventListener('scroll', this.$refs.link.classList.remove('scrolling-navbar', 'top-nav-collapse', 'red'))
     }
   },
 
   computed: {
       extraClass() {
-        return {
-          'fixed-top scrolling-navbar': this.fixedTop,
-          'navbar-light': this.theme === 'light' | !this.fixedTop,
-          'navbar-dark': this.theme === 'dark'
+        var attrs = {
+          'fixed-top': this.fixedTop | this.scrollingNavbar ? true : false,
+          'navbar-light': this.lightTheme,
+          'navbar-dark': this.darkTheme,
+          'scrolling-navbar': this.scrollingNavbar
         }
+        return attrs
       },
 
       lightTheme() {
-        return this.theme === 'light' | !this.fixedTop
+        return !this.darkTheme
       },
 
       darkTheme() {
-        return this.theme === 'dark'
+        return this.theme === 'dark' | this.fixedTop ? true : false
       }
   }
 }
 </script>
+
+<style scoped>
+  .scrolling-navbar {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+  }
+
+  @media (min-width: 600px) {
+    .navbar.scrolling-navbar.top-nav-collapse {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+  }
+</style>

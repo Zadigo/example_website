@@ -1,7 +1,11 @@
 <template>
   <base-jumbotron lead="Learn Bootstrap 5 with MDB" subTitle="Best & free guide of responsive web design" color="blue">
     <template v-slot:navbar>
-      <base-navbar :fixedTop="false" />
+      <base-navbar :fixedTop="true" />
+    </template>
+
+    <template>
+      <v-img src="https://picsum.photos/1200/2000"></v-img>
     </template>
   </base-jumbotron>
 
@@ -65,15 +69,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  /* .navbar .nav-link {
-    color: #fff !important;
-  }
-
-  @media (min-width: 991.98px) {
-    main {
-      padding-left: 0px;
-    }
-  } */
-</style>
