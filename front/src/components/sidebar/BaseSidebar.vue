@@ -1,5 +1,5 @@
 <template>
-  <b-sidebar :noHeader="true" bodyClass="d-flex flex-column flex-shrink-0 p-4" id="sidebar-1" title="Sidebar" :visible="navbarVisibility" left>
+  <b-sidebar :noHeader="true" bodyClass="d-flex flex-column flex-shrink-0 p-4" id="sidebar-1" title="Sidebar" :visible="visible" left>
     <ul class="nav nav-pills flex-column mb-auto">
       <slot name="navItems"></slot>
     </ul>
@@ -20,7 +20,7 @@
 export default {
   name: 'BaseSidebar',
   props: {
-    navbarVisibility: {
+    visible: {
       type: Boolean,
       default: false
     }

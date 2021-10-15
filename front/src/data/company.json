@@ -3,9 +3,9 @@
     "logo": "",
     "heroImage": "",
     "socials": [
-        { "name": "Facebook", "icon": "facebook-f", "url": "http://example.com" },
-        { "name": "Instagram", "icon": "instagram", "url": "http://example.com" },
-        { "name": "Youtube", "icon": "youtube", "url": "http://example.com" }
+        { "name": "Facebook", "icon": "facebook-f", "url": "http://example.com", "inNav": true },
+        { "name": "Instagram", "icon": "instagram", "url": "http://example.com", "inNav": false },
+        { "name": "Youtube", "icon": "youtube", "url": "http://example.com", "inNav": false }
     ],
     "partners": [
         { "name": "Clearbit", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e258e93f171e18a3308_clearbit.svg" },

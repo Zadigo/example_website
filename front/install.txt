@@ -1,4 +1,6 @@
 npm install --save-dev eslint eslint-plugin-vue
+// Create a default ESlint file
+npx eslint --init 
 
 # Current bootstrap 5.1.1
 npm install --save bootstrap@next bootstrap-vue

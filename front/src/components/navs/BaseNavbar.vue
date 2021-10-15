@@ -2,16 +2,19 @@
   <!-- <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;"> -->
   <nav :class="extraClass" class="navbar navbar-expand-lg">
     <div :class="{ 'container': !fluid, 'container-fluid': fluid }">
+      
       <!-- Navbar brand -->
-      <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
+      <router-link :to="{ name: 'home' }" class="navbar-brand nav-link">
         <strong>{{ companyDetails.legalName }}</strong>
-      </a>
+      </router-link>
 
-      <button class="navbar-toggler" type="button" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+      <b-btn @click="$emit('toggleNavigation')" variant="light shadow-none" class="navbar-toggler" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
         <font-awesome-icon icon="bars" />
-      </button>
+      </b-btn>
       
       <div class="collapse navbar-collapse" id="navbarExample01">
+        <slot></slot>
+        
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item active">
             <a class="nav-link" aria-current="page" href="#intro">Home</a>
@@ -25,29 +28,6 @@
           </li>
         </ul>
 
-        <!-- <ul class="navbar-nav d-flex flex-row">
-          <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-              target="_blank">
-              <i class="fab fa-youtube"></i>
-            </a>
-          </li>
-          <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item me-3 me-lg-0">
-            <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-        </ul> -->
         <b-navbar-nav class="d-flex flex-row">
           <b-nav-item href="#" class="me-3 me-lg-0">
             <b-link class="nav-link">
@@ -70,16 +50,25 @@ export default {
     theme: {
       type: String,
       default: 'light'
+    },
+    socials: {
+      type: Array,
+      default: () => []
     }
   },
 
   computed: {
       extraClass() {
-        return {
+        var attrs = {
           'fixed-top scrolling-navbar': this.fixedTop,
-          'navbar-light': this.theme === 'light' | !this.fixedTop,
-          'navbar-dark': this.theme === 'dark'
+          'navbar-light': this.theme.includes('light') | !this.fixedTop,
+          'navbar-dark': this.theme.includes('dark')
         }
+
+        attrs[this.theme] = true
+        attrs['on-top'] = !this.fixedTop
+
+        return attrs
       },
 
       lightTheme() {
@@ -92,3 +81,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  /* .navbar {
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  } */
+
+  /* .navbar .nav-link {
+    color: white;
+  } */
+
+  .on-top {
+    z-index: 2000;
+  }
+</style>

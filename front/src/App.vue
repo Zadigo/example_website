@@ -12,7 +12,14 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+
+  mounted() {
+    var body = document.getElementsByTagName('body').item(0)
+    body.style.backgroundColor = '#fbfbfb'
+    body.style.color = '#4f4f4f'
+    body.style.lineHeight = 1.6
+  }
 }
 </script>
 

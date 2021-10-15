@@ -1,9 +1,31 @@
 <template>
-  <base-jumbotron lead="Learn Bootstrap 5 with MDB" subTitle="Best & free guide of responsive web design" color="blue">
+  <base-home-page>
+    <template v-slot:navbar>
+      <base-navbar :fixedTop="false" theme="red dark" />
+    </template>
+
+    <template v-slot:intro>
+      <base-intro :image="images[0].url">
+        <h2>This a great thing to do</h2>
+      </base-intro>
+    </template>
+
+    <template>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <modern-benefits />
+          </div>
+        </div>
+      </div>
+    </template>
+  </base-home-page>
+
+  <!-- <base-jumbotron lead="Learn Bootstrap 5 with MDB" subTitle="Best & free guide of responsive web design" color="blue">
     <template v-slot:navbar>
       <base-navbar :fixedTop="false" />
     </template>
-  </base-jumbotron>
+  </base-jumbotron> -->
 
   <!-- <base-home-page>
     <template v-slot:navbar>
@@ -57,9 +79,22 @@ export default {
 
   data() {
     return {
+      showSidebar: false,
       footerColumns: [
         { title: 'Home', links: [{ title: 'Home', name: 'home' }, { title: 'Contact', name: 'home' }] },
         { title: 'Contact', links: [{ title: 'Contact', name: 'home' }] }
+      ],
+
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGZvb2R8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=60'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fGZvb2R8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=60'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDF8fGZvb2R8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=60'
+        }
       ]
     }
   }
