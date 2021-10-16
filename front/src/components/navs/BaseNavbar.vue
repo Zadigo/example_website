@@ -54,7 +54,8 @@ export default {
     socials: {
       type: Array,
       default: () => []
-    }
+    },
+    transparent: Boolean
   },
 
   computed: {
@@ -91,7 +92,12 @@ export default {
     color: white;
   } */
 
+  .navbar-transparent {
+    background-color: transparent !important;
+    border-bottom: 1px solid transparent;
+  }
+
   .on-top {
-    z-index: 2000;
+    z-index: 1010;
   }
 </style>

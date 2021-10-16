@@ -26,10 +26,6 @@ export default {
 </script>
 
 <style scoped>
-  /* .navbar .nav-link {
-    color: #fff !important;
-  } */
-
   @media (min-width: 991.98px) {
     main {
       padding-left: 0px;
