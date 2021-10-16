@@ -1,7 +1,7 @@
 <template>
   <base-home-page>
     <template #navbar>
-      <base-navbar :fixedTop="true" :fluid="true" theme="dark">
+      <base-navbar :transparent="true" :themeShadow="false" :fixedTop="false" :fluid="true" theme="dark">
         <template>
           <b-navbar-nav class="navbar-nav me-auto mb-2 mb-lg-0">
             <b-nav-item>
@@ -32,10 +32,12 @@
     </template>
 
     <template #intro>
-      <base-intro :src="testImage" :mask="0.4">
+      <base-intro :src="testImage" :mask="0.4" :correctionTop="74">
         <div>
           <h1 class="hero-lead mb-3">I love you Kendall</h1>
           <p class="hero-lead-300 mb-4">This is a great idea for a website</p>
+
+          <cta-input-group :buttonFlat="true" :filled="true" class="mt-5" buttonName="Subscribe"  />
         </div>
       </base-intro>
     </template>
@@ -63,7 +65,7 @@
       </base-section>
 
       <!-- Benefits -->
-      <base-benefits :items="companyDetails.benefits" :textWhite="false" color="bg-light" iconColor="text-red lighten-1">
+      <base-benefits :flat="true" :items="companyDetails.benefits" :textWhite="false" color="bg-light" iconColor="text-red lighten-1">
 
         <template #footer>
           <div class="container">
@@ -77,6 +79,12 @@
           </div>
         </template>
       </base-benefits>
+
+      <!-- Benefit -->
+      <base-benefit titleColor="text-pink darken-1" :orderReversed="true" :imageShadow="true" />
+      <base-benefit titleColor="text-pink darken-1" :orderReversed="false" :bordered="true" :imageShadow="true" />
+      <!-- <div class="container">
+      </div> -->
       
       <div class="container">
         <div class="row">

@@ -60,7 +60,10 @@ body {
 
 
 
-
+/* 
+ * Modal
+ *
+ */
 
 
 .modal {
@@ -549,3 +552,11 @@ body {
     position: absolute
 }
 
+/* 
+ * Navbar
+ *
+ */
+
+.navbar .nav-link {
+    color: white;
+}

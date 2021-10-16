@@ -30,8 +30,10 @@ Vue.use(IconsPlugin)
 
 import hero from './components/hero'
 import navs from './components/navs'
+import extended from './components/extended'
 Vue.use(hero)
 Vue.use(navs)
+Vue.use(extended)
 
 // components
 

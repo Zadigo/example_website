@@ -5,6 +5,7 @@ import BaseHomePage from './BaseHomePage.vue'
 import BaseBrands from './BaseBrands.vue'
 import BaseSection from './BaseSection.vue'
 import BaseBenefits from './BaseBenefits.vue'
+import BaseBenefit from './BaseBenefit.vue'
 import BaseModernBenefits from './BaseModernBenefits.vue'
 import BaseCTA from './BaseCTA.vue'
 import MapIntro from './MapIntro.vue'
@@ -28,6 +29,7 @@ export default {
         Vue.component('base-cta', BaseCTA)
         Vue.component('base-modern-benefits', BaseModernBenefits)
         Vue.component('base-benefits', BaseBenefits)
+        Vue.component('base-benefit', BaseBenefit)
 
         
         // Vue.component('carousel-intro', CarouselIntro)

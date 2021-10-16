@@ -6,8 +6,9 @@
           <div class="row">
             <div :class="contentClasses">
               <h2 class="mb-6">{{ title }}</h2>
-              <v-text-field v-model="textFieldData" solo></v-text-field>
-              <v-btn @click="$emit('textFieldValidated')" :to="{ name: to }" color="primary">Register yourself</v-btn>
+              <!-- <v-text-field v-model="textFieldData" solo></v-text-field> -->
+              <!-- <v-btn @click="$emit('textFieldValidated')" :to="{ name: to }" color="primary">Register yourself</v-btn> -->
+              <cta-input-group />
             </div>
           </div>
         </div>
@@ -23,8 +24,11 @@
 </template>
 
 <script>
+// import CTAInputGroup from '../extended/CTAInputGroup.vue'
+
 export default {
   name: 'SecondaryCTA',
+  // components: { CTAInputGroup },
   props: {
     absolute: Boolean,
     col: {

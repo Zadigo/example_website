@@ -36,6 +36,8 @@ export default {
       type: Array,
       default: () => []
     },
+    themeShadow: Boolean,
+    transparent: Boolean,
     theme: {
       type: String,
       default: 'light'
@@ -52,7 +54,9 @@ export default {
             'scrolling-navbar': this.fixedTop,
             [`navbar-${this.theme}`]: true,
             'on-top': !this.fixedTop,
-            'navbar-transparent': this.transparent
+            'navbar-transparent': this.transparent,
+            'shadow-none': this.transparent,
+            'theme-shadow': this.themeShadow
           },
           this.color
         ]
@@ -79,13 +83,9 @@ export default {
 </script>
 
 <style scoped>
-  .navbar {
+  .navbar.theme-shadow {
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
   }
-
-  /* .navbar .nav-link {
-    color: white;
-  } */
 
   .on-top {
     z-index: 1010;
