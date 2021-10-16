@@ -1,47 +1,121 @@
 <template>
-  <div ref="intro" :class="{ 'shadow-2-strong': shadow }" id="intro" class="bg-image">
+  <div ref="intro" :class="introClasses" id="intro">
     <div class="mask">
-      <div :class="containerClass" class="container d-flex h-100">
-        <slot></slot>
+      <div ref="container" :class="containerClasses" class="container">
+        <div ref="wrapper" :class="wrapperClasses" class="wrapper">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { imageMixin } from './mixins'
+
 export default {
   // Represents the image and the mask element
   // used for the hero. The user has to implement
   // the rest of the elements (lead, call to action...)
   
   name: 'BaseIntro',
+  mixins: [imageMixin],
   props: {
-    image: String,
+    // height: {
+    //   type: String,
+    //   default: '100'
+    // },
+    color: {
+      type: String,
+      default: 'blue'
+    },
+    containerClass: {
+      type: String,
+      default: null
+    },
+    correctionTop: {
+      type: Number,
+      default: null
+    },
+    introClass: {
+      type: String,
+      default: null
+    },
+    isFullPage: Boolean,
     mask: {
       type: Number,
       default: 0.8
     },
-    isFullPage: Boolean,
     shadow: Boolean,
-    containerClass: {
+    src: String,
+    textWhite: {
+      type: Boolean,
+      default: true
+    },
+    wrapperClass: {
       type: String,
-      default: 'align-items-center justify-content-center text-center'
+      default: null
     }
   },
 
   mounted() {
-    // Set the background image dynamically here -;
-    // also the mask that helps darken the image
-    this.$refs.intro.style.backgroundImage = `url(${this.image})`
-    var maskDiv = this.$refs.intro.getElementsByClassName('mask')[0]
-    maskDiv.style.backgroundColor = `rgba(0, 0, 0, ${this.mask})`
+    if (this.hasImage) {
+      // Sets the intro's height
+      // this.$refs.intro.style.height = `${this.height}vh`
+
+      // Set the background image dynamically here
+      // this.$refs.intro.style.backgroundImage = `url(${this.src})`
+      this.$refs.intro.style.backgroundImage = this.getBackgroundUrl(this.src)
+
+      // Add a mask to darken the image
+      var maskDiv = this.$refs.intro.getElementsByClassName('mask')[0]
+      maskDiv.style.backgroundColor = `rgba(0, 0, 0, ${this.mask})`
+    }
+
+    // Applies a correction to intro when there is a Navbar
+    // on the page (generally between 50/73 pixels)
+    if (!this.isFullPage) {
+      this.$refs.intro.style.marginTop = `-${this.correctionTop}px`
+    }
   },
 
   computed: {
-    extraClass() {
-      return {
-        'd-flex align-items-center h-100':  this.isFullPage
-      }
+    introClasses() {
+      return [
+        {
+          [`${this.color}`]: true,
+          'bg-image': this.hasImage,
+          'shadow-2-strong': this.shadow,
+        },
+        this.introClass
+      ]
+    },
+    containerClasses() {
+      return [
+        {
+          'text-white': this.textWhite
+        },
+        'd-flex', 
+        'h-100',
+        'align-items-center',
+        'justify-content-center',
+        'text-center',
+        this.containerClass
+      ]
+    },
+    wrapperClasses() {
+      return [
+        this.wrapperClass
+      ]
+    },
+    // extraClass() {
+    //   return {
+    //     'd-flex align-items-center h-100':  this.isFullPage
+    //   }
+    // },
+
+    hasImage() {
+      return this.src != null
     }
   }
 }
@@ -50,11 +124,5 @@ export default {
 <style scoped>
   #intro {
     height: 100vh;
-  }
-
-  @media (min-width: 992px) {
-    #intro {
-      margin-top: -73px;
-    }
   }
 </style>

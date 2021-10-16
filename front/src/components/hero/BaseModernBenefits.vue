@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'ModernBenefits'
+  name: 'BaseModernBenefits'
 }
 </script>
 

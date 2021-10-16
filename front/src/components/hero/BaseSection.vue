@@ -1,5 +1,5 @@
 <template>
-  <section ref="baseSection" :class="extraClass" :id="sectionId" :iconColor="iconColor">
+  <section ref="section" :class="sectionClasses" :id="sectionId">
     <div class="container">
       <slot></slot>
     </div>
@@ -7,42 +7,55 @@
 </template>
 
 <script>
+import { imageMixin, sectionMixin } from './mixins'
+
 export default {
-  // Represents a section of the Hero page
+  // Represents a section of 
+  // the Hero page
+
   name: 'BaseSection',
+  mixins: [imageMixin, sectionMixin],
   props: {
-    image: String,
-    color: {
-      type: String,
-      default: 'bg-light'
-    },
-    iconColor: {
-      type: String,
-      default: 'text-dark'
-    },
-    sectionId: {
-      type: String,
-      required: false
-    }
+    // color: {
+    //   type: String,
+    //   default: null
+    // },
+    // iconColor: {
+    //   type: String,
+    //   default: 'text-dark'
+    // },
+    // sectionId: {
+    //   type: String,
+    //   required: false
+    // },
+    // src: String,
+    // theme: {
+    //   type: String,
+    //   default: 'light'
+    // },
+    // textWhite: Boolean
   },
 
   mounted() {
-    if (this.image != null) {
-      this.$refs.baseSection.style.backgroundImage = `url(${this.image})`
+    if (this.hasImage) {
+      this.$refs.section.style.backgroundImage = this.getBackgroundUrl(this.src)
     }
   },
 
   computed: {
-    extraClass() {
-      if (this.image == undefined) {
-        return this.color
-      } else {
-        return {
-          'bg-image': this.image != undefined,
-          // 'bg-light': this.color === 'light',
-          // 'bg-dark text-white': this.color === 'dark',
-        }
-      }
+    sectionClasses() {
+      return [
+        {
+          'bg-image': this.hasImage,
+          [`bg-${this.theme}`]: this.theme,
+          'text-white': this.textWhite
+        },
+        this.color
+      ]
+    },
+
+    hasImage() {
+      return this.src != null
     }
   }
 }
@@ -51,7 +64,12 @@ export default {
 <style scoped>
   section {
     position: relative;
-    padding: 90px 45px 100px;
     text-align: center;
+  }
+
+  @media(min-width: 993px) {
+    section {
+      padding: 90px 45px 100px;
+    }
   }
 </style>

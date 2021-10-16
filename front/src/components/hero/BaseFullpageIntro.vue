@@ -1,17 +1,15 @@
 <template>
-  <header>
-    <div ref="intro" id="intro" class="bg-image shadow-2-strong">
-      <div class="mask d-flex align-items-center h-100">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-8 col-xl-5">
-              <slot></slot>
-            </div>
+  <div ref="intro" id="intro" class="bg-image shadow-2-strong">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-xl-5">
+            <slot></slot>
           </div>
         </div>
       </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -19,6 +17,10 @@ export default {
   name: 'BaseFullPageIntro',
   props: {
     image: String,
+    height: {
+      type: Number,
+      default: 100
+    },
     mask: {
       type: Number,
       default: 0.8
@@ -26,8 +28,12 @@ export default {
   },
 
   mounted() {
+    // Set the element's height
+    // this.$refs.intro
+    // Set element's background image
     this.$refs.intro.style.backgroundImage = `url(${this.image})`
     var maskDiv = this.$refs.intro.getElementsByClassName('mask')[0]
+    // Implement the image's mask
     maskDiv.style.backgroundColor = `rgba(0, 0, 0, ${this.mask})`
   }
 }

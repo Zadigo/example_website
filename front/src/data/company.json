@@ -3,23 +3,127 @@
     "logo": "",
     "heroImage": "",
     "socials": [
-        { "name": "Facebook", "icon": "facebook-f", "url": "http://example.com", "inNav": true },
-        { "name": "Instagram", "icon": "instagram", "url": "http://example.com", "inNav": false },
-        { "name": "Youtube", "icon": "youtube", "url": "http://example.com", "inNav": false }
+        {
+            "name": "Facebook",
+            "icon": "facebook-f",
+            "url": "http://example.com",
+            "inNav": true
+        },
+        {
+            "name": "Instagram",
+            "icon": "instagram",
+            "url": "http://example.com",
+            "inNav": false
+        },
+        {
+            "name": "Youtube",
+            "icon": "youtube",
+            "url": "http://example.com",
+            "inNav": false
+        }
     ],
     "partners": [
-        { "name": "Clearbit", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e258e93f171e18a3308_clearbit.svg" },
-        { "name": "Freshworks", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c0835b2cb99873ce983d_freshworks-2021.svg" },
-        { "name": "Privy", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c083201c15c0fa471850_privy-2021.svg" },
-        { "name": "Codepen", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e426ec9b0001bdb875c_codepen.svg" },
-        { "name": "Amplitude", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e0ae1947a43717e46e7_amplitude.svg" },
-        { "name": "Adroll", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e8407fc3fd1a197b1b4_adroll.svg" },
-        { "name": "Profitwell", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1…d906/605105a4d0533067cfafabd2_profitwell-2021.svg" },
-        { "name": "Lyft", "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e3d86ed89aec212c20e_lyft.svg" }
+        {
+            "name": "Clearbit",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e258e93f171e18a3308_clearbit.svg"
+        },
+        {
+            "name": "Freshworks",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c0835b2cb99873ce983d_freshworks-2021.svg"
+        },
+        {
+            "name": "Privy",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/6058c083201c15c0fa471850_privy-2021.svg"
+        },
+        {
+            "name": "Codepen",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e426ec9b0001bdb875c_codepen.svg"
+        },
+        {
+            "name": "Amplitude",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e0ae1947a43717e46e7_amplitude.svg"
+        },
+        {
+            "name": "Adroll",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e8407fc3fd1a197b1b4_adroll.svg"
+        },
+        {
+            "name": "Profitwell",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1…d906/605105a4d0533067cfafabd2_profitwell-2021.svg"
+        },
+        {
+            "name": "Lyft",
+            "image": "https://assets.website-files.com/5c7d318eeaea1d6e1198d906/60b19e3d86ed89aec212c20e_lyft.svg"
+        }
     ],
     "benefits": [
-        { "title": "Integrate", "icon": "table", "description": "Link your web apps with a few clicks, so they can share data" },
-        { "title": "Automate", "icon": "clock", "description": "Pass info between your apps with workflows called Zaps" },
-        { "title": "Innovate", "icon": "heart", "description": "Build processes faster and get more done—no code required" }
+        {
+            "title": "Integrate",
+            "icon": "table",
+            "description": "Link your web apps with a few clicks, so they can share data"
+        },
+        {
+            "title": "Automate",
+            "icon": "clock",
+            "description": "Pass info between your apps with workflows called Zaps"
+        },
+        {
+            "title": "Innovate",
+            "icon": "heart",
+            "description": "Build processes faster and get more done—no code required"
+        }
+    ],
+    "footer": [
+        {
+            "title": "Company",
+            "links": [
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                }
+            ]
+        },
+        {
+            "title": "About",
+            "links": [
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                }
+            ]
+        },
+        {
+            "title": "Career",
+            "links": [
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                },
+                {
+                    "title": "A",
+                    "name": "home"
+                }
+            ]
+        }
     ]
 }

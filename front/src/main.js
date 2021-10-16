@@ -28,9 +28,15 @@ Vue.use(globalPlugins)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+import hero from './components/hero'
+import navs from './components/navs'
+Vue.use(hero)
+Vue.use(navs)
+
 // components
-require('./components/navs')
-require('./components/hero')
+
+// require('./components/navs')
+// require('./components/hero')
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Mixin
