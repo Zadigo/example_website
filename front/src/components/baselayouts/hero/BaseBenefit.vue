@@ -2,7 +2,9 @@
   <base-section :class="sectionClasses">
     <div class="row">
       <div :class="columnClasses" class="col-sm-12 col-md-6">
-        <h1 :class="titleClasses" class="font-weight-bold">No more digging through Slack & email</h1>
+        <h1 :class="titleClasses" class="font-weight-bold">
+          No more digging through Slack & email
+        </h1>
         <p class="text-muted">
           See all activities, edits or mentions about every document and file, 
           in one central space. No matter if Slack, email or pigeons, 

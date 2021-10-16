@@ -82,7 +82,7 @@
 
       <!-- Benefit -->
       <base-benefit titleColor="text-pink darken-1" :orderReversed="true" :imageShadow="true" />
-      <base-benefit titleColor="text-pink darken-1" :orderReversed="false" :bordered="true" :imageShadow="true" />
+      <base-benefit titleColor="text-pink darken-1" :orderReversed="false" :bordered="false" :imageShadow="true" />
       <!-- <div class="container">
       </div> -->
       

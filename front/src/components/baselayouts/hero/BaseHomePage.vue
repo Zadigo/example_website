@@ -1,5 +1,5 @@
 <template>
-  <section id="hero">
+  <section :class="bodyColor" id="hero">
     <header role="heading">
       <!-- Navbar -->
       <slot name="navbar"></slot>
@@ -21,7 +21,14 @@ export default {
   // This is a skeleton for a website's
   // home page. Can be extended or impleted
   // for home page view
-  name: 'BaseHomePage'
+  
+  name: 'BaseHomePage',
+  props: {
+    bodyColor: {
+      type: String,
+      default: null
+    }
+  }
 }
 </script>
 

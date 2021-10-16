@@ -48,7 +48,8 @@ export default {
         {
           'bg-image': this.hasImage,
           [`bg-${this.theme}`]: this.theme,
-          'text-white': this.textWhite
+          'text-white': this.textWhite,
+          'shadow-sm': true
         },
         this.color
       ]
