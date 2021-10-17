@@ -8,7 +8,7 @@
               <h2 class="mb-6">{{ title }}</h2>
               <!-- <v-text-field v-model="textFieldData" solo></v-text-field> -->
               <!-- <v-btn @click="$emit('textFieldValidated')" :to="{ name: to }" color="primary">Register yourself</v-btn> -->
-              <cta-input-group />
+              <cta-input-group :buttonName="buttonName" />
             </div>
           </div>
         </div>
@@ -31,6 +31,10 @@ export default {
   // components: { CTAInputGroup },
   props: {
     absolute: Boolean,
+    buttonName: {
+      type: String,
+      required: false
+    },
     col: {
       type: Number,
       default: 8

@@ -37,6 +37,10 @@ export default {
       type: Number,
       default: null
     },
+    flexPosition: {
+      type: String,
+      default: 'center'
+    },
     introClass: {
       type: String,
       default: null
@@ -51,6 +55,10 @@ export default {
     textWhite: {
       type: Boolean,
       default: true
+    },
+    textPosition: {
+      type: String,
+      default: 'center'
     },
     wrapperClass: {
       type: String,
@@ -92,14 +100,14 @@ export default {
     },
     containerClasses() {
       return [
-        {
-          'text-white': this.textWhite
-        },
         'd-flex', 
         'h-100',
         'align-items-center',
-        'justify-content-center',
-        'text-center',
+        {
+          [`justify-content-${this.flexPosition}`]: true,
+          [`text-${this.textPosition}`]: true,
+          'text-white': this.textWhite
+        },
         this.containerClass
       ]
     },

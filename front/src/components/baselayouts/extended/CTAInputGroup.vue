@@ -1,7 +1,9 @@
 <template>
   <b-input-group :class="inputGroupClasses">
     <b-form-input @change="$emit('ctaInputChange')" :placeholder="placeholder"></b-form-input>
-    <b-btn @click="$emit('ctaButtonClick')" :class="buttonClasses" :variant="buttonColor">{{ buttonName }}</b-btn>
+    <b-btn @click="$emit('ctaButtonClick')" :class="buttonClasses" :variant="buttonColor">
+      {{ buttonName }}
+    </b-btn>
   </b-input-group>
 </template>
 

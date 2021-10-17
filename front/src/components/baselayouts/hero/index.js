@@ -9,6 +9,10 @@ import BaseBenefit from './BaseBenefit.vue'
 import BaseModernBenefits from './BaseModernBenefits.vue'
 import BaseCTA from './BaseCTA.vue'
 import MapIntro from './MapIntro.vue'
+import BasePricing from './BasePricing.vue'
+
+// Utilities
+import { leadTitle } from './lead-title'
 
 export {
     BaseIntro,
@@ -21,5 +25,9 @@ export {
     BaseBenefit,
     BaseModernBenefits,
     BaseCTA,
-    MapIntro
+    BasePricing,
+    MapIntro,
+
+    // Utilities
+    leadTitle
 }

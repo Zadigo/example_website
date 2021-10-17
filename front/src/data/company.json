@@ -125,5 +125,109 @@
                 }
             ]
         }
+    ],
+    "pricing": [
+        {
+            "monthly": true,
+            "choices": [
+                {
+                    "title": "Free",
+                    "highlighted": false,
+                    "price": null,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Essential",
+                    "highlighted": true,
+                    "price": 19,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Advanced",
+                    "highlighted": false,
+                    "price": 49,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Enterprise",
+                    "highlighted": false,
+                    "price": 189,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                }
+            ]
+        },
+        {
+            "monthly": false,
+            "choices": [
+                {
+                    "title": "Free",
+                    "highlighted": false,
+                    "price": null,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Essential",
+                    "highlighted": false,
+                    "price": 194,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Advanced",
+                    "highlighted": true,
+                    "price": 495,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                },
+                {
+                    "title": "Enterprise",
+                    "highlighted": false,
+                    "price": 1896,
+                    "features": [
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature",
+                        "Feature"
+                    ]
+                }
+            ]
+        }
     ]
 }

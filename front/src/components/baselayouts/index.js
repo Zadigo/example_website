@@ -1,5 +1,5 @@
 import { CTAInputGroup } from './extended'
-import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BaseSection, MapIntro } from './hero'
+import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BasePricing, BaseSection, leadTitle, MapIntro } from './hero'
 import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, SidebarInterface } from './navs'
 
 
@@ -16,6 +16,7 @@ export default {
         Vue.component('base-modern-benefits', BaseModernBenefits),
         Vue.component('base-cta', BaseCTA),
         Vue.component('base-map-intro', MapIntro)
+        Vue.component('base-pricing', BasePricing)
 
         // Navs
         Vue.component('base-navbar', BaseNavbar)
@@ -23,6 +24,7 @@ export default {
 
         // Utilities
         Vue.component('cta-input-group', CTAInputGroup)
+        Vue.component('lead-title', leadTitle)
 
         // Sidebar
         Vue.component('base-sidebar', BaseSidebar)

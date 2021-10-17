@@ -1,11 +1,13 @@
 <template>
   <div class="partners bg-light" id="partners" aria-label="Partners">
-    <small class="text-uppercase text-smaller m-0 text-muted">
-      {{  description }}
-    </small>
+    <div class="wrapper">
+      <div class="text-uppercase text-smaller ml-md-5 text-muted">
+        {{  description }}
+      </div>
 
-    <div ref="brands" class="brands">
-      <b-img v-for="(item, index) in items" :key="index" :src="item.image" :height="imageHeight" :alt="item.name" />
+      <div ref="brands" class="brands">
+        <b-img v-for="(item, index) in items" :key="index" :src="item.image" :height="imageHeight" :alt="item.name" />
+      </div>
     </div>
   </div>
 </template>
@@ -14,7 +16,10 @@
 export default {
   name: 'BaseBrands',
   props: {
-    description: String,
+    description: {
+      type: String,
+      default: 'Trusted by product-led innovators around the world'
+    },
     items: {
       type: Array
     },
@@ -32,14 +37,22 @@ export default {
 </script>
 
 <style scoped>
+  .partners .wrapper {
+    padding: 1rem;
+  }
+
   .brands {
     display: grid;
     grid-template-rows: auto;
   }
 
+  .text-smaller {
+    font-size: .7rem;
+  }
+
   @media(min-width: 320px) {
     .brands {
-      padding: 1.5rem;
+      padding: 1rem;
       grid-template-columns: repeat(2, 1fr);
       text-align: center;
       vertical-align: middle;
@@ -48,13 +61,16 @@ export default {
     .brands img {
       margin: .75rem;
     }
+
+    /* .text-sm-center {
+      text-align: center;
+    } */
   }
 
   @media(min-width: 993px) {
     .brands {
-      padding: 2rem;
+      padding: 0 0 1rem 0;
       grid-template-columns: repeat(8, 1fr);
     }
   }
-
 </style>

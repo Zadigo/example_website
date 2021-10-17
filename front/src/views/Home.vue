@@ -10,6 +10,9 @@
             <b-nav-item href="#">
               Logout
             </b-nav-item>
+            <b-nav-item :to="{ name: 'pricing' }">
+              Pricing
+            </b-nav-item>
             <b-nav-item href="#">
               Profile
             </b-nav-item>
@@ -32,10 +35,11 @@
     </template>
 
     <template #intro>
-      <base-intro :src="testImage" :mask="0.4" :correctionTop="74">
+      <base-intro :src="testImage" :mask="0.4" :correctionTop="74" flexPosition="center" textPosition="center">
         <div>
-          <h1 class="hero-lead mb-3">I love you Kendall</h1>
-          <p class="hero-lead-300 mb-4">This is a great idea for a website</p>
+          <h1 class="lead-title mb-3">I love you Kendall</h1>
+          <!-- <lead-title>I love you Kendall</lead-title> -->
+          <p class="lead-subtitle mb-4">This is a great idea for a website</p>
 
           <cta-input-group :buttonFlat="true" :filled="true" class="mt-5" buttonName="Subscribe"  />
         </div>
@@ -56,8 +60,8 @@
         <template>
           <div class="row">
             <div class="col-sm-12 col-md-12">
-              <h1>Kendall Jenner is a Genius</h1>
-              <p>Get the best from her</p>
+              <h1 class="lead-title">Kendall Jenner is a genius</h1>
+              <p class="lead-subtitle">Get the best from her</p>
               <v-btn size="lg" color="light">Visit website</v-btn>
             </div>
           </div>
@@ -89,7 +93,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <base-cta :isCard="true" :textWhite="true" />
+            <base-cta :isCard="true" :textWhite="true" buttonName="Subscribe" />
           </div>
         </div>
       </div>
