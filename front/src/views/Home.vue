@@ -4,7 +4,7 @@
       <base-navbar :transparent="true" :themeShadow="false" :fixedTop="false" :fluid="true" theme="dark">
         <template>
           <b-navbar-nav class="navbar-nav me-auto mb-2 mb-lg-0">
-            <b-nav-item>
+            <b-nav-item :to="{ name: 'login' }">
               Login
             </b-nav-item>
             <b-nav-item href="#">

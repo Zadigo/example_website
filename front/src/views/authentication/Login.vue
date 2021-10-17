@@ -1,19 +1,13 @@
 <template>
-  <base-fullpage-intro image="https://mdbootstrap.com/img/new/fluid/city/018.jpg">
-    <template>
-      <b-card>
-        <b-form>
-          <div v-for="(field, index) in fields" :key="index" class="form-group">
-            <b-input :type="field.type" :placeholder="field.placeholder" class="my-2"></b-input>
-          </div>
-        </b-form>
-
-        <template class="text-right" footer>
-          <b-button>Login</b-button>
+  <base-home-page>
+    <template #intro>
+      <base-intro :isFullPage="true" :textWhite="true" :mask="0.5" src="https://images.pexels.com/photos/762084/pexels-photo-762084.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=1200">
+        <template>
+          <authentication-form fieldType="email" :login="true" />
         </template>
-      </b-card>
+      </base-intro>
     </template>
-  </base-fullpage-intro>
+  </base-home-page>
 </template>
 
 <script>

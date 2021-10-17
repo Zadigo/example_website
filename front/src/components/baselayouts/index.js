@@ -1,6 +1,7 @@
 import { CTAInputGroup } from './extended'
 import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BasePricing, BaseSection, leadTitle, MapIntro } from './hero'
 import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, SidebarInterface } from './navs'
+import AuthenticationForm from './AuthenticationForm.vue'
 
 
 export default {
@@ -30,6 +31,9 @@ export default {
         Vue.component('base-sidebar', BaseSidebar)
         Vue.component('sidebar-interface', SidebarInterface)
         Vue.component('base-nav-item', BaseNavItem)
+
+        // Authentication
+        Vue.component('authentication-form', AuthenticationForm)
 
         // Mixins
         Vue.mixin({

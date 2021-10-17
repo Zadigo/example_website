@@ -34,7 +34,7 @@
             </div>
 
             <div class="card-footer bg-white py-3">
-              <b-btn :to="{ name: 'home', query: { plan: choice.title, monthly: monthly } }" :variant="customButtonVariant(choice)" class="btn-sm">
+              <b-btn @click="$emit('updateBillingPlan', selectedBillingPlan(choice))" :to="getRoute(choice)" :variant="customButtonVariant(choice)" class="btn-sm">
                 Get it
               </b-btn>
             </div>
@@ -63,6 +63,11 @@ export default {
     shadow: {
       type: Boolean,
       default: true
+    },
+    isAuthenticated: Boolean,
+    notAuthenticatedRouteName: {
+      type: String,
+      default: 'login'
     },
     items: {
       type: Array,
@@ -121,6 +126,26 @@ export default {
   },
 
   methods: {
+    selectedBillingPlan(choice) {
+      // Resumes the billing plan selected
+      // by the user
+      return { plan: choice.title, monthly: this.monthly }
+    },
+    getRoute(choice) {
+      // Depdending on whether the user is authenticated
+      // or not, go to a specific route. Generally, it is
+      // the signup oute. NOTE: The programmer should implement
+      // the logic for keeping track of the plan that was
+      // selected by the user in the rest of the app
+      var route = { name: null, query: this.selectedBillingPlan(choice)}
+      if (this.isAuthenticated) {
+        route['name'] = 'home'
+        return route
+      } else {
+        route['name'] = this.notAuthenticatedRouteName
+        return route
+      }
+    },
     priceSuffix(choice) {
       if (choice.price == null) {
         return null
