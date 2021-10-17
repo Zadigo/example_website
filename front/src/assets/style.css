@@ -61,6 +61,18 @@ body {
     }
 }
 
+.lead-subtitle-half {
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.hg-box {
+    background-color: white;
+    border-radius: 4px !important;
+    padding: 1rem !important;
+}
+
+
 .fw-300 {
     font-weight: 300 !important;
 }
@@ -585,3 +597,8 @@ body {
 .navbar .nav-link {
     color: white;
 }
+
+
+/* .mb-7 {
+    margin-bottom: 5rem !important;
+} */

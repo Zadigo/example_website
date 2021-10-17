@@ -5,14 +5,20 @@
         <div class="container">
           <div class="row">
             <div :class="contentClasses">
-              <h2 class="mb-6">{{ title }}</h2>
+              <h2 class="mb-5">{{ title }}</h2>
               <!-- <v-text-field v-model="textFieldData" solo></v-text-field> -->
               <!-- <v-btn @click="$emit('textFieldValidated')" :to="{ name: to }" color="primary">Register yourself</v-btn> -->
-              <cta-input-group :buttonName="buttonName" />
+              <div class="col-sm-12 col-md-8 offset-md-2">
+                <cta-input-group :buttonName="buttonName" />
+              </div>
             </div>
           </div>
         </div>
       </v-card-text>
+
+      <v-card-footer>
+        <font-awesome-icon icon="user"></font-awesome-icon>
+      </v-card-footer>
     </v-card>
 
     <base-section v-else :color="color" class="text-center">
@@ -97,6 +103,7 @@ export default {
     contentClasses() {
       return [
         'col-sm-12',
+        'p-3',
         {
           [`col-md-${this.col}`]: true,
           'offset-sm-0': true,

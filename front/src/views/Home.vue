@@ -37,9 +37,11 @@
     <template #intro>
       <base-intro :src="testImage" :mask="0.4" :correctionTop="74" flexPosition="center" textPosition="center">
         <div>
-          <h1 class="lead-title mb-3">I love you Kendall</h1>
+          <h1 class="lead-title mb-8">I love you <span class="hg-box pink darken-2 rounded">Kendall</span></h1>
           <!-- <lead-title>I love you Kendall</lead-title> -->
-          <p class="lead-subtitle mb-4">This is a great idea for a website</p>
+          <p class="lead-subtitle-half mb-9">
+            An innovative website created with VueJS and Django
+          </p>
 
           <cta-input-group :buttonFlat="true" :filled="true" class="mt-5" buttonName="Subscribe"  />
         </div>

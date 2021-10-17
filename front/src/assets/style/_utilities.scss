@@ -1,0 +1,75 @@
+// Font
+$default_lead_font_size: 4rem;
+$default_font_size: 1rem;
+
+// Font weight
+
+$font_weights: (100, 300, 400, 500, 700, 900);
+
+%hg_box {
+    background-color: white;
+    border-radius: 4px !important;
+    padding: 1rem !important;
+}
+
+.hg-box {
+    @extend %hg_box;
+}
+
+.text-smaller {
+    font-size: 1 - 80 / 100 * $font_size;
+}
+
+
+// Font weights
+
+@each $weight in $font_weights {
+    // e.g. fw-100, fw-300...
+    .fw-#{$weight} {
+        font-weight: $weight !important;
+    }
+}
+
+// Lead title and lead subtitle
+
+@mixin font_media_queries($screen_size, $font_size: $default_lead_font_size) {
+    @media(min-width: $screen_size + 'px') {
+        .lead-title {
+            @if ($screen_size <= 576) {
+                font-size: divide($font_size, 2);
+            } @else {
+                font-size: $font_size;
+            }
+        }
+        
+        .lead-subtitle {
+            @if ($screen_size <= 576) {
+                font-size: divide($font_size, 4);
+            } @else {
+                font-size: divide($font_size, 2);
+            }
+            font-weight: 300;
+        }
+    }
+}
+
+.intro {
+    // Generate the media queries for the leads
+    //  and since we might not need all of them,
+    // we can limit to the ones we want
+    $limit_to: 2;
+    
+    // @each $screen_size in $screen_sizes {
+    //     // For screen sizes that are smaller,
+    //     // use half font size
+    //   @include font_media_queries($screen_size, $default_lead_font_size);
+    // }
+
+    @for $i from 1 through length($screen_sizes) {
+        @if ($i <= $limit_to) {
+            // TODO: list.nth does not work to get
+            // value from list
+            @include font_media_queries(list.nth($screen_sizes, $i), $default_lead_font_size);
+        }
+    }
+}

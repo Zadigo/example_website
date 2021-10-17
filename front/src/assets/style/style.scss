@@ -1,0 +1,67 @@
+@import './variables';
+@import './functions';
+
+@import './utilities';
+@import './modals';
+
+$global_transition: all .4s ease;
+$move_transition: all .3s ease;
+
+$transitions: (
+    "enter", 
+    "leave", 
+    "enter-to",
+    "leave-to", 
+    "enter-active", 
+    "leave-active", 
+    "move"
+);
+
+html, body {
+    font-family: $font_name;
+}
+
+.navbar .nav-link {
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+// Vue transitions
+
+@mixin effects_for_non_visible {
+    opacity: 0;
+}
+
+@mixin effects_for_visible {
+    opacity: 1;
+}
+
+
+@function create_selector($name, $value) {
+    @return $name + "-" + $value;
+}
+
+@each $transition in $transitions {
+    // Create the global transitions that
+    // will be used by VueJS
+    .#{create_selector("general-transition", $transition)} {
+        @if ($transition == "enter-active" or $transition == "leave-active") {
+            transition: $global_transition;
+        }
+        
+        @if ($transition == "move") {
+            transition: $move_transition;
+        }
+        
+        @if ($transition == "enter" or $transition == "leave-to") {
+            @include effects_for_non_visible;
+        }
+        
+        @if ($transition == "leave" or $transition == "enter-to") {
+            @include effects_for_visible;
+        }
+    }
+}
