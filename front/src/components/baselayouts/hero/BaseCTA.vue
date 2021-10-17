@@ -15,10 +15,6 @@
           </div>
         </div>
       </v-card-text>
-
-      <v-card-footer>
-        <font-awesome-icon icon="user"></font-awesome-icon>
-      </v-card-footer>
     </v-card>
 
     <base-section v-else :color="color" class="text-center">
@@ -33,7 +29,7 @@
 // import CTAInputGroup from '../extended/CTAInputGroup.vue'
 
 export default {
-  name: 'SecondaryCTA',
+  name: 'BaseCTA',
   // components: { CTAInputGroup },
   props: {
     absolute: Boolean,

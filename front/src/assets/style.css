@@ -1,5 +1,6 @@
 html {
     font-family: "Roboto" sans-serif;
+    /* color: #183149;  */
 }
 
 body {
@@ -27,6 +28,21 @@ body {
 
 .form-group {
     margin-bottom: 1rem;
+}
+
+.text-separator:before, .text-separator:after {
+    content: "";
+    border-bottom: 1px solid #c2c8d0;
+    flex: 1 0 auto;
+    height: .5em;
+    margin: 0;
+}
+
+.text-separator span {
+    text-transform: uppercase;
+    text-align: center;
+    flex: 0.2 0 auto;
+    margin: 0;
 }
 
 
@@ -85,7 +101,26 @@ body {
     font-weight: 600 !important;
 }
 
+.fs-super {
+    /* color: #1d243c; */
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1;
+}
 
+@media(min-width: 320px) {
+    .fs-super {
+        font-size: 40px;
+    }
+}
+
+.text-reset {
+    text-transform: none;
+}
+
+.text-white-muted {
+    color: #DEEAFF;
+}
 
 
 

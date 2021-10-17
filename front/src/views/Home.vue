@@ -72,6 +72,10 @@
 
       <!-- Benefits -->
       <base-benefits :flat="true" :items="companyDetails.benefits" :textWhite="false" color="bg-light" iconColor="text-red lighten-1">
+        <template #heading>
+          <h1 class="fs-super">What we actually do</h1>
+          <h1 class="fs-super mb-9">and what we can do</h1>
+        </template>
 
         <template #footer>
           <div class="container">
@@ -89,9 +93,21 @@
       <!-- Benefit -->
       <base-benefit titleColor="text-pink darken-1" :orderReversed="true" :imageShadow="true" />
       <base-benefit titleColor="text-pink darken-1" :orderReversed="false" :bordered="false" :imageShadow="true" />
-      <!-- <div class="container">
-      </div> -->
       
+      <!-- FAQ -->
+      <base-section color="blue darken-4">
+        <template>
+          <div class="row">
+            <div class="col-8 offset-md-2">
+              <h2 class="text-white fs-super mb-5">Got questions?</h2>
+              <p class="mb-8 text-white-muted fw-300">Here are a few of our most frequently asked questions</p>
+
+              <base-small-faq :items="faq" />
+            </div>
+          </div>
+        </template>
+      </base-section>
+
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -108,10 +124,13 @@
 </template>
 
 <script>
+import faq from '../data/faq.json'
+
 export default {
   name: 'Home',
   data() {
     return {
+      faq: faq,
       footerItems: [
 
       ],

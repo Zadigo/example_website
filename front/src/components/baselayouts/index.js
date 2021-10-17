@@ -2,6 +2,7 @@ import { CTAInputGroup } from './extended'
 import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BasePricing, BaseSection, leadTitle, MapIntro } from './hero'
 import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, SidebarInterface } from './navs'
 import AuthenticationForm from './AuthenticationForm.vue'
+import BaseSmallFAQ from './BaseSmallFAQ.vue'
 
 
 export default {
@@ -26,6 +27,7 @@ export default {
         // Utilities
         Vue.component('cta-input-group', CTAInputGroup)
         Vue.component('lead-title', leadTitle)
+        Vue.component('base-small-faq', BaseSmallFAQ)
 
         // Sidebar
         Vue.component('base-sidebar', BaseSidebar)
