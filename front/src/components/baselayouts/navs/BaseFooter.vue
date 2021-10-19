@@ -1,9 +1,10 @@
 <template>
   <footer ref="footer" :class="footerClasses" class="text-lg-start">
     <div v-show="items.length > 0" class="py-4 text-center">
-      <div class="row">
+      <div class="row p-5">
 
-        <div v-for="(item, index) in items" :key="index" class="col-sm-12 col-md-2">
+        <!-- Links -->
+        <div v-for="(item, index) in items" :key="index" class="col-sm-12 col-md-2 text-md-left">
           <p class="font-weight-bold text-uppercase">{{ item.title }}</p>
           
           <div v-for="(link, index) in item.links" :key="index">
@@ -33,8 +34,8 @@
     <hr class="m-0" />
 
     <div class="text-center py-4 align-items-center">
-      <b-button v-for="(social, index) in socials" :key="index" :href="social.url" style="min-width: 62px;" variant="primary" class="m-1" rel="nofollow" target="_blank">
-        <font-awesome-icon :icon="['fab', social.icon]" />
+      <b-button v-for="(social, index) in socials" :key="index" :href="social.url" style="min-width: 62px;" variant="primary" class="m-1 transparent shadow-none" rel="nofollow" target="_blank">
+        <font-awesome-icon :icon="['fab', social.icon]" class="fa-2x" />
       </b-button>
     </div>
 
@@ -80,6 +81,10 @@ export default {
 </script>
 
 <style scoped>
+  .fa-2x {
+    font-size: 18px;
+  }
+
   .bg-dark a, .bg-dark p, .bg-dark #copyright {
     --bs-text-opacity: 1;
     color: rgba(var(--bs-light-rgb),var(--bs-text-opacity)) !important;

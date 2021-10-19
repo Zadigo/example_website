@@ -1,9 +1,8 @@
-import { CTAInputGroup } from './extended'
 import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BasePricing, BaseSection, leadTitle, MapIntro } from './hero'
 import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, BaseEcommerceNavbar, SidebarInterface } from './navs'
 import AuthenticationForm from './AuthenticationForm.vue'
 import BaseSmallFAQ from './BaseSmallFAQ.vue'
-
+import CTAInputGroup from './CTAInputGroup'
 
 export default {
     install: (Vue) => {

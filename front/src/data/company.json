@@ -78,49 +78,32 @@
             "title": "Company",
             "links": [
                 {
-                    "title": "A",
+                    "title": "Home",
                     "name": "home"
                 },
                 {
-                    "title": "A",
+                    "title": "Terms of conditions",
                     "name": "home"
                 },
                 {
-                    "title": "A",
+                    "title": "Terms of use",
                     "name": "home"
                 }
             ]
         },
         {
-            "title": "About",
+            "title": "About us",
             "links": [
                 {
-                    "title": "A",
+                    "title": "Contact us",
                     "name": "home"
                 },
                 {
-                    "title": "A",
+                    "title": "Press",
                     "name": "home"
                 },
                 {
-                    "title": "A",
-                    "name": "home"
-                }
-            ]
-        },
-        {
-            "title": "Career",
-            "links": [
-                {
-                    "title": "A",
-                    "name": "home"
-                },
-                {
-                    "title": "A",
-                    "name": "home"
-                },
-                {
-                    "title": "A",
+                    "title": "Careers",
                     "name": "home"
                 }
             ]

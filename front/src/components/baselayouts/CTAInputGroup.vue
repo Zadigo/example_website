@@ -1,7 +1,7 @@
 <template>
   <b-input-group :class="inputGroupClasses">
-    <b-form-input @change="$emit('ctaInputChange')" :placeholder="placeholder"></b-form-input>
-    <b-btn @click="$emit('ctaButtonClick')" :class="buttonClasses" :variant="buttonColor">
+    <b-form-input v-model="email" :placeholder="placeholder" :type="inputType" />
+    <b-btn @click="$emit('ctaButtonClick', email), email = null" :class="buttonClasses" :variant="buttonColor">
       {{ buttonName }}
     </b-btn>
   </b-input-group>
@@ -18,7 +18,17 @@ export default {
       },
       buttonColor: String,
       filled: Boolean,
+      inputType: {
+        type: String,
+        default: null
+      },
       placeholder: String
+    },
+
+    data() {
+      return {
+        email: null
+      }
     },
 
     computed: {

@@ -1,6 +1,4 @@
 <template>
-  <!-- <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;"> -->
-
   <nav :class="navClasses" class="navbar">
     <div :class="containerClasses">
       
@@ -14,7 +12,7 @@
       </b-btn>
       
       <!-- Links -->
-      <div class="collapse navbar-collapse" id="simple-navbar">
+      <div class="collapse navbar-collapse">
         <slot></slot>
       </div>
     </div>
@@ -32,6 +30,7 @@ export default {
     },
     fixedTop: Boolean,
     fluid: Boolean,
+    isAuthenticated: Boolean,
     socials: {
       type: Array,
       default: () => []
