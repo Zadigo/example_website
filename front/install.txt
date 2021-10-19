@@ -7,6 +7,7 @@ npm install --save bootstrap@next bootstrap-vue
 npm install --save axios router vue-router vuex lodash
 
 npm install --save sass-loader sass
+npm install vue-i18n
 npm install --save datejs
 
 # NOTE: The latest chartjs is not yet compatible with
