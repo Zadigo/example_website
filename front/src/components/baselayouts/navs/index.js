@@ -6,6 +6,8 @@ import BaseSidebar from './sidebar/BaseSidebar.vue'
 import SidebarInterface from './sidebar/SidebarInterface.vue'
 import BaseEcommerceNavbar from './BaseEcommerceNavbar.vue'
 
+import i18nSelection from './i18nSelection'
+
 export {
     BaseNavbar,
     BaseFooter,
@@ -14,5 +16,6 @@ export {
     SidebarInterface,
     BaseNavItem,
     BaseSidebar,
-    BaseEcommerceNavbar
+    BaseEcommerceNavbar,
+    i18nSelection
 }

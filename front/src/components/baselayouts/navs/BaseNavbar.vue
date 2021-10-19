@@ -44,39 +44,39 @@ export default {
   },
 
   computed: {
-      navClasses() {
-        return [
-          'navbar-expand-lg',
-          'd-lg-block',
-          {
-            'fixed-top': this.fixedTop,
-            'scrolling-navbar': this.fixedTop,
-            [`navbar-${this.theme}`]: true,
-            'on-top': !this.fixedTop,
-            'navbar-transparent': this.transparent,
-            'shadow-none': this.transparent,
-            'theme-shadow': this.themeShadow
-          },
-          this.color
-        ]
-      },
+    navClasses() {
+      return [
+        'navbar-expand-lg',
+        'd-lg-block',
+        {
+          'fixed-top': this.fixedTop,
+          'scrolling-navbar': this.fixedTop,
+          [`navbar-${this.theme}`]: true,
+          'on-top': !this.fixedTop,
+          'navbar-transparent': this.transparent,
+          'shadow-none': this.transparent,
+          'theme-shadow': this.themeShadow
+        },
+        this.color
+      ]
+    },
 
-      containerClasses() {
-        return [
-          {
-            'container': !this.fluid,
-            'container-fluid': this.fluid
-          }
-        ]
-      },
+    containerClasses() {
+      return [
+        {
+          'container': !this.fluid,
+          'container-fluid': this.fluid
+        }
+      ]
+    },
 
-      lightTheme() {
-        return this.theme === 'light' | !this.fixedTop
-      },
+    lightTheme() {
+      return this.theme === 'light' | !this.fixedTop
+    },
 
-      darkTheme() {
-        return this.theme === 'dark'
-      }
+    darkTheme() {
+      return this.theme === 'dark'
+    }
   }
 }
 </script>

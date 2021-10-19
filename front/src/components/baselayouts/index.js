@@ -1,5 +1,5 @@
 import { BaseBenefit, BaseBenefits, BaseBrands, BaseCTA, BaseFullpageIntro, BaseHomePage, BaseIntro, BaseJumbotron, BaseModernBenefits, BasePricing, BaseSection, leadTitle, MapIntro } from './hero'
-import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, BaseEcommerceNavbar, SidebarInterface } from './navs'
+import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, BaseEcommerceNavbar, SidebarInterface, i18nSelection } from './navs'
 import AuthenticationForm from './AuthenticationForm.vue'
 import BaseSmallFAQ from './BaseSmallFAQ.vue'
 import CTAInputGroup from './CTAInputGroup'
@@ -28,6 +28,7 @@ export default {
         Vue.component('cta-input-group', CTAInputGroup)
         Vue.component('lead-title', leadTitle)
         Vue.component('base-small-faq', BaseSmallFAQ)
+        Vue.component('base-i18n-selection', i18nSelection)
 
         // Sidebar
         Vue.component('base-sidebar', BaseSidebar)

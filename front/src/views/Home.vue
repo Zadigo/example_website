@@ -30,6 +30,8 @@
               </b-link>
             </b-nav-item>
           </b-navbar-nav>
+
+          <base-i18n-selection class="pl-0" />
         </template>
       </base-navbar>  
     </template>
