@@ -118,22 +118,21 @@
     </template>
 
     <template #footer>
-      <base-footer :items="companyDetails.footer" :socials="companyDetails.socials" class="mt-5" color="bg-dark" />
+      <base-footer :items="footer" :socials="companyDetails.socials" class="mt-5" color="bg-dark" />
     </template>
   </base-home-page>
 </template>
 
 <script>
 import faq from '../data/faq.json'
+import footer from '../data/footer.json'
 
 export default {
   name: 'Home',
   data() {
     return {
       faq: faq,
-      footerItems: [
-
-      ],
+      footer: footer,
       testImage: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1200&w=940'
     }
   }

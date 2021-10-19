@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+import i18n from './plugins/i18n'
+
 // Store + Router + Vuetify
 import vuetify from './plugins/vuetify'
 import globalPlugins from './plugins'
@@ -54,6 +56,7 @@ new Vue({
   router,
   store,
   vuetify,
+  i18n,
 
   render: h => h(App),
 }).$mount('#app')

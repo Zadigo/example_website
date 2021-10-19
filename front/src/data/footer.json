@@ -1,0 +1,41 @@
+[
+    {
+        "title": "Company",
+        "links": [
+            {
+                "title": "Home",
+                "name": "home"
+            }
+        ]
+    },
+    {
+        "title": "About us",
+        "links": [
+            {
+                "title": "Contact us",
+                "name": "home"
+            },
+            {
+                "title": "Press",
+                "name": "home"
+            },
+            {
+                "title": "Careers",
+                "name": "home"
+            }
+        ]
+    },
+    {
+        "title": "Information",
+        "links": [
+            {
+                "title": "Terms of conditions",
+                "name": null
+            },
+            {
+                "title": "Terms of use",
+                "name": null
+            }
+        ]
+    }
+]
