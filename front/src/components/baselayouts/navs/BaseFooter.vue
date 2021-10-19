@@ -13,6 +13,20 @@
           </div>
         </div>
 
+        <div v-if="linkToAppStore != undefined || linkToPlayStore != undefined" class="col-sm-auto col-md-2">
+          <p class="font-weight-bold text-uppercase">Our apps</p>
+
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <b-link :href="linkToAppStore" target="_blank" aria-label="App Store">
+              <b-img :src="require('@/assets/appstore.png')" width="100" class="mb-3"></b-img>
+            </b-link>
+            
+            <b-link :href="linkToPlayStore" target="_blank" aria-label="Play store">
+              <b-img :src="require('@/assets/playmarket.png')" width="100"></b-img>
+            </b-link>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -46,6 +60,8 @@ export default {
       type: Array,
       default: () => { return [] }
     },
+    linkToAppStore: String,
+    linkToPlayStore: String,
     theme: {
       type: String,
       default: 'bg-dark'

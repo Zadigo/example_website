@@ -13,6 +13,11 @@ var homeRoutes = [
         name: 'login',
         path: '/login',
         component: () => import(/* webpackChunkName: "pricing" */'../views/authentication/Login.vue')
+    },
+    {
+        name: 'test_page',
+        path: '/tests',
+        component: () => import(/* webpackChunkName: "tests" */'../views/TestPage.vue')
     }
 ]
 

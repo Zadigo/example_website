@@ -1,5 +1,5 @@
 <template>
-  <sidebar-interface>
+  <!-- <sidebar-interface>
     <template v-slot:side>
       <base-sidebar :navbarVisibility="true">
         <template v-slot:navItems>
@@ -81,16 +81,20 @@
         </div>
       </div>
     </template>
-  </sidebar-interface>
+  </sidebar-interface> -->
+
+  <base-ecommerce-navbar>
+    
+  </base-ecommerce-navbar>
 </template>
 
 <script>
-import BaseNavItem from '../components/sidebar/BaseNavItem.vue'
-import BaseSidebar from '../components/sidebar/BaseSidebar.vue'
-import SidebarInterface from '../components/sidebar/SidebarInterface.vue'
+// import BaseNavItem from '../components/sidebar/BaseNavItem.vue'
+// import BaseSidebar from '../components/sidebar/BaseSidebar.vue'
+// import SidebarInterface from '../components/sidebar/SidebarInterface.vue'
 
 export default {
   name: 'TestPage',
-  components: { BaseSidebar, SidebarInterface, BaseNavItem }
+  // components: { BaseSidebar, SidebarInterface, BaseNavItem }
   }
 </script>
