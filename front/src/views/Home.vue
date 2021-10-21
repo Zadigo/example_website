@@ -13,7 +13,7 @@
             <b-nav-item :to="{ name: 'pricing' }">
               Pricing
             </b-nav-item>
-            <b-nav-item href="#">
+            <b-nav-item :to="{ name: 'profile' }">
               Profile
             </b-nav-item>
           </b-navbar-nav>

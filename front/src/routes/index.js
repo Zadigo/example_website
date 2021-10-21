@@ -17,19 +17,24 @@ var router = new Router({
         //     path: '/',
         //     redirect: `/${i18n.locale}`
         // },
+        // {
+        //     path: '/:lang',
+        //     component: {
+        //         render(c) { return c('router-view') }
+        //     },
+        //     children: [
+        //         // ...homeRoutes,
+        //         {
+        //             path: 'about',
+        //             name: 'about',
+        //             component: () => import('../views/TestLang.vue')
+        //         }
+        //     ]
+        // },
         {
-            path: '/:lang',
-            component: {
-                render(c) { return c('router-view') }
-            },
-            children: [
-                // ...homeRoutes,
-                {
-                    path: 'about',
-                    name: 'about',
-                    component: () => import('../views/TestLang.vue')
-                }
-            ]
+            path: '*',
+            // alias: '/404',
+            component: () => import(/* webpackChunkName: "error" */'../views/404.vue')
         }
     ],
     scrollBehavior: () => { window.scroll(0, 0) }

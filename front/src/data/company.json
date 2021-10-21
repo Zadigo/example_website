@@ -73,42 +73,6 @@
             "description": "Build processes faster and get more done—no code required"
         }
     ],
-    "footer": [
-        {
-            "title": "Company",
-            "links": [
-                {
-                    "title": "Home",
-                    "name": "home"
-                },
-                {
-                    "title": "Terms of conditions",
-                    "name": "home"
-                },
-                {
-                    "title": "Terms of use",
-                    "name": "home"
-                }
-            ]
-        },
-        {
-            "title": "About us",
-            "links": [
-                {
-                    "title": "Contact us",
-                    "name": "home"
-                },
-                {
-                    "title": "Press",
-                    "name": "home"
-                },
-                {
-                    "title": "Careers",
-                    "name": "home"
-                }
-            ]
-        }
-    ],
     "pricing": [
         {
             "monthly": true,

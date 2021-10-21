@@ -9,6 +9,7 @@ npm install --save axios router vue-router vuex lodash
 npm install --save sass-loader sass
 npm install vue-i18n
 npm install --save datejs
+npm i js-cookie
 
 # NOTE: The latest chartjs is not yet compatible with
 # the newest Vue so use "npm install chart.js@2.9.4"

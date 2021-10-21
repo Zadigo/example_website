@@ -122,8 +122,13 @@ body {
     color: #DEEAFF;
 }
 
+.t-50 {
+    top: 50%;
+}
 
-
+.l-5 {
+    left: 5%;
+}
 
 
 

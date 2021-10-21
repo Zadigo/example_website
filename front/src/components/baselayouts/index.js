@@ -3,6 +3,7 @@ import { BaseFooter, BaseNavbar, BaseNavItem, BaseSidebar, BaseEcommerceNavbar, 
 import AuthenticationForm from './AuthenticationForm.vue'
 import BaseSmallFAQ from './BaseSmallFAQ.vue'
 import CTAInputGroup from './CTAInputGroup'
+import BaseErrorPage from './BaseErrorPage.vue'
 
 export default {
     install: (Vue) => {
@@ -29,6 +30,7 @@ export default {
         Vue.component('lead-title', leadTitle)
         Vue.component('base-small-faq', BaseSmallFAQ)
         Vue.component('base-i18n-selection', i18nSelection)
+        Vue.component('base-error-page', BaseErrorPage)
 
         // Sidebar
         Vue.component('base-sidebar', BaseSidebar)
