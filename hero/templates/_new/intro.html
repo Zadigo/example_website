@@ -1,0 +1,12 @@
+{% extends "./layouts/intro.html" %}
+
+{% block intro_classes %}
+    {% if src is not None %}bg-image{% endif %} {{ color|default:'white' }} {% if shadow %}shadow-2-strong{% endif %}
+{% endblock %}
+
+
+{% block container_classes %}
+    justify-content-{{ flex_position|default:'center' }} text-{{ text_position|default:'center' }} {{ text_white|default:True }}
+{% endblock %}
+
+{% block wrapper_class %}{% endblock %}

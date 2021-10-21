@@ -1,0 +1,21 @@
+{% extends "./layouts/home.html" %}
+
+{% block hero_navbar %}
+    {% include "includes/navs/nav.html" %}
+{% endblock %}
+
+{% block intro %}
+    {% include "./_intro.html" with src=hero_image %}
+{% endblock %}
+
+{% block sections %}
+    {% include "./mysection.html" %}
+
+    {% include "./includes/sections/benefit.html" with src="high_five.svg" %}
+
+    {% include "./includes/sections/benefits.html" %}
+{% endblock %}
+
+{% block hero_footer %}
+    {% include "includes/navs/footer.html" %}
+{% endblock %}

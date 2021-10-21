@@ -1,0 +1,7 @@
+<h1 class="lead-title mb-8">{{ lead }}</span></h1>    
+<p class="lead-subtitle-half mb-9">
+    {{ subtitle }}
+</p>
+<a href="{% url href %}" class="btn btn-{{ btn_color|default:'primary' }} btn-{{ btn_size|default:'lg' }}" role="link" aria-label="Call to action">
+    {{ call_to_action }}
+</a>

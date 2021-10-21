@@ -1,7 +1,9 @@
 import os
+import datetime
 
 import stripe
 from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +39,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'debug_toolbar',
     'social_django',
-    
+    'graphene_django',
+    'django_filters',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'graphql_auth',
+
+    'company',
     'analytics',
     'dashboard',
     'accounts',
@@ -75,12 +82,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
 
-                'django.template.context_processors.i18n',
-                'example_website.project.company_context_processor'
+                'legal.context_processors.legal',
+                'company.context_processors.company',
+                'hero.context_processors.hero'
             ],
             'libraries': {
                 'utils': 'accounts.templatetags.utils',
@@ -161,6 +170,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'accounts.MyUser'
 
 AUTHENTICATION_BACKENDS = [
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
+    'graphql_auth.backends.GraphQLAuthBackend',
     # 'social_core.backends.twitter.TwitterOAuth',
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
@@ -306,13 +317,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # HERO
 
-HERO = {}
+HERO = {
+    'hero_image': 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?cs=srgb&dl=pexels-moose-photos-1036623.jpg&fm=jpg'
+}
+
+LEGAL = {}
 
 ENTERPRISE = {
+    'company_description': 'This is a simple description',
+    'contact': {
+        'address': '15, rue du Château',
+        'zip_code': '75001 Paris, France',
+        'emails': {
+            'main': 'info@monsite.fr'
+        },
+        'telephone': {
+            'main': '01 23 45 67 89'
+        }
+    },
+    'link_to_app_store': 'http://',
+    'link_to_play_store': 'http://',
     'socials': [
         {'alt': 'Facebook', 'url': 'https://www.facebook.com/mdbootstrap'},
         {'alt': 'Github', 'url': 'https://github.com/Zadigo'}
-    ]
+    ],
 }
 
 
@@ -331,3 +359,46 @@ CSRF_TRUSTED_ORIGINS = [
     'localhost:8080',
     '192.168.0.103:8080',
 ]
+
+# GraphQL
+
+GRAPHQL_AUTH = {
+    'LOGIN_ALLOWED_FIELDS': 'email',
+    'UPDATE_MUTATION_FIELDS': ['firstname', 'lastname'],
+    'SEND_ACTIVATION_EMAIL': False,
+    'REGISTER_MUTATION_FIELDS': {
+        'email': 'String'
+    }
+}
+
+GRAPHQL_JWT = {
+    # 'JWT_PAYLOAD_HANDLER': 'app.utils.jwt_payload',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_SECRET_KEY': os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY),
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_ANY_CLASSES': [
+        'graphql_auth.mutations.Register',
+        # 'graphql_auth.mutations.Register',
+        # 'graphql_auth.mutations.VerifyAccount',
+        # 'graphql_auth.mutations.ResendActivationEmail',
+        # 'graphql_auth.mutations.SendPasswordResetEmail',
+        # 'graphql_auth.mutations.PasswordReset',
+        # 'graphql_auth.mutations.ObtainJSONWebToken',
+        # 'graphql_auth.mutations.VerifyToken',
+        # 'graphql_auth.mutations.RefreshToken',
+        # 'graphql_auth.mutations.RevokeToken',
+        # 'graphql_auth.mutations.VerifySecondaryEmail'
+    ]
+}
+
+GRAPHENE = {
+    'SCHEMA': 'graph.schema.schema',
+    'ATOMIC_MUTATIONS': True,
+    'MIDDLEWARE': {
+        'graphql_jwt.middleware.JSONWebTokenMiddleware'
+    }
+}

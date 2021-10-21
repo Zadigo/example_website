@@ -1,0 +1,29 @@
+{% extends "./simple.html" %}
+{% load static %}
+
+{% block section_class %}
+{% if src %}bg-image{% endif %} bg-{{ theme|default:'light' }} {% if shadow %}shadow-sm{% endif %}
+{% endblock %}
+
+{% block section_content %}
+    <div class="row">
+        <div class="col-sm-12 col-md-6 text-sm-center text-md-{{ text_md_position|default:'left' }} {% if reversed %}order-2{% endif %}">
+            <h1 class="mt-6 mb-5 {{ title_color }}" class="font-weight-bold">
+                <!-- {{ benefit_title }} -->
+                This is a great title
+            </h1>
+            <p class="text-muted">
+                <!-- {{ benefit_description }} -->
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Aliquid nemo corporis repellendus voluptatum reiciendis esse reprehenderit 
+                maiores earum ducimus, neque perferendis possimus quia explicabo laboriosam 
+                aperiam quaerat beatae! Modi, minima.
+            </p>
+        </div>
+    
+        <div class="col-sm-12 col-md-6 {% if reversed %}order-1{% endif %}">
+            <!-- <b-img :class="imageClasses" :fluid="true" :width="imageWidth" class="rounded-lg" :src="{% static src %}"></b-img> -->
+            <img src="{% static src %}" class="img-fluid">
+        </div>
+    </div>
+{% endblock %}

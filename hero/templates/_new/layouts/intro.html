@@ -1,0 +1,9 @@
+<div class="{% block intro_classes %}{% endblock %} text-white" style="background-image: url('{{ src }}');" id="intro">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex h-100 align-items-center {% block container_classes %}{% endblock %}" class="container">
+            <div class="{% block wrapper_class %}{% endblock %}" class="wrapper">
+                {% block lead %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>

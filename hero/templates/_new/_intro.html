@@ -1,0 +1,9 @@
+{% extends "./includes/intro.html" %}
+
+{% block lead %}
+    <!-- <h1 class="lead-title mb-8">I love you <span class="hg-box pink darken-2 rounded">Kendall</span></h1>
+    <p class="lead-subtitle-half mb-9">
+        An innovative website created with VueJS and Django
+    </p> -->
+    {% include "./includes/cta/simple.html" with call_to_action="Subscribe" href="legal:privacy" lead="I love you Kendall" subtitle="An innovative website created with VueJS and Django" %}
+{% endblock %}

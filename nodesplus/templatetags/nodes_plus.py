@@ -156,3 +156,8 @@ def impressions(context, *fields):
         value['position'] = index
     s = str(json.dumps(new_values_list))
     return mark_safe(s)
+
+
+@register.tag
+def font_awesome_icon(parser, token):
+    print(parser)

@@ -1,0 +1,32 @@
+{% extends "base_site.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '_hero.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="{{ body_color }}" id="hero">
+        <header role="heading">
+            <!-- Navbar -->
+            {% block hero_navbar %}{% endblock %}
+
+            <!-- Intro -->
+            {% block intro %}{% endblock %}
+        </header>
+
+        <!-- Content -->
+        {% block sections %}{% endblock %}
+
+        <!-- Footer -->
+        {% block hero_footer %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <!-- <script>
+        document.getElementById("intro").style.backgroundImage = "url({{ src|default:'http://via.placeholder.com/1300' }})"
+        const mask = document.getElementsByClassName('mask').item(0)
+        mask.style.backgrounColor = "rgba(0, 0, 0, {{ mask_opacity|default:0.8 }})"
+    </script> -->
+{% endblock %}

@@ -1,0 +1,42 @@
+{
+  userProfile(userId: "1") {
+    address
+    city
+    myuser {
+      email
+      firstname
+      lastname
+    }
+  }
+}
+
+mutation {
+  updateProfile(userId: "1", city: "Lille") {
+    profile {
+      address
+      city
+    }
+  }
+}
+
+query getUser($userId: ID=1) {
+  userProfile(userId: $userId) {
+    address
+    city
+    myuser {
+      email
+      firstname
+      lastname
+    }
+  }
+}
+
+mutation {
+  signupUser(email: "julie.paris@gmail.com", firstname: "Julie", lastname: "Paris", password1: "touparet", password2: "touparet") {
+    user {
+      email
+      firstname
+      lastname
+    }
+  }
+}
