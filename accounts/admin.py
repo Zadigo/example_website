@@ -1,12 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
-from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import login
-from rest_framework.authtoken.models import Token
-from accounts.forms.admin import CustomAdminAuthenticationForm, MyUserChangeForm, MyUserCreationForm
+
+from accounts.forms.admin import (CustomAdminAuthenticationForm,
+                                  MyUserChangeForm, MyUserCreationForm)
 from accounts.models import MyUser, MyUserProfile
 
 

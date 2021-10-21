@@ -16,6 +16,7 @@ from imagekit.processors import ResizeToFill
 from accounts.managers import MyUserManager
 from accounts.utils import avatar_dir
 
+from django.contrib.auth.models import User
 
 class MyUser(AbstractBaseUser):
     """Base user model for those user accounts"""
@@ -29,14 +30,19 @@ class MyUser(AbstractBaseUser):
     
     objects = MyUserManager()
 
-    USERNAME_FIELD      = 'email'
-    REQUIRED_FIELDS     = []
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def has_perm(self, perm, obj=None):
         return True
 
     def has_module_perms(self, app_label):
         return True
+    
+    @property
+    def is_superuser(self):
+        return all([self.is_staff, self.is_admin, self.is_active])
 
     @property
     def get_full_name(self):
@@ -48,7 +54,6 @@ class MyUser(AbstractBaseUser):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
 
 
 class MyUserProfile(models.Model):
