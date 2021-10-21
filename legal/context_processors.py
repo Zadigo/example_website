@@ -3,19 +3,15 @@ from django.conf import settings
 
 
 LEGAL = {
-    'company_name': None,
-    'urls': {
-        'customer_service': None,
-        'main': None
-    },
-    'emails': {
-        'customer_service': None,
-        'main': None
-    }
+    'host': None,
+    'hosting_company_name': None,
+    'hosting_company_address': None,
+    'data_protection_bureau_website': 'https://www.cnil.fr/',
+    'cookie_policy': 'https://www.cnil.fr/fr/cookies-traceurs-que-dit-la-loi'
 }
 
 
-def company_details(request):
+def legal(request):
     attrs = LEGAL | getattr(settings, 'LEGAL', {})
-    context = Context(**attrs)
+    context = Context(attrs)
     return context.flatten()

@@ -2,13 +2,14 @@
 
 <div class="card my-4">
     <div class="card-body">
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" role="navigation">
             <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item">
-                    <a href="/">{% trans "Home" %}</a>
+                    <a href="/">{% trans "Accueil" %}</a>
                 </li>
+                
                 <li class="breadcrumb-item active" aria-current="page">
-                    {% trans "Privacy" %}
+                    {% trans page_name %}
                 </li>
             </ol>
         </nav>

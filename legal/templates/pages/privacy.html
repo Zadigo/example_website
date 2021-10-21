@@ -1,41 +1,18 @@
 {% extends "base_site.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Confidentialité et cookies" %} - Nawoka{% endblock title %}
-
-{% block page_description %}
-    <meta name="description" content="Découvrez notre politique de confidentialité" />
-{% endblock %}
-
-{% block share_metatags %}
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Nawoka : Découvrez notre politique de confidentialité" />
-
-    {% block og_description %}
-        <meta property="og:description" content="Découvrez notre politique de confidentialité" />
-    {% endblock %}
-
-    {% comment %}
-    {% block og_image %}
-        <meta property="og:image" content="{% create_aws_image_url 'hero.jpg' %}" />            
-    {% endblock %}        
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:height" content="1200">
-    <meta property="og:image:width" content="800">
-    <meta property="og:image:alt" content="Nawoka" />
-    {% endcomment %}
-{% endblock %}
+{% block title %}{% trans "Confidentialité et cookies" %} - {{ company_name }}{% endblock title %}
 
 {% block container %}
-    <section class="section my-5" id="confidentialite">
+    <section class="section my-5" id="privacy">
         
         <div class="row wow fadeIn">
             <div class="col-sm-12 col-md-8 offset-md-2">
-                {% include "components/return_link.html" %}
+                {% include "includes/return_link.html" with page_name="Donnés personnelles" %}
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        {% include "components/small_title.html" with title="Utilisation des données personnelles" %}
+                        {% include "includes/small_title.html" with title="Utilisation des données personnelles" %}
                         <p>
                             Les données personnelles collectées auprès des utilisateurs ont pour objectif 
                             la mise à disposition des services du site web, leur amélioration et le maintien 
@@ -65,9 +42,9 @@
                     </div>
                 </div>
                 
-                <div class="card mb-3">
+                <div class="card my-3" id="sharing">
                     <div class="card-body">
-                        {% include "components/small_title.html" with title="Partage des données personnelles avec des tiers" %}
+                        {% include "includes/small_title.html" with title="Partage des données personnelles avec des tiers" %}
                         <p>
                             Les données personnelles peuvent être partagées avec des sociétés tierces, dans les cas suivants :
                             <ul>
@@ -106,9 +83,9 @@
                     </div>
                 </div>
             
-                <div class="card mb-3">
+                <div class="card my-3" id="security">
                     <div class="card-body">
-                        {% include "components/small_title.html" with title="Sécurité et confidentialité" %}
+                        {% include "includes/small_title.html" with title="Sécurité et confidentialité" %}
                         <p>
                             Le site web met en oeuvre des mesures organisationnelles, techniques, logicielles 
                             et physiques en matière de sécurité du numérique pour protéger les données personnelles 
@@ -120,13 +97,13 @@
                     </div>
                 </div>
                 
-                <div class="card mb-3">
+                <div class="card my-3" id="utilization">
                     <div class="card-body">
-                        {% include "components/small_title.html" with title="Mise en oeuvre des droits des utilisateurs" %}
+                        {% include "includes/small_title.html" with title="Mise en oeuvre des droits des utilisateurs" %}
                         <p>
                             En application de la réglementation applicable aux données à caractère personnel, 
                             les utilisateurs disposent des droits suivants, qu'ils peuvent exercer 
-                            en faisant leur demande à l'adresse suivante: {{ addresse }}.
+                            en faisant leur demande à l'adresse suivante: {{ contact.address }}.
                             <ul>
                                 <li>
                                     le droit d’accès : ils peuvent exercer leur droit d'accès, pour connaître les données personnelles les concernant. 
@@ -158,40 +135,53 @@
                     </div>
                 </div>
                 
-                <div class="card d-none">
+                <div class="card my-3">
                     <div class="card-body">
-                        <h5>Evolution de la présente clause</h5>      
+                        {% include "includes/small_title.html" with title="Evolution de la présente clause" %}
                         <p>
-                            Le site web se réserve le droit d'apporter toute modification à la présente clause relative à la protection des données à caractère personnel à tout moment. Si une modification est apportée à la présente clause de protection des données à caractère personnel, le site web s'engage à publier la nouvelle version sur son site. Le site web informera également les utilisateurs de la modification par messagerie électronique, dans un délai minimum de 15 jours avant la date d'effet. Si l'utilisateur n'est pas d'accord avec les termes de la nouvelle rédaction de la clause de protection des données à caractère personnel, il a la possibilité de supprimer son compte.    
-                                
-                                
-                            Annexe:     
-                            
-                            Formulaire de rétractation     
-                            
-                            (à compéter par le consommateur,   
-                            
-                            et à envoyer par lettre recomandée avec accusé de réception,   
-                            
-                            dans le délai maximum de 14 jours suivant la date de conclusion du contrat de prestation)   
-                            
-                            Formulaire de rétractation    
-                            
-                            
-                            
-                            A l'attention de:   
-                            
-                            situé à :   ,         
-                            n° de téléphone :      
-                            adresse mél :      
-                            
-                            Je vous notifie, par la présente, ma rétractation du contrat portant sur la prestation de service, commandée le :   
-                            
-                            Prénom et nom du consommateur :   
-                            Adresse du consommateur :   
-                            Date :
-                            Signature du consommateur
+                            Le site web se réserve le droit d'apporter toute modification à 
+                            la présente clause relative à la protection des données à caractère personnel 
+                            à tout moment. Si une modification est apportée à la présente clause de 
+                            protection des données à caractère personnel, le site web s'engage à 
+                            publier la nouvelle version sur son site.
                         </p>
+                        <p>
+                            Le site web informera également 
+                            les utilisateurs de la modification par messagerie électronique, dans un 
+                            délai minimum de 15 jours avant la date d'effet. Si l'utilisateur 
+                            n'est pas d'accord avec les termes de la nouvelle rédaction de la clause de 
+                            protection des données à caractère personnel, 
+                            il a la possibilité de supprimer son compte.    
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card my-3">
+                    <div class="card-body">
+                        {% include "includes/small_title.html" with title="Annexe" %}
+                        
+                        <p>
+                            Formulaire de rétractation (à compéter par le consommateur)
+                            et à envoyer par lettre recomandée avec accusé de réception,
+                            dans le délai maximum de 14 jours suivant la date de conclusion
+                            du contrat de prestation)
+                        </p>
+                        
+                        
+                        <p class="text-muted font-weight-bold my-5">Formulaire de rétractation</p>
+                        
+                        <p>A l'attention de : {{ company_name }}</p>
+                        
+                        <p>situé à : {{ contact.address }}, {{ contact.zip_code }},</p>
+                        <p>n° de téléphone : {{ contact.telephone.main }}</p>
+                        <p>adresse mél : {{ contact.address.main }}</p>
+                        
+                        <p>Je vous notifie, par la présente, ma rétractation du contrat portant sur la prestation de service, commandée le :</p>
+                        
+                        <p>Prénom et nom du consommateur :</p>
+                        <p>Adresse du consommateur :</p>
+                        <p>Date : {{ current_date|date:"d F Y"}}</p>
+                        <p>Signature du consommateur</p>
                     </div>
                 </div>
             </div>
