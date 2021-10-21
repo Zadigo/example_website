@@ -1,8 +1,87 @@
-<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+{% load i18n static nodes_plus %}
+
+<footer class="page-footer text-center font-small mt-4 wow fadeIn text-lg-start">
+    <div class="py-4 text-center">
+        <div class="row p-5">
+            
+            {% for item in footer %}
+                <div class="col-sm-12 col-md-2 text-md-left">
+                    <p class="font-weight-bold text-uppercase" aria-label="{{ item.title }}">
+                        {{ item.title }}
+                    </p>
+                    
+                    {% for link in item.links %}
+                        <div>
+                            <a href="{% url link.name %}" role="link" aria-label="">
+                                {{ link.title }}
+                            </a>
+                        </div>                        
+                    {% endfor %}
+                </div>                
+            {% endfor %}
+
+            <div class="col-sm-12 col-md-2 text-md-left">
+                <p class="font-weight-bold text-uppercase">
+                    Address
+                </p>
+                <p>
+                    <span class="d-block">{{ contact.address }}</span>
+                    <span class="d-block">{{ contact.zip_code }}</span>
+                </p>
+                <p>
+                    <span class="d-block">{{ contact.emails.main }}</span>
+                    <span class="d-block">Tél : {{ contact.telephone.main }}</span>
+                </p>
+            </div>
+
+            {% if link_to_app_store or link_to_play_store %}
+                <div class="col-sm-auto col-md-2">
+                    <p class="font-weight-bold text-uppercase">Our apps</p>
+
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        {% if link_to_app_store %}
+                            <a href="{{  link_to_app_store}}" target="_blank" aria-label="App Store">
+                                <b-img src="{% static 'appstore.png' %}" width="100" class="mb-3"></b-img>
+                            </a>
+                        {% endif %}
+                        
+                        {% if link_to_play_store %}
+                            <a href="{{ link_to_play_store }}" target="_blank" aria-label="Play store">
+                                <b-img src="{% static 'playmarket.png' %}" width="100"></b-img>
+                            </a>                            
+                        {% endif %}
+                    </div>
+                </div>                
+            {% endif %}
+
+        </div>
+    </div>
+
+    <hr class="m-0" />
+
+    <div class="text-center py-4 align-items-center">
+        <p class="mt-3 mb-1">Suivez-nous sur les réseaux sociaux</p>
+
+        {% comment %}
+        {% for social in socials %}
+            <b-button href="{{ social.url }}" style="min-width: 62px;" variant="primary" class="m-1 transparent shadow-none" rel="nofollow" target="_blank">
+                <!-- <font-awesome-icon :icon="['fab', social.icon]" class="fa-2x" /> -->
+                <!-- {% font_awesome_icon "user" %} -->
+            </b-button>            
+        {% endfor %}            
+        {% endcomment %}
+    </div>
+
+    <div ref="copyright" class="text-center p-3" id="copyright">
+        ©{{ current_date|date:"Y" }} {% trans "copyright" %}: {{ company_name }}
+    </div>
+</footer>
+
+<!-- <footer class="page-footer text-center font-small mt-4 wow fadeIn">
     <div class="pt-4">
-        <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">Download MDB
+        <b-btn class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">Download MDB
             <i class="fas fa-download ml-2"></i>
-        </a>
+        </b-btn>
         <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start free tutorial
             <i class="fas fa-graduation-cap ml-2"></i>
         </a>
@@ -47,4 +126,4 @@
     <div class="footer-copyright py-3">
         © [[ currentYear ]] Copyright: {{ company_name|default:"MyWebsite" }}
     </div>
-</footer>
+</footer> -->
