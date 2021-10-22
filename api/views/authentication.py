@@ -51,10 +51,10 @@ def signup(request):
 
 @api_view(['post'])
 def update_profile(request):
-    attrs = {'data': {'state': False}}
-    is_authenticated = authentication_token_validity(request)
-    if is_authenticated:
-        serializer = ProfileSerializer(instance=request.user, data=request.data)
+    attrs = {'data': {'state': False, 'status': status.HTTP_400_BAD_REQUEST}}
+    if request.user.is_authenticated:
+        serializer = ProfileSerializer(instance=request.user.myuserprofile, data=request.data)
         serializer.is_valid(raise_exception=True)
-    attrs['status'] = status.HTTP_400_BAD_REQUEST
+        serializer.save()
+        attrs.update(data=serializer.data, status=status.HTTP_200_OK)
     return Response(**attrs)

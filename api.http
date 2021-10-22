@@ -3,8 +3,9 @@ Authorization: Token c9f8aa021e3477915e213be77685e523e1df84e1
 Content-Type: application/json
 
 {
-    "email": "louis.figo@gmail.com",
-    "address": "35 rue de Suède"
+    "birthdate": "1987-1-1",
+    "address": "35 rue de Suède",
+    "city": "Lille"
 }
 
 

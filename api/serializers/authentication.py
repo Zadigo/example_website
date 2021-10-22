@@ -11,6 +11,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.serializers import Serializer
 from django.db import transaction
 
+
 USER_MODEL = get_user_model()
 
 
@@ -46,16 +47,13 @@ class AuthenticationMixin(Serializer):
 
 class SerializerMixin:
     def update(self, instance, validated_data):
-        # Check if the user has the permission
-        # to modify his user profile
-        if not instance.has_perm('change_myuserprofile'):
-            raise serializers.ValidationError('Permission denied', code='permission_denied')
-
         for field, value in validated_data.items():
-            setattr(instance, field, value)
-        
+            if field != 'email':
+                setattr(instance, field, value)
+                
         with transaction.atomic():
             instance.save()
+
         return instance
 
 
@@ -137,7 +135,6 @@ class SignupSerializer(AuthenticationMixin):
 
 
 class ProfileSerializer(SerializerMixin, Serializer):
-    email = fields.EmailField(required=True)
     avatar = fields.ImageField(required=False)
 
     birthdate = fields.DateField(required=False)
@@ -147,3 +144,10 @@ class ProfileSerializer(SerializerMixin, Serializer):
     city = fields.CharField(required=False)
     zip_code = fields.CharField(required=False)
 
+    def update(self, instance, validated_data):
+        # Check if the user has the permission
+        # to modify his user profile
+        if not instance.myuser.has_perm('accounts.change_myuserprofile'):
+            raise serializers.ValidationError(
+                'Permission denied', code='permission_denied')
+        return super().update(self.instance, validated_data)
