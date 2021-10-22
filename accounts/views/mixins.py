@@ -9,7 +9,7 @@ class MessagesMixin:
     }
 
     FAILED_LOGIN = _('Email or password are not correct')
-    FAILD_SIGNUP = None
+    FAILED_SIGNUP = _('An error occured')
     EMAIL_NOT_EXISTS = None
 
     def add_message(self, request, message):
@@ -25,3 +25,16 @@ class MessagesMixin:
 
     def failed_login_message(self, request):
         self.add_message(request, self.FAILED_LOGIN)
+
+
+class ProfileMixin:
+    queryset = None
+
+    def get_context_data(self, request, **kwargs) -> dict:
+        context = super().get_context_data()
+        user, profile = self.get_user()
+        context.update({'user': user, 'profile': profile})
+        return context
+
+    def get_user(self, request, **kwargs):
+        return request.user, request.user.myuserprofile

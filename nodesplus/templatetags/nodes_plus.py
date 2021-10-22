@@ -5,6 +5,7 @@ from django.template.defaultfilters import stringfilter
 from django.template.exceptions import TemplateSyntaxError
 from django.utils.html import format_html, format_html_join, urlize
 from django.utils.safestring import SafeData, SafeString, mark_safe
+from django.utils.text import format_lazy
 
 register = Library()
 
@@ -158,6 +159,10 @@ def impressions(context, *fields):
     return mark_safe(s)
 
 
-@register.tag
+@register.tag()
 def font_awesome_icon(parser, token):
-    print(parser)
+    bits = token.split_contents()
+    remaining_bits = bits[1:]
+    extra_context = token_kwargs(bits, parser, support_legacy=False)
+    if not extra_context:
+        raise TemplateSyntaxError(format_lazy('{bit} accepts one argument', bit=bits[0]))

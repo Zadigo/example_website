@@ -1,7 +1,7 @@
 from accounts import get_custom_site
 from django.contrib import admin
 from graphql_jwt.refresh_token.models import RefreshToken
-# from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.models import Token
 from api import register_graphql_models
 
 site = get_custom_site()
@@ -13,5 +13,5 @@ class TokenAdmin(admin.ModelAdmin):
     ordering = ('-created',)
 
 site.register(RefreshToken)
-# site.register(Token, TokenAdmin)
+site.register(Token)
 register_graphql_models(site)

@@ -20,7 +20,8 @@ class CustomAdminAuthenticationForm(AdminAuthenticationForm):
 
     def clean(self):
         # NOTE: Despite the backend changes, the
-        # field is still username - not, email
+        # field is still has the name 'username' 
+        # and not, email
         email = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
 

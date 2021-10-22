@@ -7,6 +7,7 @@ from accounts.forms.passwords import CustomChangePasswordForm
 from accounts.models import MyUser, MyUserProfile
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -16,23 +17,11 @@ from django.views.decorators.cache import cache_page, never_cache
 from django.views.generic import TemplateView, View
 
 
-class ProfileMixin:
-    queryset = None
-
-    def get_context_data(self, request, **kwargs) -> dict:
-        context = super().get_context_data()
-        user, profile = self.get_user()
-        context.update({'user': user, 'profile': profile})
-        return context
-
-    def get_object(self, request, **kwargs):
-        return request.user, request.user.myuserprofile
-
-
-@method_decorator(cache_page(3600 * 60), name='dispatch')
-class IndexView(TemplateView):
+# @method_decorator(cache_page(3600 * 60), name='dispatch')
+class IndexView(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
     template_name = 'pages/profile/index.html'
-        
+    permission_required = ['accounts.view_myuser']
+
 
 # @method_decorator(never_cache, name='dispatch')
 class InformationView(LoginRequiredMixin, View):

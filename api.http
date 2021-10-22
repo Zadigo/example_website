@@ -1,10 +1,38 @@
-POST http://127.0.0.1:8000/graphql HTTP/1.1
-Content-Type: "application/json"
+POST http://127.0.0.1:8000/api/v1/profile/update HTTP/1.1
+Authorization: Token c9f8aa021e3477915e213be77685e523e1df84e1
+Content-Type: application/json
 
 {
-    "query": "{
-        userProfile(userId: 1) {
-            address
-        }
-    }"
+    "email": "louis.figo@gmail.com",
+    "address": "35 rue de Suède"
 }
+
+
+# POST http://127.0.0.1:8000/api/v1/signup HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "email": "louisie.figo@gmail.com",
+#     "username": "figo",
+#     "firstname": "Louis",
+#     "lastname": "Figo",
+#     "password1": "touparette",
+#     "password2": "touparette"
+# }
+
+
+# POST http://127.0.0.1:8000/api/v1/logout HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "email": "p@gmail.com"
+# }
+
+
+# POST http://127.0.0.1:8000/api/v1/login HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "email": "louis.figo@gmail.com",
+#     "password": "touparette"
+# }

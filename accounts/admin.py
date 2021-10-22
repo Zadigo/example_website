@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
-from django.contrib.auth import admin as auth_admin
+from django.contrib.auth import admin as django_admin
+from django.contrib.auth.models import Group, Permission
 from django.utils.translation import gettext_lazy as _
 
 from accounts.forms.admin import (CustomAdminAuthenticationForm,
@@ -15,7 +16,7 @@ class CustomAdminSite(AdminSite):
 site = CustomAdminSite()
 
 
-class MyUserAdmin(auth_admin.UserAdmin):
+class MyUserAdmin(django_admin.UserAdmin):
     # form = MyUserChangeForm
     add_form = MyUserCreationForm
 
@@ -27,8 +28,9 @@ class MyUserAdmin(auth_admin.UserAdmin):
     fieldsets = [
         ['Details', {'fields': ['firstname', 'lastname']}],
         ['Credentials', {'fields': ['email', 'password']}],
-        ['Permissions', {'fields': ['is_admin', 'is_staff', 'is_active']}]
+        ['Permissions', {'fields': ['is_superuser', 'user_permissions', 'groups', 'is_admin', 'is_staff', 'is_active']}]
     ]
+    filter_horizontal = ['user_permissions', 'groups']
     add_fieldsets = [
         [None, {
                 'classes': ['wide'],
@@ -53,3 +55,5 @@ class MyUserProfileAdmin(admin.ModelAdmin):
 
 site.register(MyUser, MyUserAdmin)
 site.register(MyUserProfile, MyUserProfileAdmin)
+site.register(Group)
+site.register(Permission)

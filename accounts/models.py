@@ -1,9 +1,12 @@
-from datetime import datetime
 import os
+from datetime import datetime
 
 import stripe
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import (AbstractBaseUser, Group, Permission,
+                                        PermissionsMixin,
+                                        _user_get_permissions,
+                                        _user_has_module_perms, _user_has_perm)
 from django.core.mail import send_mail
 from django.db import models
 from django.db.models.signals import post_delete, post_save, pre_save
@@ -16,9 +19,59 @@ from imagekit.processors import ResizeToFill
 from accounts.managers import MyUserManager
 from accounts.utils import avatar_dir
 
-from django.contrib.auth.models import User
 
-class MyUser(AbstractBaseUser):
+class PermissionsMixin(models.Model):
+    is_superuser = models.BooleanField(
+        _('superuser status'),
+        default=False, 
+        help_text=_(
+            'Gives all permissions '
+            'to a designated user'
+        )
+    )
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_('groups'),
+        blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_('user permissions'),
+        blank=True,
+        related_name='user_set',
+        related_query_name='user'
+    )
+
+    class Meta:
+        abstract = True
+
+    def get_user_permissions(self, obj=None):
+        return _user_get_permissions(self, obj, 'user')
+
+    def get_group_permissions(self, obj=None):
+        return _user_get_permissions(self, obj, 'group')
+
+    def get_all_permissions(self, obj=None):
+        return _user_get_permissions(self, obj, 'all')
+
+    def has_perm(self, perm, obj=None):
+        if self.is_active and self.is_superuser:
+            return True
+        return _user_has_perm(self, perm, obj)
+
+    def has_perms(self, perm_list, obj=None):
+        return all(self.has_perm(perm, obj) for perm in perm_list)
+
+    def has_module_perms(self, app_label):
+        if self.is_active and self.is_superuser:
+            return True
+
+        return _user_has_module_perms(self, app_label)
+
+
+class MyUser(AbstractBaseUser, PermissionsMixin):
     """Base user model for those user accounts"""
     email       = models.EmailField(max_length=255, unique=True)
     firstname      = models.CharField(max_length=100, null=True, blank=True)
@@ -34,15 +87,15 @@ class MyUser(AbstractBaseUser):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def has_perm(self, perm, obj=None):
-        return True
+    # def has_perm(self, perm, obj=None):
+    #     return True
 
-    def has_module_perms(self, app_label):
-        return True
+    # def has_module_perms(self, app_label):
+    #     return True
     
-    @property
-    def is_superuser(self):
-        return all([self.is_staff, self.is_admin, self.is_active])
+    # @property
+    # def is_superuser(self):
+    #     return all([self.is_staff, self.is_admin, self.is_active])
 
     @property
     def get_full_name(self):
@@ -120,7 +173,8 @@ def delete_old_avatar(sender, instance, **kwargs):
         pass
 
     if not is_s3_backend:
-        if instance.avatar.url:
+        # if instance.avatar.url is not None:
+        if getattr(instance.avatar, '_file') is not None:
             if os.path.isfile(instance.avatar.path):
                 os.remove(os.avatar.path)
     else:
