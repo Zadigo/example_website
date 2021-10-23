@@ -172,8 +172,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'accounts.MyUser'
 
 AUTHENTICATION_BACKENDS = [
+    # 'graphql_auth.backends.GraphQLAuthBackend',
     # 'graphql_jwt.backends.JSONWebTokenBackend',
-    'graphql_auth.backends.GraphQLAuthBackend',
     # 'social_core.backends.twitter.TwitterOAuth',
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
@@ -413,10 +413,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
 }
 
 SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ['Bearer', 'Token'],
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1)
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'api.utils.jwt_response_payload_handler',
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    # 'JWT_ALLOW_REFRESH': True,
+    # 'JWT_AUTH_HEADER_PREFIX': 'JWT'
+    # 'JWT_AUTH_HEADER_PREFIX': 'Token',
 }

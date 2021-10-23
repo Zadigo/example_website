@@ -1,19 +1,31 @@
 <template>
-  <nav :class="navClasses" class="navbar">
+  <nav
+    :class="navClasses"
+    class="navbar"
+  >
     <div :class="containerClasses">
-      
       <!-- Navbar brand -->
-      <router-link :to="{ name: 'home' }" class="navbar-brand nav-link">
+      <router-link
+        :to="{ name: 'home' }"
+        class="navbar-brand nav-link"
+      >
         <strong>{{ companyDetails.legalName }}</strong>
       </router-link>
 
-      <b-btn @click="$emit('toggleNavigation')" variant="light shadow-none" class="navbar-toggler" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+      <b-btn
+        variant="light shadow-none"
+        class="navbar-toggler"
+        aria-controls="navbarExample01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        @click="$emit('toggleNavigation')"
+      >
         <font-awesome-icon icon="bars" />
       </b-btn>
       
       <!-- Links -->
       <div class="collapse navbar-collapse">
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </nav>

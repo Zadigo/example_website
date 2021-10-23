@@ -15,12 +15,6 @@ export default {
       },
       fullScreen: Boolean
   },
-
-  mounted() {
-    if (this.isPositionedY) {
-      this.$refs.content.classList.add('rounded-0')
-    }
-  },
   
   computed: {
     modalClasses() {
@@ -85,6 +79,12 @@ export default {
       } else {
         return this.positionY
       }
+    }
+  },
+
+  mounted() {
+    if (this.isPositionedY) {
+      this.$refs.content.classList.add('rounded-0')
     }
   }
 }

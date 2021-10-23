@@ -1,15 +1,25 @@
 <template>
-  <section ref="cta" id="cta">
-    <v-card :class="cardClasses" :color="color" v-if="isCard" class="text-center">
+  <section
+    id="cta"
+    ref="cta"
+  >
+    <v-card
+      v-if="isCard"
+      :class="cardClasses"
+      :color="color"
+      class="text-center"
+    >
       <v-card-text>
         <div class="container">
           <div class="row">
             <div :class="contentClasses">
-              <h2 class="mb-5">{{ title }}</h2>
+              <h2 class="mb-5">
+                {{ title }}
+              </h2>
               <!-- <v-text-field v-model="textFieldData" solo></v-text-field> -->
               <!-- <v-btn @click="$emit('textFieldValidated')" :to="{ name: to }" color="primary">Register yourself</v-btn> -->
               <div class="col-sm-12 col-md-8 offset-md-2">
-                <cta-input-group :buttonName="buttonName" />
+                <cta-input-group :button-name="buttonName" />
               </div>
             </div>
           </div>
@@ -17,10 +27,18 @@
       </v-card-text>
     </v-card>
 
-    <base-section v-else :color="color" class="text-center">
-      <h2 class="mb-6">Don’t take our word for it. Try Appcues for free.</h2>
-      <v-text-field solo></v-text-field>
-      <v-btn color="primary">Register yourself</v-btn>
+    <base-section
+      v-else
+      :color="color"
+      class="text-center"
+    >
+      <h2 class="mb-6">
+        Don’t take our word for it. Try Appcues for free.
+      </h2>
+      <v-text-field solo />
+      <v-btn color="primary">
+        Register yourself
+      </v-btn>
     </base-section>
   </section>
 </template>
@@ -76,17 +94,6 @@ export default {
     }
   },
 
-  mounted() {
-  // if (this.isCard & this.absolute) {
-  //   return this.getAbsoluteStyling()
-  // } else {
-  //   return null
-  // }
-    if (this.absolute) {
-      this.$refs.cta.style.position = this.getAbsoluteStyling()
-    }
-  },
-
   computed: {
     cardClasses() {
       return [
@@ -106,6 +113,17 @@ export default {
           [`offset-md-${this.offset}`]: true
         },
       ]
+    }
+  },
+
+  mounted() {
+  // if (this.isCard & this.absolute) {
+  //   return this.getAbsoluteStyling()
+  // } else {
+  //   return null
+  // }
+    if (this.absolute) {
+      this.$refs.cta.style.position = this.getAbsoluteStyling()
     }
   },
 

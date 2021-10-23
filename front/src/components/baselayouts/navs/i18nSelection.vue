@@ -2,7 +2,11 @@
   <!-- class="ml-auto" -->
   <b-navbar-nav>
     <b-nav-item-dropdown :text="lang">
-      <b-dropdown-item @click="changeLanguage(lang)" v-for="(lang, index) in $i18n.availableLocales" :key="index">
+      <b-dropdown-item
+        v-for="(lang, index) in $i18n.availableLocales"
+        :key="index"
+        @click="changeLanguage(lang)"
+      >
         {{ lang }}
       </b-dropdown-item>
     </b-nav-item-dropdown>

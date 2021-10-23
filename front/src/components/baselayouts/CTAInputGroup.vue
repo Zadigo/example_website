@@ -1,7 +1,15 @@
 <template>
   <b-input-group :class="inputGroupClasses">
-    <b-form-input v-model="email" :placeholder="placeholder" :type="inputType" />
-    <b-btn @click="$emit('ctaButtonClick', email), email = null" :class="buttonClasses" :variant="buttonColor">
+    <b-form-input
+      v-model="email"
+      :placeholder="placeholder"
+      :type="inputType"
+    />
+    <b-btn
+      :class="buttonClasses"
+      :variant="buttonColor"
+      @click="$emit('ctaButtonClick', email), email = null"
+    >
       {{ buttonName }}
     </b-btn>
   </b-input-group>

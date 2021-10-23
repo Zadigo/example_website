@@ -1,10 +1,14 @@
 <template>
-  <div ref="intro" id="intro" class="bg-image shadow-2-strong">
+  <div
+    id="intro"
+    ref="intro"
+    class="bg-image shadow-2-strong"
+  >
     <div class="mask d-flex align-items-center h-100">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8 col-xl-5">
-            <slot></slot>
+            <slot />
           </div>
         </div>
       </div>

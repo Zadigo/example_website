@@ -1,8 +1,14 @@
 <template>
   <base-section :class="sectionClasses">
     <div class="row">
-      <div :class="columnClasses" class="col-sm-12 col-md-6">
-        <h1 :class="titleClasses" class="font-weight-bold">
+      <div
+        :class="columnClasses"
+        class="col-sm-12 col-md-6"
+      >
+        <h1
+          :class="titleClasses"
+          class="font-weight-bold"
+        >
           No more digging through Slack & email
         </h1>
         <p class="text-muted">
@@ -12,8 +18,17 @@
         </p>
       </div>
 
-      <div :class="secondReverseClass" class="col-sm-12 col-md-6">
-        <b-img :class="imageClasses" :fluid="true" :width="imageWidth" class="rounded-lg" :src="require('@/assets/making_art.svg')"></b-img>
+      <div
+        :class="secondReverseClass"
+        class="col-sm-12 col-md-6"
+      >
+        <b-img
+          :class="imageClasses"
+          :fluid="true"
+          :width="imageWidth"
+          class="rounded-lg"
+          :src="require('@/assets/making_art.svg')"
+        />
       </div>
     </div>
   </base-section>
@@ -46,10 +61,6 @@ export default {
       type: String,
       default: null
     }
-  },
-
-  mounted() {
-
   },
 
   computed: {
@@ -89,6 +100,10 @@ export default {
         'order-1': this.orderReversed
       }
     }
+  },
+
+  mounted() {
+
   }
 }
 </script>

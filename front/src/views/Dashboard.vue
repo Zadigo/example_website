@@ -11,23 +11,37 @@
     <main style="margin-top: 58px">
       <div class="container pt-4">
         <!-- Page header -->
-        <page-header :currentPage="'Some page'" />
+        <page-header :current-page="'Some page'" />
 
         <!-- Statistic cards -->
         <section id="statistics">
           <div class="row">
-            <minimal-stat-card v-for="(statistic, index) in statistics" :key="index" :shareValue="statistic.shareValue" :color="statistic.color" :icon="statistic.icon" :title="statistic.title" :isPercentage="statistic.isPercentage" :value="statistic.value" />
+            <minimal-stat-card
+              v-for="(statistic, index) in statistics"
+              :key="index"
+              :share-value="statistic.shareValue"
+              :color="statistic.color"
+              :icon="statistic.icon"
+              :title="statistic.title"
+              :is-percentage="statistic.isPercentage"
+              :value="statistic.value"
+            />
           </div>
         </section>
 
         <section class="mb-4">
           <div class="card">
             <div class="card-header py-3">
-              <h5 class="mb-0 text-center"><strong>Sales</strong></h5>
+              <h5 class="mb-0 text-center">
+                <strong>Sales</strong>
+              </h5>
             </div>
 
             <div class="card-body">
-              <base-bar-chart :chartData="chartData" :options="options" />
+              <base-bar-chart
+                :chart-data="chartData"
+                :options="options"
+              />
             </div>
           </div>
         </section>
@@ -44,17 +58,29 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th scope="col"></th>
-                      <th scope="col">Product Detail Views</th>
-                      <th scope="col">Unique Purchases</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Product Revenue</th>
-                      <th scope="col">Avg. Price</th>
+                      <th scope="col" />
+                      <th scope="col">
+                        Product Detail Views
+                      </th>
+                      <th scope="col">
+                        Unique Purchases
+                      </th>
+                      <th scope="col">
+                        Quantity
+                      </th>
+                      <th scope="col">
+                        Product Revenue
+                      </th>
+                      <th scope="col">
+                        Avg. Price
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">Value</th>
+                      <th scope="row">
+                        Value
+                      </th>
                       <td>18,492</td>
                       <td>228</td>
                       <td>350</td>
@@ -62,63 +88,62 @@
                       <td>$13.68</td>
                     </tr>
                     <tr>
-                      <th scope="row">Percentage change</th>
+                      <th scope="row">
+                        Percentage change
+                      </th>
                       <td>
                         <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                            ><span>-48.8%%</span>
+                          <i class="fas fa-caret-down me-1" /><span>-48.8%%</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>14.0%</span>
+                          <i class="fas fa-caret-up me-1" /><span>14.0%</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>46.4%</span>
+                          <i class="fas fa-caret-up me-1" /><span>46.4%</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>29.6%</span>
+                          <i class="fas fa-caret-up me-1" /><span>29.6%</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                            ><span>-11.5%</span>
+                          <i class="fas fa-caret-down me-1" /><span>-11.5%</span>
                         </span>
                       </td>
                     </tr>
                     <tr>
-                      <th scope="row">Absolute change</th>
+                      <th scope="row">
+                        Absolute change
+                      </th>
                       <td>
                         <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                            ><span>-17,654</span>
+                          <i class="fas fa-caret-down me-1" /><span>-17,654</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>28</span>
+                          <i class="fas fa-caret-up me-1" /><span>28</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i><span>111</span>
+                          <i class="fas fa-caret-up me-1" /><span>111</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-success">
-                          <i class="fas fa-caret-up me-1"></i
-                            ><span>$1,092.72</span>
+                          <i class="fas fa-caret-up me-1" /><span>$1,092.72</span>
                         </span>
                       </td>
                       <td>
                         <span class="text-danger">
-                          <i class="fas fa-caret-down me-1"></i
-                            ><span>$-1.78</span>
+                          <i class="fas fa-caret-down me-1" /><span>$-1.78</span>
                         </span>
                       </td>
                     </tr>

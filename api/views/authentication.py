@@ -1,3 +1,5 @@
+from rest_framework_simplejwt.views import TokenObtainPairView
+from accounts.models import MyUser, MyUserProfile
 from accounts.views import authentication_token_validity
 from api.serializers.authentication import (LoginSerializer, LogoutSerializer,
                                             ProfileSerializer,
@@ -5,7 +7,17 @@ from api.serializers.authentication import (LoginSerializer, LogoutSerializer,
 from django.contrib.auth import authenticate
 from rest_framework import serializers, status
 from rest_framework.decorators import api_view
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
+from rest_framework.permissions import AllowAny, DjangoModelPermissions, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+
+class CustomPermissions(DjangoModelPermissions):
+    perms_map = {
+        'GET': ['%(app_label)s.add_%(model_name)s'],
+        'POST': ['%(app_label)s.add_%(model_name)s']
+    }
 
 
 @api_view(['get'])
@@ -58,3 +70,28 @@ def update_profile(request):
         serializer.save()
         attrs.update(data=serializer.data, status=status.HTTP_200_OK)
     return Response(**attrs)
+
+
+class ProfileView(GenericViewSet, RetrieveModelMixin, UpdateModelMixin):
+    serializer_class = ProfileSerializer
+    queryset = MyUserProfile.objects.filter(myuser__is_active=True)
+    permission_classes = [IsAuthenticated]
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        # HACK: To be able to get the authenticated user.
+        # Unfortunately the self.user, is not set on the
+        # __init__ of the serializer so just get it on
+        # the body of the class
+        user = getattr(serializer, 'user', None)
+        validated_data = serializer.validated_data.copy()
+        if user is not None:
+            validated_data['user_id'] = user.id
+        return Response(validated_data, status=status.HTTP_200_OK)

@@ -1,24 +1,33 @@
 <template>
-  <section ref="jumbotron" id="jumbotron">
+  <section
+    id="jumbotron"
+    ref="jumbotron"
+  >
     <!-- Navbar -->
-    <slot name="navbar"></slot>
+    <slot name="navbar" />
 
     <div :class="containerClasses">
-      <div :class="introClasses" class="p-5 text-center" id="intro">
-        
+      <div
+        id="intro"
+        :class="introClasses"
+        class="p-5 text-center"
+      >
         <slot name="lead">
-          <h1 class="mb-3 h2">{{ lead }}</h1>
-          <p class="mb-3">{{ subTitle }}</p>
+          <h1 class="mb-3 h2">
+            {{ lead }}
+          </h1>
+          <p class="mb-3">
+            {{ subTitle }}
+          </p>
         </slot>
-
       </div>
 
       <!-- Content -->
-      <slot></slot>
+      <slot />
     </div>
 
     <!-- Footer -->
-    <slot name="footer"></slot>
+    <slot name="footer" />
   </section>
 </template>
 
@@ -41,16 +50,6 @@ export default {
     theme: {
       type: String,
       default: 'light'
-    }
-  },
-
-  mounted() {
-    if (this.containerized) {
-      this.$refs.jumbotron.style.marginTop = `${this.marginTop}px`
-    }
-
-    if (this.src != null) {
-      document.getElementById('intro').style.backgroundImage = this.getBackgroundUrl(this.src)
     }
   },
 
@@ -95,6 +94,16 @@ export default {
 
     darkTheme() {
       return this.theme === 'dark'
+    }
+  },
+
+  mounted() {
+    if (this.containerized) {
+      this.$refs.jumbotron.style.marginTop = `${this.marginTop}px`
+    }
+
+    if (this.src != null) {
+      document.getElementById('intro').style.backgroundImage = this.getBackgroundUrl(this.src)
     }
   }
 }

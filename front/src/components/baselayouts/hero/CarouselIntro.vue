@@ -1,7 +1,7 @@
 <template>
-    <!-- <b-carousel-slide v-for="(image, index) in images" :key="index" :img-src="image.url" /> -->
+  <!-- <b-carousel-slide v-for="(image, index) in images" :key="index" :img-src="image.url" /> -->
     
-    <!-- <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);z-index:9999;">
+  <!-- <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);z-index:9999;">
       <b-carousel @sliding-start="onSlideStart" @sliding-end="onSlideEnd" v-model="slide" :interval="4000" controls indicators class="carousel-fade shadow-2-strong" id="carousel-intro">
         <b-carousel-slide v-for="(image, index) in images" :key="index">
           <template #img>
@@ -11,31 +11,61 @@
       </b-carousel>
     </div> -->
 
-    <div id="carousel-intro" class="carousel slide carousel-fade shadow-2-strong">
-      <ol class="carousel-indicators">
-        <li @click="slide=i" v-for="i in images.length" :key="i" :class="isActive(i)"></li>
-      </ol>
+  <div
+    id="carousel-intro"
+    class="carousel slide carousel-fade shadow-2-strong"
+  >
+    <ol class="carousel-indicators">
+      <li
+        v-for="i in images.length"
+        :key="i"
+        :class="isActive(i)"
+        @click="slide=i"
+      />
+    </ol>
 
-      <div class="carousel-inner">
-        <div v-for="(image, index) in images" :key="index" :class="isActive(index)" class="carousel-item">
-          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-            <div class="d-flex justify-content-center align-items-center h-100">
-              <slot></slot>
-            </div>
+    <div class="carousel-inner">
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        :class="isActive(index)"
+        class="carousel-item"
+      >
+        <div
+          class="mask"
+          style="background-color: rgba(0, 0, 0, 0.6);"
+        >
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <slot />
           </div>
         </div>
       </div>
-
-      <a @click="goToPrevious" class="carousel-control-prev" role="button">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-
-      <a @click="goToNext" class="carousel-control-next" role="button">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
     </div>
+
+    <a
+      class="carousel-control-prev"
+      role="button"
+      @click="goToPrevious"
+    >
+      <span
+        class="carousel-control-prev-icon"
+        aria-hidden="true"
+      />
+      <span class="sr-only">Previous</span>
+    </a>
+
+    <a
+      class="carousel-control-next"
+      role="button"
+      @click="goToNext"
+    >
+      <span
+        class="carousel-control-next-icon"
+        aria-hidden="true"
+      />
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 </template>
 
 <script>

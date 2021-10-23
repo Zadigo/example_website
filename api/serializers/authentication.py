@@ -4,13 +4,11 @@ from django.contrib.auth.password_validation import (MinimumLengthValidator,
                                                      validate_password)
 from django.core import validators
 from django.core.validators import MinLengthValidator, RegexValidator
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import fields, serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import Serializer
-from django.db import transaction
-
 
 USER_MODEL = get_user_model()
 

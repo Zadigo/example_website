@@ -1,7 +1,19 @@
 <template>
-  <div ref="link" class="images">
-    <transition-group tag="div" class="images-grid" name="image-transition">
-      <div v-for="item in items" :key="item.url" id="grid-image bg-image" :style="`background-color: red`">
+  <div
+    ref="link"
+    class="images"
+  >
+    <transition-group
+      tag="div"
+      class="images-grid"
+      name="image-transition"
+    >
+      <div
+        v-for="item in items"
+        id="grid-image bg-image"
+        :key="item.url"
+        :style="`background-color: red`"
+      >
         <!-- <b-img :fluid="true" :lazy="true" :src="item.url" class="grid-item"></b-img> -->
       </div>
     </transition-group>

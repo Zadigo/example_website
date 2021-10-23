@@ -1,12 +1,25 @@
 <template>
-  <div class="partners bg-light" id="partners" aria-label="Partners">
+  <div
+    id="partners"
+    class="partners bg-light"
+    aria-label="Partners"
+  >
     <div class="wrapper">
       <div class="text-uppercase text-smaller ml-md-5 text-muted">
-        {{  description }}
+        {{ description }}
       </div>
 
-      <div ref="brands" class="brands">
-        <b-img v-for="(item, index) in items" :key="index" :src="item.image" :height="imageHeight" :alt="item.name" />
+      <div
+        ref="brands"
+        class="brands"
+      >
+        <b-img
+          v-for="(item, index) in items"
+          :key="index"
+          :src="item.image"
+          :height="imageHeight"
+          :alt="item.name"
+        />
       </div>
     </div>
   </div>

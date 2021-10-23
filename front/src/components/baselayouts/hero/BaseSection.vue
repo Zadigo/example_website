@@ -1,7 +1,11 @@
 <template>
-  <section ref="section" :class="sectionClasses" :id="sectionId">
+  <section
+    :id="sectionId"
+    ref="section"
+    :class="sectionClasses"
+  >
     <div class="container">
-      <slot></slot>
+      <slot />
     </div>
   </section>
 </template>
@@ -36,12 +40,6 @@ export default {
     // textWhite: Boolean
   },
 
-  mounted() {
-    if (this.hasImage) {
-      this.$refs.section.style.backgroundImage = this.getBackgroundUrl(this.src)
-    }
-  },
-
   computed: {
     sectionClasses() {
       return [
@@ -57,6 +55,12 @@ export default {
 
     hasImage() {
       return this.src != null
+    }
+  },
+
+  mounted() {
+    if (this.hasImage) {
+      this.$refs.section.style.backgroundImage = this.getBackgroundUrl(this.src)
     }
   }
 }

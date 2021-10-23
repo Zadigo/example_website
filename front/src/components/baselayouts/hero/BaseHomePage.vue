@@ -1,18 +1,21 @@
 <template>
-  <section :class="bodyColor" id="hero">
+  <section
+    id="hero"
+    :class="bodyColor"
+  >
     <header role="heading">
       <!-- Navbar -->
-      <slot name="navbar"></slot>
+      <slot name="navbar" />
 
       <!-- Intro -->
-      <slot name="intro"></slot>
+      <slot name="intro" />
     </header>
 
     <!-- Content -->
-    <slot></slot>
+    <slot />
 
     <!-- Footer -->
-    <slot name="footer"></slot>
+    <slot name="footer" />
   </section>
 </template>
 

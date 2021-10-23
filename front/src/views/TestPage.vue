@@ -83,9 +83,7 @@
     </template>
   </sidebar-interface> -->
 
-  <base-ecommerce-navbar>
-    
-  </base-ecommerce-navbar>
+  <base-ecommerce-navbar />
 </template>
 
 <script>

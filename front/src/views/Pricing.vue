@@ -1,13 +1,21 @@
 <template>
-  <base-jumbotron :textWhite="true" color="pink darken-2" lead="Learn Bootstrap 5 with MDB" subTitle="Best & free guide of responsive web design">
+  <base-jumbotron
+    :text-white="true"
+    color="pink darken-2"
+    lead="Learn Bootstrap 5 with MDB"
+    sub-title="Best & free guide of responsive web design"
+  >
     <template #navbar>
-      <base-navbar theme="light">
-
-      </base-navbar>
+      <base-navbar theme="light" />
     </template>
 
     <template>
-      <base-pricing :shadow="false" :items="companyDetails.pricing" lead="Pricing for all our products" subTitle="Best & free guide of responsive web design" />
+      <base-pricing
+        :shadow="false"
+        :items="companyDetails.pricing"
+        lead="Pricing for all our products"
+        sub-title="Best & free guide of responsive web design"
+      />
 
       <div class="container">
         <!-- <div class="row">
@@ -25,18 +33,20 @@
 
       <base-section color="pink darken-3">
         <template>
-          <h1 class="fs-super text-center text-white">Got questions?</h1>
-          <p class="text-white-muted text-center h5 mb-8">Commonly asked questions</p>
+          <h1 class="fs-super text-center text-white">
+            Got questions?
+          </h1>
+          <p class="text-white-muted text-center h5 mb-8">
+            Commonly asked questions
+          </p>
           <!-- Faq -->
           <base-small-faq :items="faq" />
         </template>
       </base-section>
     </template>
 
-     <template #footer>
-      <base-footer>
-
-      </base-footer>
+    <template #footer>
+      <base-footer />
     </template>
   </base-jumbotron>
 </template>

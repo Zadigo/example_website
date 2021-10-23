@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <v-app>
-
-      <transition name="general-transition" mode="out-in">
+      <transition
+        name="general-transition"
+        mode="out-in"
+      >
         <router-view :key="$route.name" />
       </transition>
-    
     </v-app>
   </div>
 </template>

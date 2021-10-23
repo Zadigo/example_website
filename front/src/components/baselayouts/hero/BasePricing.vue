@@ -1,56 +1,96 @@
 <template>
   <div class="container">
-
-    <section class="text-center" id="pricing">
-      <h4 class="mb-4"><strong>Pricing</strong></h4>
+    <section
+      id="pricing"
+      class="text-center"
+    >
+      <h4 class="mb-4">
+        <strong>Pricing</strong>
+      </h4>
 
       <!-- Selection -->
-      <div v-if="hasChoices & !hasOneBilling" class="btn-group mb-4" role="group" aria-label="Billing selection">
-        <b-btn @click="monthly = true" :class="{ active: billedMonthly }" variant="primary">
+      <div
+        v-if="hasChoices & !hasOneBilling"
+        class="btn-group mb-4"
+        role="group"
+        aria-label="Billing selection"
+      >
+        <b-btn
+          :class="{ active: billedMonthly }"
+          variant="primary"
+          @click="monthly = true"
+        >
           Monthly billing
         </b-btn>
 
-        <b-btn @click="monthly = false" :class="{ active: billedAnnually }" variant="primary">
+        <b-btn
+          :class="{ active: billedAnnually }"
+          variant="primary"
+          @click="monthly = false"
+        >
           Annual billing <small>(2 months FREE)</small>
         </b-btn>
       </div>
 
       <!-- Pricing -->
-      <div v-if="hasChoices" class="row gx-lg-5">
-        <div v-for="(choice, index) in currentChoices.choices" :key="index" class="col-lg-3 col-md-6 mb-4">
-
-          <div :class="customCardClasses(choice)" :aria-label="choice.title" class="card">
+      <div
+        v-if="hasChoices"
+        class="row gx-lg-5"
+      >
+        <div
+          v-for="(choice, index) in currentChoices.choices"
+          :key="index"
+          class="col-lg-3 col-md-6 mb-4"
+        >
+          <div
+            :class="customCardClasses(choice)"
+            :aria-label="choice.title"
+            class="card"
+          >
             <div class="card-header bg-white py-3">
-              <p class="text-uppercase small mb-2"><strong>{{ choice.title }}</strong></p>
-              <h5 class="mb-0">{{ choice.price|priceFilter|currencyFilter }}{{ priceSuffix(choice) }}</h5>
+              <p class="text-uppercase small mb-2">
+                <strong>{{ choice.title }}</strong>
+              </p>
+              <h5 class="mb-0">
+                {{ choice.price|priceFilter|currencyFilter }}{{ priceSuffix(choice) }}
+              </h5>
             </div>
 
             <div class="card-body">
               <ul class="list-group list-group-flush">
-                <li v-for="(feature, index) in choice.features" :key="index" class="list-group-item">
+                <li
+                  v-for="(feature, index) in choice.features"
+                  :key="index"
+                  class="list-group-item"
+                >
                   {{ feature }}
                 </li>
               </ul>
             </div>
 
             <div class="card-footer bg-white py-3">
-              <b-btn @click="$emit('updateBillingPlan', selectedBillingPlan(choice))" :to="getRoute(choice)" :variant="customButtonVariant(choice)" class="btn-sm">
+              <b-btn
+                :to="getRoute(choice)"
+                :variant="customButtonVariant(choice)"
+                class="btn-sm"
+                @click="$emit('updateBillingPlan', selectedBillingPlan(choice))"
+              >
                 Get it
               </b-btn>
             </div>
-
           </div>
         </div>
-
       </div>
 
-      <div v-else class="row gx-lg-5">
+      <div
+        v-else
+        class="row gx-lg-5"
+      >
         <b-card>
           <h1>Coming soon</h1>
         </b-card>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -59,6 +99,22 @@ var _ = require('lodash')
 
 export default {
   name: 'BasePricing',
+
+  filters: {
+    priceFilter(value) {
+      if (value == null) {
+        return 'Free'
+      } else {
+        return value
+      }
+    },
+    currencyFilter(value) {
+      if (value === 'Free') {
+        return value
+      }
+      return `$${ value }`
+    }
+  },
   props: {
     shadow: {
       type: Boolean,
@@ -82,16 +138,6 @@ export default {
       monthlyBillingChoices: [],
       annualBillingChoices: [],
       monthly: true
-    }
-  },
-
-  beforeMount() {
-    if (this.hasChoices) {
-      // If we have more than on billing options at our
-      // disposal, pick the last one of the list. This
-      // prevents raising an error to the user
-      this.monthlyBillingChoices = _.last(_.filter(this.items, ['monthly', true]))
-      this.annualBillingChoices = _.last(_.filter(this.items, ['monthly', false]))
     }
   },
 
@@ -123,6 +169,16 @@ export default {
       return this.items.length == 1
     },
 
+  },
+
+  beforeMount() {
+    if (this.hasChoices) {
+      // If we have more than on billing options at our
+      // disposal, pick the last one of the list. This
+      // prevents raising an error to the user
+      this.monthlyBillingChoices = _.last(_.filter(this.items, ['monthly', true]))
+      this.annualBillingChoices = _.last(_.filter(this.items, ['monthly', false]))
+    }
   },
 
   methods: {
@@ -171,22 +227,6 @@ export default {
       } else {
         return 'info'
       }
-    }
-  },
-
-  filters: {
-    priceFilter(value) {
-      if (value == null) {
-        return 'Free'
-      } else {
-        return value
-      }
-    },
-    currencyFilter(value) {
-      if (value === 'Free') {
-        return value
-      }
-      return `$${ value }`
     }
   }
 }

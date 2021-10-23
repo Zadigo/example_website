@@ -124,10 +124,12 @@ export default {
       var fields = []
       var field = _.filter(this.baseFields, ['name', 'password'])[0]
       field['autocomplete'] = 'new-password'
+
       var field1 = {...field}
       var field2 = {...field}
       field1['name'] = 'password1'
       field2['name'] = 'password2'
+      
       fields.push(field1)
       fields.push(field2)
       return fields

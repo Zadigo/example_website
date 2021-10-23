@@ -1,26 +1,49 @@
 <template>
-  <base-section :class="sectionClasses" :sectionId="sectionId" :color="color" :src="src" :textWhite="textWhite">
+  <base-section
+    :class="sectionClasses"
+    :section-id="sectionId"
+    :color="color"
+    :src="src"
+    :text-white="textWhite"
+  >
     <div class="row">
       <div class="col-12">
-        <slot name="heading"></slot>
+        <slot name="heading" />
       </div>
 
-      <div v-for="(item, index) in items" :key="index" class="col-sm-12 col-md-4">
-        
-        <v-card :class="benefitClasses" :flat="flat" class="p-4">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="col-sm-12 col-md-4"
+      >
+        <v-card
+          :class="benefitClasses"
+          :flat="flat"
+          class="p-4"
+        >
           <v-card-text>
-            <font-awesome-icon v-if="isFontAwesomeIcon" :icon="item.icon" :class="iconColor" />
-            <v-icon v-else :class="iconColor">mdi-{{ item.icon }}</v-icon>
+            <font-awesome-icon
+              v-if="isFontAwesomeIcon"
+              :icon="item.icon"
+              :class="iconColor"
+            />
+            <v-icon
+              v-else
+              :class="iconColor"
+            >
+              mdi-{{ item.icon }}
+            </v-icon>
 
-            <h2 class="mt-4 mb-2 font-weight-bold">{{ item.title }}</h2>
+            <h2 class="mt-4 mb-2 font-weight-bold">
+              {{ item.title }}
+            </h2>
             <p>{{ item.description }}</p>
           </v-card-text>
         </v-card>
-        
       </div>
 
       <div class="col-12">
-        <slot name="footer"></slot>
+        <slot name="footer" />
       </div>
     </div>
   </base-section>

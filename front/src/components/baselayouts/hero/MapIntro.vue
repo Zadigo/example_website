@@ -1,6 +1,13 @@
 <template>
-  <div :class="extraClass" class="map-container mb-4" id="map">
-    <iframe :src="locationUrl" frameborder="0"></iframe>
+  <div
+    id="map"
+    :class="extraClass"
+    class="map-container mb-4"
+  >
+    <iframe
+      :src="locationUrl"
+      frameborder="0"
+    />
   </div>
 </template>
 

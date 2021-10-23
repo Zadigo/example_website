@@ -1,6 +1,10 @@
-import defaultEndpoints from './api'
 import client from '../axiosclient'
+
 import companyDetails from '../data/company.json'
+
+import defaultEndpoints from './api'
+import authentication from './api/authentication'
+import profile from './api/profile'
 
 var globalMixin = {
     data() {
@@ -14,7 +18,9 @@ var globalMixin = {
 export default {
     install: (Vue) => {
         Vue.prototype.$api = {
-            todos: defaultEndpoints(client)
+            todos: defaultEndpoints(client),
+            auth: authentication(client),
+            profile: profile(client)
         }
         
         Vue.mixin(globalMixin)

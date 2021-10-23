@@ -1,16 +1,16 @@
 <template>
   <header>
     <!-- Sidebar -->
-    <slot name="side"></slot>
+    <slot name="side" />
 
     <!-- Nav/Heading -->
-    <slot name="heading"></slot>
+    <slot name="heading" />
 
     <!-- Content -->
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <slot></slot>
+          <slot />
         </div>
       </div>
     </div>

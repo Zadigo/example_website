@@ -12,7 +12,13 @@ var homeRoutes = [
     {
         name: 'login',
         path: '/login',
-        component: () => import(/* webpackChunkName: "pricing" */'../views/authentication/Login.vue')
+        component: () => import(/* webpackChunkName: "pricing" */'../views/authentication/Login.vue'),
+    },
+    {
+        name: 'profile',
+        path: '/profile',
+        component: () => import(/* webpackChunkName: "profile" */'../views/Profile.vue'),
+        meta: { requiresAuthentication: true }
     },
     {
         name: 'test_page',

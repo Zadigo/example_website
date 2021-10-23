@@ -1,10 +1,17 @@
 <template>
   <li class="nav-item">
-    <router-link :to="{ name: linkName, params: linkParams }" class="nav-link" aria-current="page">
-      <font-awesome-icon :icon="icon" class="mr-3" /> {{ name }}
+    <router-link
+      :to="{ name: linkName, params: linkParams }"
+      class="nav-link"
+      aria-current="page"
+    >
+      <font-awesome-icon
+        :icon="icon"
+        class="mr-3"
+      /> {{ name }}
     </router-link>
 
-    <hr v-if="divider" />
+    <hr v-if="divider">
   </li>
 </template>
 

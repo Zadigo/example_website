@@ -1,13 +1,28 @@
 <template>
-  <footer ref="footer" :class="footerClasses" class="text-lg-start">
-    <div v-show="items.length > 0" class="py-4 text-center">
+  <footer
+    ref="footer"
+    :class="footerClasses"
+    class="text-lg-start"
+  >
+    <div
+      v-show="items.length > 0"
+      class="py-4 text-center"
+    >
       <div class="row p-5">
-
         <!-- Links -->
-        <div v-for="(item, index) in items" :key="index" class="col-sm-12 col-md-2 text-md-left">
-          <p class="font-weight-bold text-uppercase">{{ item.title }}</p>
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+          class="col-sm-12 col-md-2 text-md-left"
+        >
+          <p class="font-weight-bold text-uppercase">
+            {{ item.title }}
+          </p>
           
-          <div v-for="(link, index) in item.links" :key="index">
+          <div
+            v-for="(link, index) in item.links"
+            :key="index"
+          >
             <router-link :to="{ name: link.name }">
               {{ link.title }}
             </router-link>
@@ -28,33 +43,70 @@
           </p>
         </div>
 
-        <div v-if="linkToAppStore != undefined || linkToPlayStore != undefined" class="col-sm-auto col-md-2">
-          <p class="font-weight-bold text-uppercase">Our apps</p>
+        <div
+          v-if="linkToAppStore != undefined || linkToPlayStore != undefined"
+          class="col-sm-auto col-md-2"
+        >
+          <p class="font-weight-bold text-uppercase">
+            Our apps
+          </p>
 
           <div class="d-flex flex-column justify-content-center align-items-center">
-            <b-link :href="linkToAppStore" target="_blank" aria-label="App Store">
-              <b-img :src="require('@/assets/appstore.png')" width="100" class="mb-3"></b-img>
+            <b-link
+              :href="linkToAppStore"
+              target="_blank"
+              aria-label="App Store"
+            >
+              <b-img
+                :src="require('@/assets/appstore.png')"
+                width="100"
+                class="mb-3"
+              />
             </b-link>
             
-            <b-link :href="linkToPlayStore" target="_blank" aria-label="Play store">
-              <b-img :src="require('@/assets/playmarket.png')" width="100"></b-img>
+            <b-link
+              :href="linkToPlayStore"
+              target="_blank"
+              aria-label="Play store"
+            >
+              <b-img
+                :src="require('@/assets/playmarket.png')"
+                width="100"
+              />
             </b-link>
           </div>
         </div>
-
       </div>
     </div>
 
-    <hr class="m-0" />
+    <hr class="m-0">
 
     <div class="text-center py-4 align-items-center">
-      <p class="mt-3 mb-1">Suivez-nous sur les réseaux sociaux</p>
-      <b-button v-for="(social, index) in socials" :key="index" :href="social.url" style="min-width: 62px;" variant="primary" class="m-1 transparent shadow-none" rel="nofollow" target="_blank">
-        <font-awesome-icon :icon="['fab', social.icon]" class="fa-2x" />
+      <p class="mt-3 mb-1">
+        Suivez-nous sur les réseaux sociaux
+      </p>
+      <b-button
+        v-for="(social, index) in socials"
+        :key="index"
+        :href="social.url"
+        style="min-width: 62px;"
+        variant="primary"
+        class="m-1 transparent shadow-none"
+        rel="nofollow"
+        target="_blank"
+      >
+        <font-awesome-icon
+          :icon="['fab', social.icon]"
+          class="fa-2x"
+        />
       </b-button>
     </div>
 
-    <div ref="copyright" class="text-center p-3" id="copyright">
+    <div
+      id="copyright"
+      ref="copyright"
+      class="text-center p-3"
+    >
       ©{{ currentYear }} {{ $t('copyright') }}: {{ companyDetails.legalName }}
     </div>
   </footer>

@@ -1,9 +1,21 @@
 <template>
-  <div ref="intro" :class="introClasses" id="intro">
+  <div
+    id="intro"
+    ref="intro"
+    :class="introClasses"
+  >
     <div class="mask">
-      <div ref="container" :class="containerClasses" class="container">
-        <div ref="wrapper" :class="wrapperClasses" class="wrapper">
-          <slot></slot>
+      <div
+        ref="container"
+        :class="containerClasses"
+        class="container"
+      >
+        <div
+          ref="wrapper"
+          :class="wrapperClasses"
+          class="wrapper"
+        >
+          <slot />
         </div>
       </div>
     </div>
@@ -66,27 +78,6 @@ export default {
     }
   },
 
-  mounted() {
-    if (this.hasImage) {
-      // Sets the intro's height
-      // this.$refs.intro.style.height = `${this.height}vh`
-
-      // Set the background image dynamically here
-      // this.$refs.intro.style.backgroundImage = `url(${this.src})`
-      this.$refs.intro.style.backgroundImage = this.getBackgroundUrl(this.src)
-
-      // Add a mask to darken the image
-      var maskDiv = this.$refs.intro.getElementsByClassName('mask')[0]
-      maskDiv.style.backgroundColor = `rgba(0, 0, 0, ${this.mask})`
-    }
-
-    // Applies a correction to intro when there is a Navbar
-    // on the page (generally between 50/73 pixels)
-    if (!this.isFullPage) {
-      this.$refs.intro.style.marginTop = `-${this.correctionTop}px`
-    }
-  },
-
   computed: {
     introClasses() {
       return [
@@ -124,6 +115,27 @@ export default {
 
     hasImage() {
       return this.src != null
+    }
+  },
+
+  mounted() {
+    if (this.hasImage) {
+      // Sets the intro's height
+      // this.$refs.intro.style.height = `${this.height}vh`
+
+      // Set the background image dynamically here
+      // this.$refs.intro.style.backgroundImage = `url(${this.src})`
+      this.$refs.intro.style.backgroundImage = this.getBackgroundUrl(this.src)
+
+      // Add a mask to darken the image
+      var maskDiv = this.$refs.intro.getElementsByClassName('mask')[0]
+      maskDiv.style.backgroundColor = `rgba(0, 0, 0, ${this.mask})`
+    }
+
+    // Applies a correction to intro when there is a Navbar
+    // on the page (generally between 50/73 pixels)
+    if (!this.isFullPage) {
+      this.$refs.intro.style.marginTop = `-${this.correctionTop}px`
     }
   }
 }

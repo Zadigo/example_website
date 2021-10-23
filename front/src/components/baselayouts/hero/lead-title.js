@@ -1,18 +1,18 @@
 import Vue from 'vue'
 
 var leadTitle = Vue.extend({
-    props: {
-        color: String,
-        size: {
-            type: Number,
-            default: 4
-        }
-    },
     directives: {
         space: {
             inserted: (el) => {
                 el.style.marginBottom = '3rem'
             }
+        }
+    },
+    props: {
+        color: String,
+        size: {
+            type: Number,
+            default: 4
         }
     },
     computed: {

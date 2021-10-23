@@ -1,6 +1,6 @@
 <template functional>
   <ul class="nav nav-pills flex-column mb-auto">
-    <slot></slot>
+    <slot />
   </ul>
 </template>
 
