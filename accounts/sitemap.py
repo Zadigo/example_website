@@ -11,3 +11,8 @@ class AuthenticationSitemap(Sitemap):
 
     def location(self, item):
         return reverse(item)
+
+
+AUTHENTICATION_SITEMAPS = {
+    'AuthenticationSitemap': AuthenticationSitemap
+}

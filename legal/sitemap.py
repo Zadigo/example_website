@@ -11,3 +11,8 @@ class LegalSitemap(Sitemap):
 
     def location(self, item):
         return reverse(item)
+
+
+LEGAL_SITEMAPS = {
+    'LegalSitemap': LegalSitemap
+}
