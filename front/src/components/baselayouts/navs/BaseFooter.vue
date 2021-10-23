@@ -1,8 +1,8 @@
 <template>
   <footer
     ref="footer"
-    :class="footerClasses"
     class="text-lg-start"
+    :class="footerClasses"
   >
     <div
       v-show="items.length > 0"
@@ -11,8 +11,8 @@
       <div class="row p-5">
         <!-- Links -->
         <div
-          v-for="(item, index) in items"
-          :key="index"
+          v-for="(item, index1) in items"
+          :key="index1"
           class="col-sm-12 col-md-2 text-md-left"
         >
           <p class="font-weight-bold text-uppercase">
@@ -20,8 +20,8 @@
           </p>
           
           <div
-            v-for="(link, index) in item.links"
-            :key="index"
+            v-for="(link, index2) in item.links"
+            :key="index2"
           >
             <router-link :to="{ name: link.name }">
               {{ link.title }}
@@ -53,21 +53,21 @@
 
           <div class="d-flex flex-column justify-content-center align-items-center">
             <b-link
+              aria-label="App Store"
               :href="linkToAppStore"
               target="_blank"
-              aria-label="App Store"
             >
               <b-img
+                class="mb-3"
                 :src="require('@/assets/appstore.png')"
                 width="100"
-                class="mb-3"
               />
             </b-link>
             
             <b-link
+              aria-label="Play store"
               :href="linkToPlayStore"
               target="_blank"
-              aria-label="Play store"
             >
               <b-img
                 :src="require('@/assets/playmarket.png')"
@@ -88,16 +88,16 @@
       <b-button
         v-for="(social, index) in socials"
         :key="index"
-        :href="social.url"
-        style="min-width: 62px;"
-        variant="primary"
         class="m-1 transparent shadow-none"
+        :href="social.url"
         rel="nofollow"
+        style="min-width: 62px;"
         target="_blank"
+        variant="primary"
       >
         <font-awesome-icon
-          :icon="['fab', social.icon]"
           class="fa-2x"
+          :icon="['fab', social.icon]"
         />
       </b-button>
     </div>
@@ -128,8 +128,14 @@ export default {
       type: Array,
       default: () => { return [] }
     },
-    linkToAppStore: String,
-    linkToPlayStore: String,
+    linkToAppStore: {
+        type: String,
+        default: null
+    },
+    linkToPlayStore: {
+        type: String,
+        default: null
+    },
     theme: {
       type: String,
       default: 'bg-dark'

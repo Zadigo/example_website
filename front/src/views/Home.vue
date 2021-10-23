@@ -1,59 +1,15 @@
 <template>
   <base-home-page>
     <template #navbar>
-      <base-navbar
-        :transparent="true"
-        :theme-shadow="false"
-        :fixed-top="false"
-        :fluid="true"
-        theme="dark"
-      >
-        <template>
-          <b-navbar-nav class="navbar-nav me-auto mb-2 mb-lg-0">
-            <b-nav-item :to="{ name: 'login' }">
-              Login
-            </b-nav-item>
-            <b-nav-item href="#">
-              Logout
-            </b-nav-item>
-            <b-nav-item :to="{ name: 'pricing' }">
-              Pricing
-            </b-nav-item>
-            <b-nav-item :to="{ name: 'profile' }">
-              Profile
-            </b-nav-item>
-          </b-navbar-nav>
-
-          <b-navbar-nav class="d-flex flex-row">
-            <b-nav-item
-              href="#"
-              class="me-3 me-lg-0"
-            >
-              <b-link class="nav-link">
-                <font-awesome-icon :icon="['fab', 'facebook-f']" />
-              </b-link>
-            </b-nav-item>
-            <b-nav-item
-              href="#"
-              class="me-3 me-lg-0"
-            >
-              <b-link class="nav-link">
-                <font-awesome-icon :icon="['fab', 'instagram']" />
-              </b-link>
-            </b-nav-item>
-          </b-navbar-nav>
-
-          <base-i18n-selection class="pl-0" />
-        </template>
-      </base-navbar>  
+      <navbar />  
     </template>
 
     <template #intro>
       <base-intro
-        :src="testImage"
-        :mask="0.4"
         :correction-top="74"
         flex-position="center"
+        :mask="0.4"
+        :src="testImage"
         text-position="center"
       >
         <div>
@@ -67,9 +23,9 @@
 
           <cta-input-group
             :button-flat="true"
-            :filled="true"
-            class="mt-5"
             button-name="Subscribe"
+            class="mt-5"
+            :filled="true"
           />
         </div>
       </base-intro>
@@ -100,8 +56,8 @@
                 Get the best from her
               </p>
               <v-btn
-                size="lg"
                 color="light"
+                size="lg"
               >
                 Visit website
               </v-btn>
@@ -112,11 +68,11 @@
 
       <!-- Benefits -->
       <base-benefits
+        color="bg-light"
         :flat="true"
+        icon-color="text-red lighten-1"
         :items="companyDetails.benefits"
         :text-white="false"
-        color="bg-light"
-        icon-color="text-red lighten-1"
       >
         <template #heading>
           <h1 class="fs-super">
@@ -138,8 +94,8 @@
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. dit tenetur ea nam aliquam.
                 </p>
                 <v-btn
-                  size="lg"
                   color="light"
+                  size="lg"
                 >
                   Visit website
                 </v-btn>
@@ -151,15 +107,15 @@
 
       <!-- Benefit -->
       <base-benefit
-        title-color="text-pink darken-1"
-        :order-reversed="true"
         :image-shadow="true"
+        :order-reversed="true"
+        title-color="text-pink darken-1"
       />
       <base-benefit
-        title-color="text-pink darken-1"
-        :order-reversed="false"
         :bordered="false"
         :image-shadow="true"
+        :order-reversed="false"
+        title-color="text-pink darken-1"
       />
       
       <!-- FAQ -->
@@ -184,9 +140,9 @@
         <div class="row">
           <div class="col-12">
             <base-cta
+              button-name="Subscribe"
               :is-card="true"
               :text-white="true"
-              button-name="Subscribe"
             />
           </div>
         </div>
@@ -195,21 +151,23 @@
 
     <template #footer>
       <base-footer
-        :items="footer"
-        :socials="companyDetails.socials"
         class="mt-5"
         color="bg-dark"
+        :items="footer"
+        :socials="companyDetails.socials"
       />
     </template>
   </base-home-page>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue'
 import faq from '../data/faq.json'
 import footer from '../data/footer.json'
 
 export default {
   name: 'Home',
+  components: { Navbar },
   data() {
     return {
       faq: faq,

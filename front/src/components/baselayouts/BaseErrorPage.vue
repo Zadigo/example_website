@@ -4,8 +4,8 @@
       <div class="col-12">
         <b-card class="position-relative">
           <b-img
-            :src="src"
             fluid
+            :src="src"
           />
 
           <h1 class="font-weight-bold text-uppercase title position-absolute t-50 l-5">
@@ -21,7 +21,10 @@
 export default {
     name: 'BaseErrorPage',
     props: {
-      src: String
+      src: {
+        type: String,
+        default: null
+      }
     }
 }
 </script>

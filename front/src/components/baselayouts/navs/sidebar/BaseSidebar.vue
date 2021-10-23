@@ -1,11 +1,11 @@
 <template>
   <b-sidebar
     id="sidebar-1"
-    :no-header="true"
     body-class="d-flex flex-column flex-shrink-0 p-4"
+    left
+    :no-header="true"
     title="Sidebar"
     :visible="visible"
-    left
   >
     <ul class="nav nav-pills flex-column mb-auto">
       <slot name="navItems" />
@@ -15,10 +15,10 @@
 
     <b-dropdown
       id="dropdown-1"
-      :lazy="true"
       class="d-flex align-items-center text-white text-decoration-none"
-      text="Other"
       dropleft
+      :lazy="true"
+      text="Other"
     >
       <b-dropdown-item>New project...</b-dropdown-item>
       <b-dropdown-item>Settings</b-dropdown-item>

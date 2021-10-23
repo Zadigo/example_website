@@ -5,9 +5,9 @@
   >
     <v-card
       v-if="isCard"
+      class="text-center"
       :class="cardClasses"
       :color="color"
-      class="text-center"
     >
       <v-card-text>
         <div class="container">
@@ -29,8 +29,8 @@
 
     <base-section
       v-else
-      :color="color"
       class="text-center"
+      :color="color"
     >
       <h2 class="mb-6">
         Don’t take our word for it. Try Appcues for free.
@@ -53,6 +53,7 @@ export default {
     absolute: Boolean,
     buttonName: {
       type: String,
+      default: null,
       required: false
     },
     col: {
@@ -77,7 +78,10 @@ export default {
       default: 'Don’t take our word for it. Try Appcues for free.'
     },
     textWhite: Boolean,
-    to: String,
+    to: {
+      type: String,
+      default: null
+    },
     top: {
       type: Number,
       default: 0

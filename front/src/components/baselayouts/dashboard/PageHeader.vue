@@ -2,8 +2,8 @@
   <b-card class="my-3">
     <h2>
       <router-link
-        :to="{ name: 'home' }"
         class="text-primary"
+        :to="{ name: 'home' }"
       >
         Home
       </router-link> / {{ currentPage }}

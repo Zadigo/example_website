@@ -1,13 +1,13 @@
 <template>
   <li class="nav-item">
     <router-link
-      :to="{ name: linkName, params: linkParams }"
-      class="nav-link"
       aria-current="page"
+      class="nav-link"
+      :to="{ name: linkName, params: linkParams }"
     >
       <font-awesome-icon
-        :icon="icon"
         class="mr-3"
+        :icon="icon"
       /> {{ name }}
     </router-link>
 
@@ -19,8 +19,14 @@
 export default {
   name: 'BaseNavItem',
   props: {
-    name: String,
-    linkName: String,
+    name: {
+      type: String,
+      default: null
+    },
+    linkName: {
+      type: String,
+      default: null
+    },
     linkParams: {
       type: Object,
       default: () => {}

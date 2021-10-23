@@ -10,12 +10,12 @@
         <b-card
           v-for="(item, index) in items"
           :key="index"
-          no-body
           class="mb-1"
+          no-body
         >
           <b-card-header
-            header-tag="header"
             class="p-1"
+            header-tag="header"
             role="tab"
           >
             <b-button
@@ -23,30 +23,30 @@
               block
               class="shadow-none d-flex justify-content-between"
               variant="white"
-              @shown="item.visible=true"
               @hidden="item.visible=false"
+              @shown="item.visible=true"
             >
               <p class="h6 m-0 text-reset">
                 {{ item.question }}
               </p>
               <font-awesome-icon
                 v-if="!item.visible"
-                icon="times-circle"
                 class="fa-2x"
+                icon="times-circle"
               />
               <font-awesome-icon
                 v-else
-                icon="check-circle"
                 class="fa-2x text-success"
+                icon="check-circle"
               />
             </b-button>
           </b-card-header>
 
           <b-collapse
             :id="`accordion-${index}`"
-            visible
             accordion="my-accordion"
             role="tabpanel"
+            visible
           >
             <b-card-body>
               <b-card-text>

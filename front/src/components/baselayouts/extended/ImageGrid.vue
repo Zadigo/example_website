@@ -4,9 +4,9 @@
     class="images"
   >
     <transition-group
-      tag="div"
       class="images-grid"
       name="image-transition"
+      tag="div"
     >
       <div
         v-for="item in items"

@@ -17,8 +17,8 @@
         <b-nav-item-dropdown
           id="my-nav-dropdown"
           :lazy="true"
-          text="Dropdown"
           menu-class="has-ecommerce-menu ecommerce-menu"
+          text="Dropdown"
         >
           <div
             id="menu"

@@ -1,8 +1,8 @@
 <template>
   <base-section
     :class="sectionClasses"
-    :section-id="sectionId"
     :color="color"
+    :section-id="sectionId"
     :src="src"
     :text-white="textWhite"
   >
@@ -17,15 +17,15 @@
         class="col-sm-12 col-md-4"
       >
         <v-card
+          class="p-4"
           :class="benefitClasses"
           :flat="flat"
-          class="p-4"
         >
           <v-card-text>
             <font-awesome-icon
               v-if="isFontAwesomeIcon"
-              :icon="item.icon"
               :class="iconColor"
+              :icon="item.icon"
             />
             <v-icon
               v-else

@@ -1,23 +1,23 @@
 <template>
   <nav
-    :class="navClasses"
     class="navbar"
+    :class="navClasses"
   >
     <div :class="containerClasses">
       <!-- Navbar brand -->
       <router-link
-        :to="{ name: 'home' }"
         class="navbar-brand nav-link"
+        :to="{ name: 'home' }"
       >
         <strong>{{ companyDetails.legalName }}</strong>
       </router-link>
 
       <b-btn
-        variant="light shadow-none"
-        class="navbar-toggler"
         aria-controls="navbarExample01"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        class="navbar-toggler"
+        variant="light shadow-none"
         @click="$emit('toggleNavigation')"
       >
         <font-awesome-icon icon="bars" />

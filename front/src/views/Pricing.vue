@@ -1,9 +1,9 @@
 <template>
   <base-jumbotron
-    :text-white="true"
     color="pink darken-2"
     lead="Learn Bootstrap 5 with MDB"
     sub-title="Best & free guide of responsive web design"
+    :text-white="true"
   >
     <template #navbar>
       <base-navbar theme="light" />
@@ -11,9 +11,9 @@
 
     <template>
       <base-pricing
-        :shadow="false"
         :items="companyDetails.pricing"
         lead="Pricing for all our products"
+        :shadow="false"
         sub-title="Best & free guide of responsive web design"
       />
 

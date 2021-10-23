@@ -21,7 +21,7 @@ export default {
         Vue.component('base-pricing', BasePricing)
 
         // Navs
-        Vue.component('base-navbar', BaseNavbar)
+        Vue.component('m-navbar', BaseNavbar)
         Vue.component('base-footer', BaseFooter)
         Vue.component('base-ecommerce-navbar', BaseEcommerceNavbar)
 

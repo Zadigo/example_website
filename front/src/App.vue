@@ -2,8 +2,8 @@
   <div id="app">
     <v-app>
       <transition
-        name="general-transition"
         mode="out-in"
+        name="general-transition"
       >
         <router-view :key="$route.name" />
       </transition>

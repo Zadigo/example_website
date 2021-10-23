@@ -3,11 +3,11 @@
   <b-navbar-nav>
     <b-nav-item-dropdown :text="lang">
       <b-dropdown-item
-        v-for="(lang, index) in $i18n.availableLocales"
+        v-for="(item, index) in $i18n.availableLocales"
         :key="index"
-        @click="changeLanguage(lang)"
+        @click="changeLanguage(item)"
       >
-        {{ lang }}
+        {{ item }}
       </b-dropdown-item>
     </b-nav-item-dropdown>
   </b-navbar-nav>

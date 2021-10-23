@@ -9,8 +9,8 @@
     <div :class="containerClasses">
       <div
         id="intro"
-        :class="introClasses"
         class="p-5 text-center"
+        :class="introClasses"
       >
         <slot name="lead">
           <h1 class="mb-3 h2">
@@ -39,9 +39,18 @@ export default {
   mixins: [imageMixin],
   props: {
     containerized: Boolean,
-    color: String,
-    src: String,
-    lead: String,
+    color: {
+        type: String,
+        default: null
+    },
+    src: {
+        type: String,
+        default: null
+    },
+    lead: {
+        type: String,
+        default: null
+    },
     marginTop: {
       type: Number,
       default: 0

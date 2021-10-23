@@ -19,11 +19,11 @@
             <minimal-stat-card
               v-for="(statistic, index) in statistics"
               :key="index"
-              :share-value="statistic.shareValue"
               :color="statistic.color"
               :icon="statistic.icon"
-              :title="statistic.title"
               :is-percentage="statistic.isPercentage"
+              :share-value="statistic.shareValue"
+              :title="statistic.title"
               :value="statistic.value"
             />
           </div>

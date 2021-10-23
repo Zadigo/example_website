@@ -28,8 +28,8 @@
       <div
         v-for="(image, index) in images"
         :key="index"
-        :class="isActive(index)"
         class="carousel-item"
+        :class="isActive(index)"
       >
         <div
           class="mask"
@@ -48,8 +48,8 @@
       @click="goToPrevious"
     >
       <span
-        class="carousel-control-prev-icon"
         aria-hidden="true"
+        class="carousel-control-prev-icon"
       />
       <span class="sr-only">Previous</span>
     </a>
@@ -60,8 +60,8 @@
       @click="goToNext"
     >
       <span
-        class="carousel-control-next-icon"
         aria-hidden="true"
+        class="carousel-control-next-icon"
       />
       <span class="sr-only">Next</span>
     </a>

@@ -11,9 +11,9 @@
       <!-- Selection -->
       <div
         v-if="hasChoices & !hasOneBilling"
+        aria-label="Billing selection"
         class="btn-group mb-4"
         role="group"
-        aria-label="Billing selection"
       >
         <b-btn
           :class="{ active: billedMonthly }"
@@ -38,14 +38,14 @@
         class="row gx-lg-5"
       >
         <div
-          v-for="(choice, index) in currentChoices.choices"
-          :key="index"
+          v-for="(choice, index1) in currentChoices.choices"
+          :key="index1"
           class="col-lg-3 col-md-6 mb-4"
         >
           <div
-            :class="customCardClasses(choice)"
             :aria-label="choice.title"
             class="card"
+            :class="customCardClasses(choice)"
           >
             <div class="card-header bg-white py-3">
               <p class="text-uppercase small mb-2">
@@ -59,8 +59,8 @@
             <div class="card-body">
               <ul class="list-group list-group-flush">
                 <li
-                  v-for="(feature, index) in choice.features"
-                  :key="index"
+                  v-for="(feature, index2) in choice.features"
+                  :key="index2"
                   class="list-group-item"
                 >
                   {{ feature }}
@@ -70,9 +70,9 @@
 
             <div class="card-footer bg-white py-3">
               <b-btn
+                class="btn-sm"
                 :to="getRoute(choice)"
                 :variant="customButtonVariant(choice)"
-                class="btn-sm"
                 @click="$emit('updateBillingPlan', selectedBillingPlan(choice))"
               >
                 Get it
@@ -129,8 +129,14 @@ export default {
       type: Array,
       default: () => []
     },
-    lead: String,
-    subTitle: String,
+    lead: {
+        type: String,
+        default: null
+    },
+    subTitle: {
+        type: String,
+        default: null
+    },
   },
 
   data() {
@@ -138,6 +144,16 @@ export default {
       monthlyBillingChoices: [],
       annualBillingChoices: [],
       monthly: true
+    }
+  },
+
+  beforeMount() {
+    if (this.hasChoices) {
+      // If we have more than on billing options at our
+      // disposal, pick the last one of the list. This
+      // prevents raising an error to the user
+      this.monthlyBillingChoices = _.last(_.filter(this.items, ['monthly', true]))
+      this.annualBillingChoices = _.last(_.filter(this.items, ['monthly', false]))
     }
   },
 
@@ -169,16 +185,6 @@ export default {
       return this.items.length == 1
     },
 
-  },
-
-  beforeMount() {
-    if (this.hasChoices) {
-      // If we have more than on billing options at our
-      // disposal, pick the last one of the list. This
-      // prevents raising an error to the user
-      this.monthlyBillingChoices = _.last(_.filter(this.items, ['monthly', true]))
-      this.annualBillingChoices = _.last(_.filter(this.items, ['monthly', false]))
-    }
   },
 
   methods: {

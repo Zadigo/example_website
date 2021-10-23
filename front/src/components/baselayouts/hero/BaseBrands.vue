@@ -1,8 +1,8 @@
 <template>
   <div
     id="partners"
-    class="partners bg-light"
     aria-label="Partners"
+    class="partners bg-light"
   >
     <div class="wrapper">
       <div class="text-uppercase text-smaller ml-md-5 text-muted">
@@ -16,9 +16,9 @@
         <b-img
           v-for="(item, index) in items"
           :key="index"
-          :src="item.image"
-          :height="imageHeight"
           :alt="item.name"
+          :height="imageHeight"
+          :src="item.image"
         />
       </div>
     </div>
@@ -34,7 +34,8 @@ export default {
       default: 'Trusted by product-led innovators around the world'
     },
     items: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     imageHeight: {
       type: Number,

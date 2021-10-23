@@ -24,13 +24,19 @@ export default {
         type: String,
         required: true
       },
-      buttonColor: String,
+      buttonColor: {
+        type: String,
+        default: null 
+      },
       filled: Boolean,
       inputType: {
         type: String,
         default: null
       },
-      placeholder: String
+      placeholder: {
+        type: String,
+        default: null
+      }
     },
 
     data() {

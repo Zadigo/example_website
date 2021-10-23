@@ -1,16 +1,24 @@
 <template>
   <base-home-page>
     <template #intro>
-      <base-intro :isFullPage="true" :textWhite="true" :mask="0.5" src="https://images.pexels.com/photos/762084/pexels-photo-762084.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=1200">
+      <base-intro
+        :is-full-page="true"
+        :mask="0.5"
+        src="https://images.pexels.com/photos/762084/pexels-photo-762084.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=1200"
+        :text-white="true"
+      >
         <template>
-          <authentication-form @authenticateUser="authenticateUser" fieldType="email" :login="true" />
+          <authentication-form field-type="email" :form-messages="formMessages" :login="true" @authenticateUser="authenticateUser" />
 
           <div class="text-separator my-4">
             <span>Or</span>
           </div>
 
           <v-btn block>
-            <font-awesome-icon :icon="['fas', 'google']" class="mr-3" />Google
+            <font-awesome-icon
+              class="mr-3"
+              :icon="['fas', 'google']"
+            />Google
           </v-btn>
         </template>
       </base-intro>
@@ -19,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -31,9 +39,15 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      formMessages: (state) => { return state.messagesModule.items }
+    }),
+  },
+
   methods: {
     ...mapMutations('authenticationModule', [
-      'setTokens'
+      'setTokens', 'clearStack'
     ]),
     ...mapActions([
       'formErrorMessages'
@@ -47,7 +61,8 @@ export default {
       this.$api.auth.login(email, password)
       .then((response) => {
         this.setTokens(response.data)
-        // this.$router.push({ name: 'home' })
+        this.clearStack()
+        this.$router.push({ name: 'home' })
       })
       .catch((error) => {
         this.formErrorMessages(error.response.data)

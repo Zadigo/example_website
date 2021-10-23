@@ -10,13 +10,25 @@
     </template>
     
     <b-form class="p-4">
-      <div v-for="(field, index) in fields" :key="index" class="form-group">
-        <b-input v-model="credentials[field.name]" :type="field.type" :placeholder="field.placeholder" :name="field.name" :autocomplete="field.autocomplete" class="my-2" /> 
-      </div>
+      <base-form-messages :form-messages="formMessages" />
 
+      <div
+        v-for="(field, index) in fields"
+        :key="index"
+        class="form-group"
+      >
+        <b-input
+          v-model="credentials[field.name]"
+          :autocomplete="field.autocomplete"
+          class="my-2"
+          :name="field.name"
+          :placeholder="field.placeholder"
+          :type="field.type"
+        /> 
+      </div>
     </b-form>
     
-    <slot name="policy"></slot>
+    <slot name="policy" />
 
     <!-- <div class="form-group p-1">
       <b-form-checkbox id="consent" name="consent">
@@ -24,8 +36,14 @@
       </b-form-checkbox>
     </div> -->
 
-    <template class="text-right" #footer>
-      <b-btn @click="authenticateUser" variant="primary">
+    <template
+      #footer
+      class="text-right"
+    >
+      <b-btn
+        variant="primary"
+        @click="authenticateUser"
+      >
         <span v-if="login">Login</span>
         <span v-else>Signup</span>
       </b-btn>
@@ -34,10 +52,12 @@
 </template>
 
 <script>
+import BaseFormMessages from './BaseFormMessages.vue'
 var _ = require('lodash')
 
 export default {
   name: 'AuthenticationForm',
+  components: { BaseFormMessages },
   props: {
     fieldType: {
       type: String,
@@ -50,6 +70,10 @@ export default {
     transparent: {
       type: Boolean,
       default: true
+    },
+    formMessages: {
+      type: Array,
+      default: () => []
     }
   },
 

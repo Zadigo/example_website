@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <b-card
-      title="error-500"
-      img-src=""
       img-alt=""
+      img-src=""
       img-top
       tag=""
+      title="error-500"
     >
       <b-card-text />
     </b-card>

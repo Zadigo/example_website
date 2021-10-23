@@ -2,12 +2,12 @@
   <base-section :class="sectionClasses">
     <div class="row">
       <div
-        :class="columnClasses"
         class="col-sm-12 col-md-6"
+        :class="columnClasses"
       >
         <h1
-          :class="titleClasses"
           class="font-weight-bold"
+          :class="titleClasses"
         >
           No more digging through Slack & email
         </h1>
@@ -19,15 +19,15 @@
       </div>
 
       <div
-        :class="secondReverseClass"
         class="col-sm-12 col-md-6"
+        :class="secondReverseClass"
       >
         <b-img
+          class="rounded-lg"
           :class="imageClasses"
           :fluid="true"
-          :width="imageWidth"
-          class="rounded-lg"
           :src="require('@/assets/making_art.svg')"
+          :width="imageWidth"
         />
       </div>
     </div>

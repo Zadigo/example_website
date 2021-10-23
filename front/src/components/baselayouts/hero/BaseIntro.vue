@@ -7,13 +7,13 @@
     <div class="mask">
       <div
         ref="container"
-        :class="containerClasses"
         class="container"
+        :class="containerClasses"
       >
         <div
           ref="wrapper"
-          :class="wrapperClasses"
           class="wrapper"
+          :class="wrapperClasses"
         >
           <slot />
         </div>

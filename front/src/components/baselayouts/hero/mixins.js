@@ -16,7 +16,10 @@ var sectionMixin = {
             type: String,
             default: 'base--section'
         },
-        src: String,
+        src: {
+            type: String,
+            default: null
+        },
         theme: {
             type: String,
             default: 'light'

@@ -5,9 +5,9 @@
         <div class="d-flex justify-content-between px-md-1">
           <div class="align-self-center">
             <font-awesome-icon
-              :icon="icon"
-              :class="`text-${color}`"
               class="fa-3x"
+              :class="`text-${color}`"
+              :icon="icon"
             />
           </div>
 
@@ -28,13 +28,13 @@
             style="height: 7px"
           >
             <div
+              aria-valuemax="100"
+              aria-valuemin="0"
               :aria-valuenow="shareValue"
-              :class="`bg-${color}`"
               class="progress-bar"
+              :class="`bg-${color}`"
               role="progressbar"
               style="width: 80%"
-              aria-valuemin="0"
-              aria-valuemax="100"
             />
           </div>
         </div>
@@ -47,12 +47,21 @@
 export default {
   name: 'MinimalStatCard',
   props: {
-    icon: String,
+    icon: {
+      type: {
+        type: String,
+        default: null
+      },
+      default: null
+    },
     color: {
       default: 'text-primary'
     },
     value: null,
-    title: String,
+    title: {
+      type: String,
+      default: null
+    },
     isPercentage: Boolean,
     shareValue: {
       type: Number,

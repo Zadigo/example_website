@@ -1,12 +1,12 @@
 <template>
   <div
     id="map"
-    :class="extraClass"
     class="map-container mb-4"
+    :class="extraClass"
   >
     <iframe
-      :src="locationUrl"
       frameborder="0"
+      :src="locationUrl"
     />
   </div>
 </template>

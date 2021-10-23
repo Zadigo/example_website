@@ -23,8 +23,8 @@
       >
         <!-- <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" alt="" loading="lazy" /> -->
         <b-img
-          src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
           height="25"
+          src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
         />
       </a>
 
@@ -39,10 +39,10 @@
       <b-form class="d-none d-md-flex input-group w-auto my-auto">
         <b-input
           autocomplete="off"
-          type="search"
           class="form-control rounded"
           placeholder="Search"
           style="min-width: 225px;"
+          type="search"
         />
         <span class="input-group-text border-0">
           <font-awesome-icon icon="search" />
@@ -68,19 +68,19 @@
         <li class="nav-item dropdown">
           <a
             id="navbarDropdownMenuLink"
+            aria-expanded="false"
             class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+            data-mdb-toggle="dropdown"
             href="#"
             role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
           >
             <font-awesome-icon icon="bell" />
             <span class="badge rounded-pill badge-notification bg-danger">1</span>
           </a>
 
           <ul
-            class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdownMenuLink"
+            class="dropdown-menu dropdown-menu-end"
           >
             <li>
               <a
@@ -127,17 +127,17 @@
         <li class="nav-item dropdown">
           <a
             id="navbarDropdown"
+            aria-expanded="false"
             class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+            data-mdb-toggle="dropdown"
             href="#"
             role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
           >
             <i class="united kingdom flag m-0" />
           </a>
           <ul
-            class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdown"
+            class="dropdown-menu dropdown-menu-end"
           >
             <li>
               <a
@@ -204,23 +204,23 @@
         <li class="nav-item dropdown">
           <a
             id="navbarDropdownMenuLink"
+            aria-expanded="false"
             class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+            data-mdb-toggle="dropdown"
             href="#"
             role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
           >
             <img
-              src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+              alt=""
               class="rounded-circle"
               height="22"
-              alt=""
               loading="lazy"
+              src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
             >
           </a>
           <ul
-            class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdownMenuLink"
+            class="dropdown-menu dropdown-menu-end"
           >
             <li>
               <a
