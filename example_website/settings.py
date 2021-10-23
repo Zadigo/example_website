@@ -36,14 +36,15 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'django_extensions',
     'corsheaders',
     'debug_toolbar',
     'social_django',
-    'graphene_django',
     'django_filters',
-    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
-    'graphql_auth',
+    # 'graphene_django',
+    # 'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    # 'graphql_auth',
 
     'company',
     'analytics',
@@ -363,53 +364,59 @@ CSRF_TRUSTED_ORIGINS = [
 
 # GraphQL
 
-GRAPHQL_AUTH = {
-    'LOGIN_ALLOWED_FIELDS': 'email',
-    'UPDATE_MUTATION_FIELDS': ['firstname', 'lastname'],
-    'SEND_ACTIVATION_EMAIL': False,
-    'REGISTER_MUTATION_FIELDS': {
-        'email': 'String'
-    }
-}
+# GRAPHQL_AUTH = {
+#     'LOGIN_ALLOWED_FIELDS': 'email',
+#     'UPDATE_MUTATION_FIELDS': ['firstname', 'lastname'],
+#     'SEND_ACTIVATION_EMAIL': False,
+#     'REGISTER_MUTATION_FIELDS': {
+#         'email': 'String'
+#     }
+# }
 
-GRAPHQL_JWT = {
-    # 'JWT_PAYLOAD_HANDLER': 'app.utils.jwt_payload',
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_VERIFY_EXPIRATION': True,
-    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-    'JWT_SECRET_KEY': os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY),
-    'JWT_ALGORITHM': 'HS256',
-    'JWT_ALLOW_ANY_CLASSES': [
-        'graphql_auth.mutations.Register',
-        # 'graphql_auth.mutations.Register',
-        # 'graphql_auth.mutations.VerifyAccount',
-        # 'graphql_auth.mutations.ResendActivationEmail',
-        # 'graphql_auth.mutations.SendPasswordResetEmail',
-        # 'graphql_auth.mutations.PasswordReset',
-        # 'graphql_auth.mutations.ObtainJSONWebToken',
-        # 'graphql_auth.mutations.VerifyToken',
-        # 'graphql_auth.mutations.RefreshToken',
-        # 'graphql_auth.mutations.RevokeToken',
-        # 'graphql_auth.mutations.VerifySecondaryEmail'
-    ]
-}
+# GRAPHQL_JWT = {
+#     # 'JWT_PAYLOAD_HANDLER': 'app.utils.jwt_payload',
+#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+#     'JWT_VERIFY_EXPIRATION': True,
+#     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+#     'JWT_SECRET_KEY': os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY),
+#     'JWT_ALGORITHM': 'HS256',
+#     'JWT_ALLOW_ANY_CLASSES': [
+#         'graphql_auth.mutations.Register',
+#         # 'graphql_auth.mutations.Register',
+#         # 'graphql_auth.mutations.VerifyAccount',
+#         # 'graphql_auth.mutations.ResendActivationEmail',
+#         # 'graphql_auth.mutations.SendPasswordResetEmail',
+#         # 'graphql_auth.mutations.PasswordReset',
+#         # 'graphql_auth.mutations.ObtainJSONWebToken',
+#         # 'graphql_auth.mutations.VerifyToken',
+#         # 'graphql_auth.mutations.RefreshToken',
+#         # 'graphql_auth.mutations.RevokeToken',
+#         # 'graphql_auth.mutations.VerifySecondaryEmail'
+#     ]
+# }
 
-GRAPHENE = {
-    'SCHEMA': 'graph.schema.schema',
-    'ATOMIC_MUTATIONS': True,
-    'MIDDLEWARE': {
-        'graphql_jwt.middleware.JSONWebTokenMiddleware'
-    }
-}
+# GRAPHENE = {
+#     'SCHEMA': 'graph.schema.schema',
+#     'ATOMIC_MUTATIONS': True,
+#     'MIDDLEWARE': {
+#         'graphql_jwt.middleware.JSONWebTokenMiddleware'
+#     }
+# }
 
 
 # Rest framework
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1)
 }
