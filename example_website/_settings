@@ -129,3 +129,5 @@ try:
         stripe.api_key = STRIPE_LIVE_KEYS[0]
 except:
     pass
+
+# path('graphql', GraphQLView.as_view(graphiql=True)),

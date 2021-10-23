@@ -33,7 +33,7 @@ class SimpleAnalyticNode(Node):
         extra_context = {
             'tracking_code': tracking_code.resolve(context)
         }
-        template = loader.get_template('analytics/clarity.html')
+        template = loader.get_template('includes/analytics/clarity.html')
         content = template.render(extra_context)
         return content
 
@@ -86,13 +86,13 @@ def clarity(parser, token):
     return SimpleAnalyticNode(tags)
 
 
-@register.inclusion_tag('analytics/facebook.html', takes_context=True)
+@register.inclusion_tag('includes/analytics/facebook.html', takes_context=True)
 def facebook(context, tracking_code):
     context.push({'facebook_id': tracking_code})
     return context
 
 
-@register.inclusion_tag('analytics/google_analytics.html')
+@register.inclusion_tag('includes/analytics/google_analytics.html')
 def google_analytics(*args):
     tags = list(args)
     analytics_tag = None
@@ -109,43 +109,31 @@ def google_analytics(*args):
     }
 
 
-@register.inclusion_tag('analytics/optimize_anti_flicker.html')
+@register.inclusion_tag('includes/analytics/optimize_anti_flicker.html')
 def google_optimize_anti_flicker(tag):
-    return {
-        'optimize_tag': tag
-    }
+    return {'optimize_tag': tag}
 
 
-@register.inclusion_tag('analytics/remarketing.html')
+@register.inclusion_tag('includes/analytics/remarketing.html')
 def google_remarketing(remarketing_tag):
-    return {
-        'remarketing_tag': remarketing_tag
-    }
+    return {'remarketing_tag': remarketing_tag}
 
 
-@register.inclusion_tag('analytics/tag_manager.html')
+@register.inclusion_tag('includes/analytics/tag_manager.html')
 def google_tag_manager(gtm_tag):
-    return {
-        'gtm_tag': gtm_tag
-    }
+    return {'gtm_tag': gtm_tag}
 
 
-@register.inclusion_tag('analytics/pinterest.html')
+@register.inclusion_tag('includes/analytics/pinterest.html')
 def pinterest(verification_code):
-    return {
-        'verification_code': verification_code
-    }
+    return {'verification_code': verification_code}
 
 
-@register.inclusion_tag('analytics/mailchimp.html')
+@register.inclusion_tag('includes/analytics/mailchimp.html')
 def mailchimp(mailchimp_link):
-    return {
-        'mailchimp_link': mailchimp_link
-    }
+    return {'mailchimp_link': mailchimp_link}
 
 
-@register.inclusion_tag('analytics/google_no_script.html')
+@register.inclusion_tag('includes/analytics/google_no_script.html')
 def google_no_script(gtm_tag):
-    return {
-        'gtm_tag': gtm_tag
-    }
+    return {'gtm_tag': gtm_tag}

@@ -3,7 +3,6 @@ from typing import List
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.context import Context
-from django.utils import timezone
 
 from company.utils import CURRENT_DATE, FOOTER, ICONS
 
