@@ -1,0 +1,131 @@
+# GraphQL
+
+# GRAPHQL_AUTH = {
+#     'LOGIN_ALLOWED_FIELDS': 'email',
+#     'UPDATE_MUTATION_FIELDS': ['firstname', 'lastname'],
+#     'SEND_ACTIVATION_EMAIL': False,
+#     'REGISTER_MUTATION_FIELDS': {
+#         'email': 'String'
+#     }
+# }
+
+# GRAPHQL_JWT = {
+#     # 'JWT_PAYLOAD_HANDLER': 'app.utils.jwt_payload',
+#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+#     'JWT_VERIFY_EXPIRATION': True,
+#     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+#     'JWT_SECRET_KEY': os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY),
+#     'JWT_ALGORITHM': 'HS256',
+#     'JWT_ALLOW_ANY_CLASSES': [
+#         'graphql_auth.mutations.Register',
+#         # 'graphql_auth.mutations.Register',
+#         # 'graphql_auth.mutations.VerifyAccount',
+#         # 'graphql_auth.mutations.ResendActivationEmail',
+#         # 'graphql_auth.mutations.SendPasswordResetEmail',
+#         # 'graphql_auth.mutations.PasswordReset',
+#         # 'graphql_auth.mutations.ObtainJSONWebToken',
+#         # 'graphql_auth.mutations.VerifyToken',
+#         # 'graphql_auth.mutations.RefreshToken',
+#         # 'graphql_auth.mutations.RevokeToken',
+#         # 'graphql_auth.mutations.VerifySecondaryEmail'
+#     ]
+# }
+
+# GRAPHENE = {
+#     'SCHEMA': 'graph.schema.schema',
+#     'ATOMIC_MUTATIONS': True,
+#     'MIDDLEWARE': {
+#         'graphql_jwt.middleware.JSONWebTokenMiddleware'
+#     }
+# }
+
+
+# AMAZON S3
+
+# AWS_ACCESS_KEY_ID = ''
+
+# AWS_SECRET_ACCESS_KEY = ''
+
+# AWS_STORAGE_BUCKET_NAME = ''
+
+# AWS_S3_REGION_NAME = ''
+
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400'
+# }
+
+# AWS_QUERYSTRING_AUTH = False
+
+# AWS_DEFAULT_ACL = None
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS_LOCATION = 'nawoka/static'
+
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+
+# STATIC_ROOT = 'staticfiles'
+
+# AWS_MEDIA_LOCATION = ''
+
+# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+SIMPLE_JWT = {
+    # 'JWT_ALLOW_REFRESH': True,
+    # 'JWT_AUTH_HEADER_PREFIX': 'JWT'
+    # 'JWT_AUTH_HEADER_PREFIX': 'Token',
+}
+
+
+AUTHENTICATION_BACKENDS = [
+    # 'graphql_auth.backends.GraphQLAuthBackend',
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.open_id.OpenIdAuth',
+    # 'social_core.backends.google.GoogleOpenId',
+    # 'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
+]
+
+
+# LOGGING
+
+# LOGGING = {
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'werkzeug': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+
+
+# Stripe
+
+STRIPE_TEST_KEYS = []
+
+STRIPE_LIVE_KEYS = []
+
+try:
+    if DEBUG:
+        stripe.api_key = STRIPE_TEST_KEYS[0]
+    else:
+        stripe.api_key = STRIPE_LIVE_KEYS[0]
+except:
+    pass
