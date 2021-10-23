@@ -148,6 +148,5 @@ class ProfileSerializer(SerializerMixin, Serializer):
         # Check if the user has the permission
         # to modify his user profile
         if not instance.myuser.has_perm('accounts.change_myuserprofile'):
-            raise serializers.ValidationError(
-                'Permission denied', code='permission_denied')
+            raise serializers.ValidationError('Permission denied', code='permission_denied')
         return super().update(self.instance, validated_data)
