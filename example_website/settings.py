@@ -286,9 +286,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'inglish.contact@gmail.com')
 
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'MyCompany97170')
 
 EMAIL_USE_TLS = True
 
