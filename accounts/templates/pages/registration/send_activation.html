@@ -1,0 +1,10 @@
+{% extends "layouts/registration_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Envoyer un lien d'activation" %}{% endblock title %}
+
+{% block section_id %}send_activation_email{% endblock %}
+
+{% block registration_form %}
+    {% include "includes/registration/form.html" with form_id="activation_link" button_name="Send activation link" %}
+{% endblock registration_form %}

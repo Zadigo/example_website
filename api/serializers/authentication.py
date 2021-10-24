@@ -1,8 +1,6 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.models import Permission
-from django.contrib.auth.password_validation import (MinimumLengthValidator,
-                                                     validate_password)
-from django.core import validators
+from django.contrib.auth.password_validation import validate_password
 from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404

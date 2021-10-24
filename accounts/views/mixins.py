@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.http.response import Http404
 from django.shortcuts import redirect
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site

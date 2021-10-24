@@ -1,14 +1,24 @@
 from accounts.forms.base import AuthenticationForm
 from accounts.models import MyUser
+from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.password_validation import validate_password
 from django.forms import ValidationError, fields, widgets
+from django.urls.base import reverse_lazy
 from django.utils.crypto import get_random_string, salted_hmac
+from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+USER_MODEL = get_user_model()
 
 class UserLoginForm(AuthenticationForm):
     """A base form for login users"""
+    error_messages = {
+        'invalid_login': _("%(email)s and/or password is not correct"),
+        'inactive': _(mark_safe("This account is not active <a href='/accounts/activate/send'>"
+        "send activation link</a>"))
+    }
 
 
 class UserSignupForm(UserCreationForm):
@@ -45,3 +55,26 @@ class UserSignupForm(UserCreationForm):
         
         validate_password(password2)
         return self.cleaned_data
+
+
+class SendActivationEmailForm(forms.Form):
+    email = fields.EmailField()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.user_cache = None
+
+    def clean(self):
+        email = self.cleaned_data['email']
+        try:
+            user = USER_MODEL._default_manager.get(email__iexact=email)
+        except:
+            user = None
+        self.user_cache = user
+
+        if self.user_cache is None:
+            self.add_error('email', "Account does not exist")
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user_cache

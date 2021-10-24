@@ -1,7 +1,6 @@
 import datetime
 import os
 
-import stripe
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -168,6 +167,8 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailAuthenticationBackend'
 ]
 
+ACTIVATION_EMAIL_ON_SIGNUP = False
+
 
 # Debugging
 
@@ -297,9 +298,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'inglish.contact@gmail.com')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
 
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'MyCompany97170')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
 
 EMAIL_USE_TLS = True
 

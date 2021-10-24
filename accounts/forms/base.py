@@ -4,7 +4,6 @@ from django.forms import Form, ValidationError, fields
 from django.forms.fields import CharField
 from django.utils.translation import gettext_lazy as _
 from django.utils.crypto import get_random_string
-# from django.contrib.auth.forms import AuthenticationForm
 
 class BaseFormMixin(Form):
     token = CharField(max_length=100, required=True)

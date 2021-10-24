@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
 from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.forms import UserCreationForm
 
 USER_MODEL = get_user_model()
 

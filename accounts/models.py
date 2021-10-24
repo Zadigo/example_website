@@ -78,10 +78,10 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     the username field)
     """
     email       = models.EmailField(max_length=255, unique=True)
-    firstname      = models.CharField(max_length=100, null=True, blank=True)
-    lastname         = models.CharField(max_length=100, null=True, blank=True)
+    firstname      = models.CharField(max_length=100, blank=True, null=True)
+    lastname         = models.CharField(max_length=100, blank=True, null=True)
     
-    is_active        = models.BooleanField(default=True)
+    is_active        = models.BooleanField(default=False)
     is_admin            = models.BooleanField(default=False)
     is_staff            = models.BooleanField(default=False)
     

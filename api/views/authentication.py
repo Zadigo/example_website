@@ -1,11 +1,9 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
-from accounts.models import MyUser, MyUserProfile
-from accounts.views import authentication_token_validity
+from accounts.models import MyUserProfile
 from api.serializers.authentication import (LoginSerializer, LogoutSerializer,
                                             ProfileSerializer,
                                             SignupSerializer, UserSerializer)
-from django.contrib.auth import authenticate
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, IsAdminUser, IsAuthenticated

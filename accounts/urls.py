@@ -24,6 +24,7 @@ urlpatterns = [
     path('profile/', include((profilepatterns, app_name), namespace='profile')),
     path('password/', include((passwordpatterns, app_name), namespace='password')),
 
+    url(r'^activate/send$', registration.SendActivationEmailView.as_view(), name='send_activation'),
     url(r'^activate/(?P<uidb64>[a-zA-Z]+)/(?P<token>\w+\-\w+)$', registration.AccountActivationView.as_view(), name='activation'),
     url(r'^login$', registration.LoginView.as_view(), name='login'),
     url(r'^logout$', registration.LogoutView.as_view(), name='logout'),
