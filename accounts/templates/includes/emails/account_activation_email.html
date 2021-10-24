@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% autoescape off %}
+    {% blocktrans %}
+    You're receiving this email because your account on {{ site_name }} is not activated.
+    {% endblocktrans %}
+
+    {% trans "Please go to the following page to activate your account:" %}
+
+    {% block activation_link %}
+    {{ protocol }}://{{ domain }}{% url 'accounts:activation' uidb64=uid token=token %}
+    {% endblock %}
+
+    {% trans "Thanks for using our site!" %}
+
+    {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endautoescape %}

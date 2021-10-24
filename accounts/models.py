@@ -72,7 +72,11 @@ class PermissionsMixin(models.Model):
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
-    """Base user model for those user accounts"""
+    """
+    Base custom user model that uses email as a
+    primary field (and eventually still accepts
+    the username field)
+    """
     email       = models.EmailField(max_length=255, unique=True)
     firstname      = models.CharField(max_length=100, null=True, blank=True)
     lastname         = models.CharField(max_length=100, null=True, blank=True)
@@ -86,16 +90,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
-
-    # def has_perm(self, perm, obj=None):
-    #     return True
-
-    # def has_module_perms(self, app_label):
-    #     return True
-    
-    # @property
-    # def is_superuser(self):
-    #     return all([self.is_staff, self.is_admin, self.is_active])
 
     @property
     def get_full_name(self):
@@ -125,7 +119,7 @@ class MyUserProfile(models.Model):
         blank=True,
         null=True,
         unique=True,
-        help_text='Stripe customer ID'
+        help_text=_('Stripe customer ID')
     )
     birthdate = models.DateField(default=timezone.now, blank=True, null=True)
     telephone   = models.CharField(max_length=20, blank=True, null=True)
@@ -166,11 +160,12 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=MyUserProfile)
 def delete_old_avatar(sender, instance, **kwargs):
-    is_s3_backend = False
-    try:
-        is_s3_backend = settings.USE_S3
-    except:
-        pass
+    # is_s3_backend = False
+    # try:
+    #     is_s3_backend = settings.USE_S3
+    # except:
+    #     pass
+    is_s3_backend = getattr(settings, 'USE_S3', False)
 
     if not is_s3_backend:
         # if instance.avatar.url is not None:
@@ -183,11 +178,12 @@ def delete_old_avatar(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=MyUserProfile)
 def delete_avatar_on_update(sender, instance, **kwargs):
-    is_s3_backend = False
-    try:
-        is_s3_backend = settings.USE_S3
-    except:
-        pass
+    # is_s3_backend = False
+    # try:
+    #     is_s3_backend = settings.USE_S3
+    # except:
+    #     pass
+    is_s3_backend = getattr(settings, 'USE_S3', False)
 
     if not is_s3_backend:
         if instance.pk:

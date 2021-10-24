@@ -6,8 +6,7 @@ from accounts.views import profile, registration
 app_name = 'accounts'
 
 passwordpatterns = [
-    url(r'^forgot-password/confirm/(?P<uidb64>[a-zA-Z]+)/(?P<token>\w+\-\w+)$',
-                registration.UnauthenticatedPasswordResetView.as_view(), name='reset'),
+    url(r'^forgot-password/confirm/(?P<uidb64>[a-zA-Z]+)/(?P<token>\w+\-\w+)$', registration.PasswordResetView.as_view(), name='reset'),
     url(r'^forgot-password$', registration.ForgotPasswordView.as_view(), name='forgot')
 ]
 
@@ -25,6 +24,7 @@ urlpatterns = [
     path('profile/', include((profilepatterns, app_name), namespace='profile')),
     path('password/', include((passwordpatterns, app_name), namespace='password')),
 
+    url(r'^activate/(?P<uidb64>[a-zA-Z]+)/(?P<token>\w+\-\w+)$', registration.AccountActivationView.as_view(), name='activation'),
     url(r'^login$', registration.LoginView.as_view(), name='login'),
     url(r'^logout$', registration.LogoutView.as_view(), name='logout'),
     url(r'^signup$', registration.SignupView.as_view(), name='signup'),

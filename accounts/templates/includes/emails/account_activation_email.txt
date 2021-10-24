@@ -1,0 +1,5 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% blocktrans %}Account activation for {{ site_name }}{% endblocktrans %}
+{% endautoescape %}
