@@ -1,6 +1,7 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from accounts.models import MyUserProfile
-from api.serializers.authentication import (LoginSerializer, LogoutSerializer,
+from api.serializers import validate_serializer
+from api.serializers.authentication import (AccountActivationConfirmSerializer, AccountActivationSerializer, LoginSerializer, LogoutSerializer,
                                             ProfileSerializer,
                                             SignupSerializer, UserSerializer)
 from rest_framework import status
@@ -10,6 +11,8 @@ from rest_framework.permissions import AllowAny, DjangoModelPermissions, IsAdmin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+
+from api.views import server_error_response, success_response
 
 class CustomPermissions(DjangoModelPermissions):
     perms_map = {
@@ -93,3 +96,22 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         if user is not None:
             validated_data['user_id'] = user.id
         return Response(validated_data, status=status.HTTP_200_OK)
+
+
+@api_view(['post'])
+def account_activation_request_view(request, **kwargs):
+    """Allows the user to ask for an activation link"""
+    serializer = AccountActivationSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save(request)
+    return success_response()
+
+
+@api_view(['post'])
+def account_activation_confirm_view(request, **kwargs):
+    serializer = validate_serializer(AccountActivationConfirmSerializer, data=request.data)
+    try:
+        serializer.save(request)
+    except:
+        return server_error_response()
+    return success_response() 

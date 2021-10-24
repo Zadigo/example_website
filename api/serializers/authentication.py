@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.models import Permission
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import IntegrityError, transaction
 from django.shortcuts import get_object_or_404
+from django.utils.http import urlsafe_base64_encode
 from rest_framework import fields, serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import Serializer
+
+from accounts.views.mixins import EmailingMixin
 
 USER_MODEL = get_user_model()
 
@@ -20,7 +24,7 @@ class AuthenticationMixin(Serializer):
     username = fields.CharField(required=False)
     password = fields.CharField(required=True)
 
-    def get_object(self):
+    def get_user(self):
         if not hasattr(self, '_errors'):
             raise ValueError('To retrieve the user call is_valid')
         if self.errors:
@@ -146,3 +150,33 @@ class ProfileSerializer(SerializerMixin, Serializer):
         if not instance.myuser.has_perm('accounts.change_myuserprofile'):
             raise serializers.ValidationError('Permission denied', code='permission_denied')
         return super().update(self.instance, validated_data)
+
+
+class AccountActivationSerializer(AuthenticationMixin, EmailingMixin):
+    firstname = None
+    lastname = None
+
+    def save(self, request, **kwargs):
+        user = self.get_user()
+        self.send_email(request, user)
+
+
+class AccountActivationConfirmSerializer(Serializer):
+    uidb64 = fields.CharField(required=True)
+    token = fields.CharField(required=True)
+
+    def save(self, **kwargs):
+        try:
+            uid = urlsafe_base64_encode(kwargs['uidb64']).decode()
+            user = USER_MODEL._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, USER_MODEL.DoesNotExist, ValidationError):
+            user = None
+
+        # result = default_token_generator.check_token(user, kwargs['token'])
+        # if not result:
+        #     return HttpResponseForbidden('Forbidden - CHK-RES')
+
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.save()
