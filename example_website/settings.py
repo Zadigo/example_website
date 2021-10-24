@@ -251,14 +251,25 @@ LEGAL = {}
 ENTERPRISE = {
     'company_description': 'This is a simple description',
     'contact': {
+        'images': [
+            'http://via.placeholder.com/800'
+        ],
         'address': '15, rue du Château',
         'zip_code': '75001 Paris, France',
+        # 'city': None,
+        # 'region': None,
+        # 'country: '',
+        # 'country_code': None,
         'emails': {
             'main': 'info@monsite.fr'
         },
         'telephone': {
             'main': '01 23 45 67 89'
         }
+    },
+    'founder': {
+        'firstname': None,
+        'lastname': None
     },
     'link_to_app_store': 'http://',
     'link_to_play_store': 'http://',
